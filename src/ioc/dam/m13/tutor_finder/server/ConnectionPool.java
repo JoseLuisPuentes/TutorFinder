@@ -86,9 +86,38 @@ public class ConnectionPool {
         return con;
     }
     
-    //TODO: releaseConnection(Connection con) pag. 264
+    public synchronized void releaseConnection(Connection con) {
+        
+        boolean ok = usedConn.remove(con);
+        
+        if (ok) {
+            freeConn.add(con);
+            
+        } else {
+            throw  new RuntimeException("Ha retornat una connexió que nos ens pertany");
+        }
+    }
     
-    //TODO: Colse() pag.264
+    public synchronized void close() {
+        
+        try {
+            
+            //Tanquem les connexions
+            for (Connection con : freeConn) {
+                con.close();
+            }
+            
+            for (Connection con : usedConn) {
+                con.close();
+            }
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        }
+    }
     
     private void _connInstance(int n) {
         
