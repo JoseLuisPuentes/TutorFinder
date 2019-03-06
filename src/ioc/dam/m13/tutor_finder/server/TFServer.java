@@ -46,7 +46,8 @@ public class TFServer extends Thread{
             oos = new DataOutputStream(socket.getOutputStream());
             
             //Para probar como hacerlo enviando objetos
-            //Crear objeto Login o objeto User
+            //Faltaria crear un objeto Login o un objeto User
+            
             /*
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
             
