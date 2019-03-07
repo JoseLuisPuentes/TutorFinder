@@ -78,8 +78,6 @@ public class TFServer extends Thread{
         }        
         
     }
-    
-    //TODO: login i userData
 
     private void _login(DataInputStream ois, DataOutputStream oos) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
