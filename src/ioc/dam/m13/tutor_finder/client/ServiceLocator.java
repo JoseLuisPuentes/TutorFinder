@@ -119,6 +119,5 @@ public class ServiceLocator {
         
         return user;
     }
-    //TODO: connexió, login, userData
-
+    
 }
