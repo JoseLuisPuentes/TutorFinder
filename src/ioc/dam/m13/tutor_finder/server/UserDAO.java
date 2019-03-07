@@ -10,7 +10,7 @@ import java.sql.ResultSet;
  */
 public abstract class UserDAO {
     
-    //TODO: SQL login i SQL userData
+    
     public boolean login(String userName, String pswd) {
         
         boolean ret = false;
