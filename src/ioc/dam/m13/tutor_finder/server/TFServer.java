@@ -2,7 +2,6 @@ package ioc.dam.m13.tutor_finder.server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 /**
@@ -79,12 +78,53 @@ public class TFServer extends Thread{
         
     }
 
-    //TODO: login
     private void _login(DataInputStream ois, DataOutputStream oos) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        try {
+            
+            UserDAO dao = (UserDAO) TFFactory.getInstance("USER");
+            
+            //Llegin l'usuari i la contrasenya del client
+            String usr = ois.readUTF();
+            String pwd = ois.readUTF();
+            
+            //Preparem la resposta
+            boolean ret = dao.login(usr, pwd);
+            
+            //Enviem la resposta
+            oos.writeBoolean(ret);
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        }
     }
-    //TODO: userData
+    
     private void _userData(DataInputStream ois, DataOutputStream oos) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            
+            UserDAO dao = (UserDAO) TFFactory.getInstance("USER");
+            
+            //Llegin l'usuari i la contrasenya del client
+            String usr = ois.readUTF();
+                        
+            //Preparem la resposta
+            UserDTO userDTO = dao.userData(usr);
+                        
+            //Enviem la resposta
+            oos.writeInt(userDTO.getUserId());
+            oos.writeUTF(userDTO.getUserName());
+            oos.writeUTF(userDTO.getUserMail());
+            oos.writeUTF(userDTO.getUserRol());
+            
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        }
     }
 }
