@@ -20,7 +20,7 @@ public class TestSrv1 {
     
     public void inici(){
         
-        TFClient facade = new TFClientImple();
+        TFClient client = new TFClientImple();
         
         System.out.println("---Login--- ");
         System.out.println("User: ");
@@ -29,7 +29,7 @@ public class TestSrv1 {
         System.out.println("Password: ");
         String pwd = scanner.nextLine();
         
-        boolean ret = facade.login(user, pwd);
+        boolean ret = client.login(user, pwd);
         
         System.out.println("Retorn: " + ret);
         
