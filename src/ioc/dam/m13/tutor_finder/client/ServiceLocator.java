@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.ResourceBundle;
 
 import ioc.dam.m13.tutor_finder.server.TFServer;
-import ioc.dam.m13.tutor_finder.server.UserDTO;
+import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 /**
  *
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
@@ -27,8 +27,8 @@ public class ServiceLocator {
         
         try {
             // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"
-            ResourceBundle rb = ResourceBundle.getBundle("config");
+            // del arxiu de configuració "config.properties"            
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
             serverIp = rb.getString("server_ip");
             port = Integer.parseInt(rb.getString("port"));
             
@@ -39,7 +39,10 @@ public class ServiceLocator {
             dos = new DataOutputStream(s.getOutputStream());
             
             // Solicitem el login al servidor
-            dos.write(TFServer.LOGIN);
+            dos.writeInt(TFServer.LOGIN);
+            dos.writeUTF(userName);
+            dos.writeUTF(pswd);
+            
             
             // Llegim la resposta
             ret = dis.readBoolean();
@@ -59,6 +62,8 @@ public class ServiceLocator {
                 if (s != null) { s.close();}
                 
             } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
         
@@ -90,8 +95,9 @@ public class ServiceLocator {
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
-            // Solicitem el login al servidor
+            // Solicitem les dades de l'usuari al servidor
             dos.write(TFServer.USER_DATA);
+            dos.writeUTF(userName);
             
             // Llegim la resposta i creem la resposta
             user.setUserId(dis.readInt());

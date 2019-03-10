@@ -11,7 +11,7 @@ public class TFFactory {
     public static Object getInstance(String objName) {
         try {
             //Llegim el factory.properties
-            ResourceBundle rb = ResourceBundle.getBundle("factory");
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.server.factory");
             //Agafem la classe
             String className = rb.getString(objName);
             //Retornem una instancia de la classe que hem agafat

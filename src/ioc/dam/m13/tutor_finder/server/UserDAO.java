@@ -1,5 +1,6 @@
 package ioc.dam.m13.tutor_finder.server;
 
+import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,7 +9,7 @@ import java.sql.ResultSet;
  *
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
-public abstract class UserDAO {
+public class UserDAO {
     
     
     public boolean login(String userName, String pswd) {
@@ -18,6 +19,18 @@ public abstract class UserDAO {
         PreparedStatement pstm = null;
         ResultSet rs = null;
         
+        //Fake test login
+        String uName = "jose";
+        String pass = "tutorfinder";
+        if (userName.equals(uName)) {
+            
+            if (pass.equals(pswd)) {
+                ret = true;
+            }            
+        }
+        
+        //TODO: Codi comentat per les proves sense servidor BBDD
+        /*
         try {
             // Agafem una connexio del pool
             con = ConnectionPool.getPool().geConnection();
@@ -58,7 +71,7 @@ public abstract class UserDAO {
                 throw new RuntimeException(e);
                 
             }
-        }
+        }*/
         return ret;
     }
     

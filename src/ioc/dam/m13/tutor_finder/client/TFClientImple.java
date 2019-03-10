@@ -1,13 +1,14 @@
 package ioc.dam.m13.tutor_finder.client;
 
-import ioc.dam.m13.tutor_finder.server.UserDTO;
+import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 
 /**
- * Clase que implemetarà el client per demanar els serveis del 
- * servidor
+ *  Clase que implemetarà el client per demanar els serveis del 
+ *  servidor
+ *
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
-public class FacadeImple implements Facade{
+public class TFClientImple implements TFClient{
 
     @Override
     public boolean login(String userName, String pswd) {

@@ -1,4 +1,4 @@
-package ioc.dam.m13.tutor_finder.server;
+package ioc.dam.m13.tutor_finder.dtos;
 
 /**
  *
@@ -46,5 +46,6 @@ public class UserDTO {
         this.userRol = userRol;
     }
     
+    //TODO: Hacer toString()    
 
 }

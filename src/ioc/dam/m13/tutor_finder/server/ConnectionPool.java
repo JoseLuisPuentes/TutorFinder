@@ -29,7 +29,7 @@ public class ConnectionPool {
         
         try {
             // Agafem les dades de l'arxiu de configuració
-            ResourceBundle rb = ResourceBundle.getBundle("conn_pool_conf");
+            ResourceBundle rb = ResourceBundle.getBundle(".ioc.dam.m13.tutor_finder.server.conn_pool_conf");
             
             url = rb.getString("url");
             driver = rb.getString("driver");

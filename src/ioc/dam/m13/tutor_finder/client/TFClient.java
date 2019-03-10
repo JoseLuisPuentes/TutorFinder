@@ -5,14 +5,13 @@
  */
 package ioc.dam.m13.tutor_finder.client;
 
-import ioc.dam.m13.tutor_finder.server.UserDTO;
+import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 
 /**
  *
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
-public interface Facade {
-    
+public interface TFClient {
     /**
      * Demana per fer login al servidor
      * @param userName Nom d'usuari al servidor
@@ -23,9 +22,8 @@ public interface Facade {
     
     /**
      * Demana les dades de l'usuari
-     * @param userId Nom de l'usuari
+     * @param userName Nom de l'usuari
      * @return Retorna el objecte amb les dades d'usuari
      */
     public UserDTO userData(String userName);
-    
 }

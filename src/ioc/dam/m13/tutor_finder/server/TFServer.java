@@ -1,5 +1,6 @@
 package ioc.dam.m13.tutor_finder.server;
 
+import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.ServerSocket;
@@ -27,6 +28,8 @@ public class TFServer extends Thread{
         
         ServerSocket ss = new ServerSocket(SERVER_PORT);
         Socket s;
+        
+        System.out.println("Server is running ...");
         
         while (true) {            
             
@@ -59,6 +62,10 @@ public class TFServer extends Thread{
             //llegim el codi de servei
             int srvCod = ois.readInt();
             
+            //TODO: Mostra les provas de connexió
+            System.out.println("cliente pide: " + srvCod);
+            
+            
             switch(srvCod) {
                 case LOGIN:
                     _login(ois, oos);
@@ -70,7 +77,7 @@ public class TFServer extends Thread{
                     
             }
             
-            
+                        
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -82,11 +89,15 @@ public class TFServer extends Thread{
         
         try {
             
-            UserDAO dao = (UserDAO) TFFactory.getInstance("USER");
+            UserDAO dao =  (UserDAO) TFFactory.getInstance("USER");
             
             //Llegin l'usuari i la contrasenya del client
             String usr = ois.readUTF();
             String pwd = ois.readUTF();
+            
+            //TODO: Mostra entrades del client per proves
+            System.out.println("user: " + usr);
+            System.out.println("password: " + pwd);
             
             //Preparem la resposta
             boolean ret = dao.login(usr, pwd);
