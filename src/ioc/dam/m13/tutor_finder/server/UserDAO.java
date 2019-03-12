@@ -19,12 +19,30 @@ public class UserDAO {
         PreparedStatement pstm = null;
         ResultSet rs = null;
         
-        //Fake test login
+        //TODO: Fake test login
         String uName = "jose";
         String pass = "tutorfinder";
         if (userName.equals(uName)) {
             
             if (pass.equals(pswd)) {
+                ret = true;
+            }            
+        }
+        
+        String uName2 = "alex";
+        String pass2 = "tutorfinder";
+        if (userName.equals(uName2)) {
+            
+            if (pass2.equals(pswd)) {
+                ret = true;
+            }            
+        }
+        
+        String uName3 = "jaime";
+        String pass3 = "tutorfinder";
+        if (userName.equals(uName3)) {
+            
+            if (pass3.equals(pswd)) {
                 ret = true;
             }            
         }
@@ -38,7 +56,7 @@ public class UserDAO {
             //SQL
             String sql = "";
             sql += "SELECT userName, userPswd ";
-            sql += "FROM user ";
+            sql += "FROM users ";
             sql += "WHERE userName = ?";
             
             //Fem la consulta
@@ -83,13 +101,39 @@ public class UserDAO {
         PreparedStatement pstm = null;
         ResultSet rs = null;
         
+        //TODO: Fake DTO's
+        
+        if (userName == "jose") {
+            user.setUserId(01);
+            user.setUserName("jose");
+            user.setUserMail("jose@gmail.com");
+            user.setUserRole("admin");
+        }
+
+        if (userName == "alex") {
+            user.setUserId(01);
+            user.setUserName("alex");
+            user.setUserMail("alex@gmail.com");
+            user.setUserRole("tutor");
+        }
+        
+        if (userName == "jaime") {
+            user.setUserId(01);
+            user.setUserName("jaime");
+            user.setUserMail("jaime@gmail.com");
+            user.setUserRole("alumne");
+        }
+
+
+        
+        /*
         try {
             // Agafem una connexió del pool
             con = ConnectionPool.getPool().geConnection();
             //SQL
             String sql = "";
             sql += "SELECT * ";
-            sql += "FROM user ";
+            sql += "FROM users ";
             sql += "WHERE userName = ?";
             
             //Fem la consulta
@@ -102,7 +146,7 @@ public class UserDAO {
                 user.setUserId(rs.getInt("userId"));
                 user.setUserName(rs.getString("userName"));
                 user.setUserMail(rs.getString("userMail"));
-                user.setUserRol(rs.getString("userRol"));
+                user.setUserRole(rs.getString("userRole"));
             }             
             
         } catch (Exception e) {
@@ -123,8 +167,8 @@ public class UserDAO {
                 
             }
         }
-        
+        */
         return user;
     }
-
+    
 }

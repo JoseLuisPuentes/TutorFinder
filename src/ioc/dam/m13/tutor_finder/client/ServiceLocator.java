@@ -103,7 +103,7 @@ public class ServiceLocator {
             user.setUserId(dis.readInt());
             user.setUserName(dis.readUTF());
             user.setUserMail(dis.readUTF());
-            user.setUserRol(dis.readUTF());
+            user.setUserRole(dis.readUTF());
                         
             
         } catch (Exception e) {

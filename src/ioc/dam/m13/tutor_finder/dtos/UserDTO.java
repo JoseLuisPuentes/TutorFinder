@@ -9,7 +9,12 @@ public class UserDTO {
     public int userId;
     private String userName;
     private String userMail;
-    private String userRol;
+    private String userRole;
+    private String userPswd;
+
+    public String getUserPswd() {
+        return userPswd;
+    }
 
     public int getUserId() {
         return userId;
@@ -23,12 +28,15 @@ public class UserDTO {
         return userMail;
     }
 
-    public String getUserRol() {
-        return userRol;
+    public String getUserRole() {
+        return userRole;
     }
     
     
-
+    public void setUserPswd(String userPswd) {
+        this.userPswd = userPswd;
+    }
+    
     public void setUserId(int userId) {
         
         this.userId = userId;
@@ -42,8 +50,8 @@ public class UserDTO {
         this.userMail = userMail;
     }
 
-    public void setUserRol(String userRol) {
-        this.userRol = userRol;
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
     
     //TODO: Hacer toString()    
