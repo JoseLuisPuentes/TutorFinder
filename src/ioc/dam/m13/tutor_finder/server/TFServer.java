@@ -128,6 +128,7 @@ public class TFServer extends Thread{
             oos.writeInt(userDTO.getUserId());
             oos.writeUTF(userDTO.getUserName());
             oos.writeUTF(userDTO.getUserMail());
+            oos.writeUTF(userDTO.getUserPswd());
             oos.writeUTF(userDTO.getUserRole());
             
             

@@ -18,7 +18,7 @@ public class UserDAO {
         Connection con = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
-        
+        /*
         //TODO: Fake test login
         String uName = "jose";
         String pass = "tutorfinder";
@@ -46,28 +46,34 @@ public class UserDAO {
                 ret = true;
             }            
         }
-        
+        */
         //TODO: Codi comentat per les proves sense servidor BBDD
-        /*
+       
         try {
             // Agafem una connexio del pool
             con = ConnectionPool.getPool().geConnection();
             
             //SQL
             String sql = "";
-            sql += "SELECT userName, userPswd ";
+            sql += "SELECT user_name, user_pswd ";
             sql += "FROM users ";
-            sql += "WHERE userName = ?";
+            sql += "WHERE user_name = ?";
             
             //Fem la consulta
             pstm = con.prepareStatement(sql);
             pstm.setString(1, userName);
             rs = pstm.executeQuery();
+            String dbPswd = null;
             
-            String dbPswd = rs.getString("userPswd");
+            while (rs.next()) {  
+                
+                dbPswd = rs.getString("user_pswd");
+                System.out.println("user password dao: " + dbPswd);
+            }
+            
             
             // Comparem la contrasenya amb el resultat de la consulta
-            if (pswd == dbPswd) {                
+            if (pswd.equals(dbPswd)) {                
                 ret = true;
             }
                     
@@ -89,7 +95,8 @@ public class UserDAO {
                 throw new RuntimeException(e);
                 
             }
-        }*/
+        }
+        
         return ret;
     }
     
@@ -102,7 +109,7 @@ public class UserDAO {
         ResultSet rs = null;
         
         //TODO: Fake DTO's
-        
+        /*
         if (userName == "jose") {
             user.setUserId(01);
             user.setUserName("jose");
@@ -123,31 +130,37 @@ public class UserDAO {
             user.setUserMail("jaime@gmail.com");
             user.setUserRole("alumne");
         }
+        */
 
 
         
-        /*
+        
         try {
             // Agafem una connexió del pool
             con = ConnectionPool.getPool().geConnection();
             //SQL
             String sql = "";
-            sql += "SELECT * ";
-            sql += "FROM users ";
-            sql += "WHERE userName = ?";
+            sql += "SELECT user_id, user_name, user_mail, user_pswd, role_name ";
+            sql += "FROM users, roles ";
+            sql += "WHERE users.user_name = ? AND users.user_role_id = roles.role_id";
             
             //Fem la consulta
             pstm = con.prepareStatement(sql);
             pstm.setString(1, userName);
             rs = pstm.executeQuery();
             
-            if (rs != null) {
+            while (rs.next()) {                
+                
                 // Construïm l'usuari amb la resposta
-                user.setUserId(rs.getInt("userId"));
-                user.setUserName(rs.getString("userName"));
-                user.setUserMail(rs.getString("userMail"));
-                user.setUserRole(rs.getString("userRole"));
-            }             
+                user.setUserId(rs.getInt("user_id"));
+                user.setUserName(rs.getString("user_name"));
+                user.setUserMail(rs.getString("user_mail"));
+                user.setUserPswd(rs.getString("user_pswd"));
+                user.setUserRole(rs.getString("role_name"));
+                System.out.println(user.toString());
+                
+            }
+           
             
         } catch (Exception e) {
             
@@ -167,7 +180,7 @@ public class UserDAO {
                 
             }
         }
-        */
+        
         return user;
     }
     

@@ -29,13 +29,17 @@ public class ConnectionPool {
         
         try {
             // Agafem les dades de l'arxiu de configuració
-            ResourceBundle rb = ResourceBundle.getBundle(".ioc.dam.m13.tutor_finder.server.conn_pool_conf");
-            
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.server.conn_pool_conf");
+            /*
             url = rb.getString("url");
             driver = rb.getString("driver");
             usr = rb.getString("usr");
             pwd = rb.getString("pwd");
-            
+            */
+            usr = "tfadmin";
+            pwd = "kermit74";
+            driver = "org.postgresql.Driver";
+            url = "jdbc:postgresql://192.168.0.105:5432/TutorFinderDB";
             // Aixequem el driver
             Class.forName(driver);
             

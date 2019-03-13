@@ -85,7 +85,7 @@ public class ServiceLocator {
         try {
             // Agafem les dades de conexió al server
             // del arxiu de configuració "config.properties"
-            ResourceBundle rb = ResourceBundle.getBundle("config");
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
             serverIp = rb.getString("server_ip");
             port = Integer.parseInt(rb.getString("port"));
             
@@ -96,12 +96,13 @@ public class ServiceLocator {
             dos = new DataOutputStream(s.getOutputStream());
             
             // Solicitem les dades de l'usuari al servidor
-            dos.write(TFServer.USER_DATA);
+            dos.writeInt(TFServer.USER_DATA);
             dos.writeUTF(userName);
             
             // Llegim la resposta i creem la resposta
             user.setUserId(dis.readInt());
             user.setUserName(dis.readUTF());
+            user.setUserPswd(dis.readUTF());
             user.setUserMail(dis.readUTF());
             user.setUserRole(dis.readUTF());
                         
@@ -120,6 +121,8 @@ public class ServiceLocator {
                 if (s != null) { s.close();}
                 
             } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
         

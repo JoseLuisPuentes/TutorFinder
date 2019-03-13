@@ -53,7 +53,16 @@ public class UserDTO {
     public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
+
+    @Override
+    public String toString() {
+        return " --- UserDTO --- " + 
+                "\n userId = " + userId + 
+                "\n userName = " + userName + 
+                "\n userMail = " + userMail + 
+                "\n userRole = " + userRole + 
+                "\n userPswd = " + userPswd;
+    }
     
-    //TODO: Hacer toString()    
 
 }
