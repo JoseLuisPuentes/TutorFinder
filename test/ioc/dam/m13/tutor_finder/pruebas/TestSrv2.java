@@ -1,21 +1,26 @@
-package ioc.dam.m13.tutor_finder.client;
+package ioc.dam.m13.tutor_finder.pruebas;
 
+
+
+import ioc.dam.m13.tutor_finder.client.TFClient;
+import ioc.dam.m13.tutor_finder.client.TFClientImple;
+import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 import java.util.Scanner;
 
 /**
- * Test per comprovar el login de l'usuari.
- * Mostra true si es correcte
+ * Test per comprovar el client fent login 
+ * retorni les dades de l'usuari.
  * 
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
-public class TestSrv1 {
+public class TestSrv2 {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         
-        TestSrv1 prg = new TestSrv1();
+        TestSrv2 prg = new TestSrv2();
         prg.inici();
 
     }
@@ -23,6 +28,7 @@ public class TestSrv1 {
     public void inici(){
         
         TFClient client = new TFClientImple();
+        UserDTO userDTO = null;
         
         System.out.println("---Login--- ");
         System.out.println("User: ");
@@ -33,7 +39,15 @@ public class TestSrv1 {
         
         boolean ret = client.login(user, pwd);
         
-        System.out.println("Retorn: " + ret);
+        if (ret) {
+            userDTO = client.userData(user);
+            
+            System.out.println(userDTO.toString());
+            
+        } else {
+            
+            System.out.println("Aquest ususari no existeix!!");
+        }
         
     
     }
