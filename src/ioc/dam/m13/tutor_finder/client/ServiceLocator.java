@@ -8,11 +8,19 @@ import java.util.ResourceBundle;
 import ioc.dam.m13.tutor_finder.server.TFServer;
 import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 /**
- *
+ * Classe que encapsula la connexió amb el servidor,
+ * enviar i rebre les dades i desconnexió
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
 public class ServiceLocator {
     
+    /**
+     * Connecta amb el TFserver agafant les dades de l'arxiu "config.properties"
+     * i comprova si el usuari introduït es correcte.
+     * @param userName El nom de l'usuari a comprovar.
+     * @param pswd La contrasenya de l'usuari.
+     * @return Retorna "true" si l'usuari és a la base de dades.
+     */
     public static boolean login(String userName, String pswd) {
         
         boolean ret = false;
@@ -70,6 +78,12 @@ public class ServiceLocator {
         return ret;
     }
     
+    /**
+     * Connecta amb el servidor agafant la configuració de 
+     * l'arxiu "config.properties" i demana les dades de l'usuari introduït
+     * @param userName Nom de l'usuari 
+     * @return Retorna un objecte "UserDTO" amb les dades de l'usuari.
+     */
     public static UserDTO userData(String userName) {
         
         UserDTO user = new UserDTO();

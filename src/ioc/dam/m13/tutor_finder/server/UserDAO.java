@@ -6,12 +6,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- *
+ * Accedeix a les dades dun usuari que hi han a la BBDD
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
 public class UserDAO {
     
-    
+    /**
+     * Comprova si l'usuari i la contrasenya son correctes a la BBDD
+     * @param userName Nom de l'usuari
+     * @param pswd Contrasenya de l'usuari
+     * @return Retorna true si hi es a la BBDD
+     */
     public boolean login(String userName, String pswd) {
         
         boolean ret = false;
@@ -51,7 +56,7 @@ public class UserDAO {
        
         try {
             // Agafem una connexio del pool
-            con = ConnectionPool.getPool().geConnection();
+            con = ConnectionPool.getPool().getConnection();
             
             //SQL
             String sql = "";
@@ -99,7 +104,11 @@ public class UserDAO {
         
         return ret;
     }
-    
+    /**
+     * Demana les dades que hi ha d'un usuari a la BBDD 
+     * @param userName Nom de l'usuari
+     * @return Retorna un objecte UserDTO amb les dades de l'usuari
+     */
     public UserDTO userData(String userName) {
         
         UserDTO user = new UserDTO();
@@ -137,7 +146,7 @@ public class UserDAO {
         
         try {
             // Agafem una connexió del pool
-            con = ConnectionPool.getPool().geConnection();
+            con = ConnectionPool.getPool().getConnection();
             //SQL
             String sql = "";
             sql += "SELECT user_id, user_name, user_mail, user_pswd, role_name ";

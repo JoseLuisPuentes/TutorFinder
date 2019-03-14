@@ -4,7 +4,9 @@ import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 import java.util.Scanner;
 
 /**
- *
+ * Test per comprovar el client fent login 
+ * retorni les dades de l'usuari.
+ * 
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
 public class TestSrv2 {

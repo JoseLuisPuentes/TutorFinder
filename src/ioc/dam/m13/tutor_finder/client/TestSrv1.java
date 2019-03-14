@@ -3,7 +3,9 @@ package ioc.dam.m13.tutor_finder.client;
 import java.util.Scanner;
 
 /**
- *
+ * Test per comprovar el login de l'usuari.
+ * Mostra true si es correcte
+ * 
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
 public class TestSrv1 {

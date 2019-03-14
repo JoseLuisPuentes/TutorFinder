@@ -4,7 +4,9 @@ import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 import java.util.Scanner;
 
 /**
- *
+ * Test per comprovar l'accés a les deades de l'usuari des del servidor 
+ * al servidor de BBDD.
+ * 
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
 public class TestSrvDB1 {

@@ -1,17 +1,19 @@
 package ioc.dam.m13.tutor_finder.dtos;
 
 /**
- *
+ * Objecte usuari
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
 public class UserDTO {
-
-    public int userId;
+    
+    //Atributs
+    private int userId;
     private String userName;
     private String userMail;
     private String userRole;
     private String userPswd;
-
+    
+    //Getters
     public String getUserPswd() {
         return userPswd;
     }
@@ -32,7 +34,7 @@ public class UserDTO {
         return userRole;
     }
     
-    
+    //Setters
     public void setUserPswd(String userPswd) {
         this.userPswd = userPswd;
     }
@@ -53,10 +55,11 @@ public class UserDTO {
     public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
-
+    
+//toString()
     @Override
     public String toString() {
-        return " --- UserDTO --- " + 
+        return " --- User --- " + 
                 "\n userId = " + userId + 
                 "\n userName = " + userName + 
                 "\n userMail = " + userMail + 

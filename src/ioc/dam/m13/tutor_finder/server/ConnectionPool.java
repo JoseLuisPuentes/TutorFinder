@@ -6,7 +6,9 @@ import java.util.ResourceBundle;
 import java.util.Vector;
 
 /**
- *
+ * Pool de connexions al servidor BBDD.
+ * La configuració dels limits del es fan al
+ * "ioc.dam.m13.tutor_finder.server.conn_pool_conf.properties"
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
 public class ConnectionPool {
@@ -30,16 +32,19 @@ public class ConnectionPool {
         try {
             // Agafem les dades de l'arxiu de configuració
             ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.server.conn_pool_conf");
-            /*
+            
             url = rb.getString("url");
             driver = rb.getString("driver");
             usr = rb.getString("usr");
             pwd = rb.getString("pwd");
-            */
+            
+            /* Dedes de prova per anular el ResouceBundle
             usr = "tfadmin";
             pwd = "kermit74";
             driver = "org.postgresql.Driver";
             url = "jdbc:postgresql://192.168.0.105:5432/TutorFinderDB";
+            */
+            
             // Aixequem el driver
             Class.forName(driver);
             
@@ -61,13 +66,19 @@ public class ConnectionPool {
             
         }
     }
-    
+    /**
+     * Mostra el nombre de conexions disponibles i en ús.
+     * @return Retorna en format String les connxions en ús i les disponibles
+     */
     public String toString() {
         return "Free connections: " + freeConn.size() +
                 ", used connections: " + usedConn.size();
         
     }
-    
+    /**
+     * Retorna un pool de connexions al servidor de BBDD
+     * @return ConnectionPool
+     */
     public synchronized static ConnectionPool getPool() {
         
         if (pool == null) {
@@ -76,8 +87,11 @@ public class ConnectionPool {
         
         return pool;        
     }
-    
-    public synchronized Connection geConnection() {
+    /**
+     * Retorna una connexió a la BBDD
+     * @return Connection
+     */
+    public synchronized Connection getConnection() {
         
         if (freeConn.size() == 0) {
             if (!_createMoreConnections()) {
@@ -89,7 +103,11 @@ public class ConnectionPool {
         usedConn.add(con);
         return con;
     }
-    
+    /**
+     * Esborra una connexio la pila de connexions en ús i
+     * la posa a la pila de connexions lliures
+     * @param con Connexió a esborrar de les que està en ús
+     */
     public synchronized void releaseConnection(Connection con) {
         
         boolean ok = usedConn.remove(con);
@@ -101,7 +119,9 @@ public class ConnectionPool {
             throw  new RuntimeException("Ha retornat una connexió que nos ens pertany");
         }
     }
-    
+    /**
+     * Tanca totes les connexions al servidor BBDD.
+     */
     public synchronized void close() {
         
         try {
@@ -122,7 +142,10 @@ public class ConnectionPool {
             
         }
     }
-    
+    /**
+     * Crea un nombre de connexions determinat al servidor de BBDD
+     * @param n Nombre de connexions a crear
+     */
     private void _connInstance(int n) {
         
         try {
@@ -139,7 +162,11 @@ public class ConnectionPool {
             
         }
     }
-
+    /**
+     * Afegeix mes connexions al pool si no s'ha sobrepassat 
+     * als limits configurats al "conn_pool_conf.properties"
+     * @return Retorna true si s'han creat mes connexions
+     */
     private boolean _createMoreConnections() {
         
         int nConnActual = freeConn.size() + usedConn.size();

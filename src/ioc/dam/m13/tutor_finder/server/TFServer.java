@@ -1,12 +1,15 @@
 package ioc.dam.m13.tutor_finder.server;
 
 import ioc.dam.m13.tutor_finder.dtos.UserDTO;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+
 /**
- *
+ * Servidor que s'encarrega de rebre les solicituts dels clients
+ * connectar amb el servidor de BBDD i retornar les dades als clients
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
 public class TFServer extends Thread{
@@ -16,8 +19,8 @@ public class TFServer extends Thread{
     public static final int USER_DATA = 1;
     
     private Socket socket = null;
-    private DataInputStream ois = null;
-    private DataOutputStream oos = null;
+    private DataInputStream dis = null;
+    private DataOutputStream dos = null;
         
     public TFServer( Socket s) {
         
@@ -44,8 +47,8 @@ public class TFServer extends Thread{
         
         try {
             
-            ois = new DataInputStream(socket.getInputStream());
-            oos = new DataOutputStream(socket.getOutputStream());
+            dis = new DataInputStream(socket.getInputStream());
+            dos = new DataOutputStream(socket.getOutputStream());
             
             //Para probar como hacerlo enviando objetos
             //Faltaria crear un objeto Login o un objeto User
@@ -60,7 +63,7 @@ public class TFServer extends Thread{
             }*/
             
             //llegim el codi de servei
-            int srvCod = ois.readInt();
+            int srvCod = dis.readInt();
             
             //TODO: Mostra les provas de connexió
             System.out.println("cliente pide: " + srvCod);
@@ -68,11 +71,11 @@ public class TFServer extends Thread{
             
             switch(srvCod) {
                 case LOGIN:
-                    _login(ois, oos);
+                    _login(dis, dos);
                     break;
                     
                 case USER_DATA:
-                    _userData(ois, oos);
+                    _userData(dis, dos);
                     break;
                     
             }
@@ -84,16 +87,21 @@ public class TFServer extends Thread{
         }        
         
     }
-
-    private void _login(DataInputStream ois, DataOutputStream oos) {
+    /**
+     * Comprova si l'usuari i la contrasenya demanades per la connexió amb el client
+     * son correctes al servidor de BBDD, i retorna la resposta per la mateixa connexió 
+     * @param dis InputStream del client
+     * @param dos OutputStream del client
+     */
+    private void _login(DataInputStream dis, DataOutputStream dos) {
         
         try {
             
             UserDAO dao =  (UserDAO) TFFactory.getInstance("USER");
             
             //Llegin l'usuari i la contrasenya del client
-            String usr = ois.readUTF();
-            String pwd = ois.readUTF();
+            String usr = dis.readUTF();
+            String pwd = dis.readUTF();
             
             //TODO: Mostra entrades del client per proves
             System.out.println("user: " + usr);
@@ -103,7 +111,7 @@ public class TFServer extends Thread{
             boolean ret = dao.login(usr, pwd);
             
             //Enviem la resposta
-            oos.writeBoolean(ret);
+            dos.writeBoolean(ret);
             
         } catch (Exception e) {
             
@@ -112,24 +120,30 @@ public class TFServer extends Thread{
             
         }
     }
+    /**
+     * Demana al servidor de BBDD les dades de l'usuari demanat per la 
+     * connexió del client, i retorna la resposta per la mateixa connexió 
+     * @param dis InputStream del client
+     * @param dos OutputStream del client
+     */
     
-    private void _userData(DataInputStream ois, DataOutputStream oos) {
+    private void _userData(DataInputStream dis, DataOutputStream dos) {
         try {
             
             UserDAO dao = (UserDAO) TFFactory.getInstance("USER");
             
             //Llegin l'usuari i la contrasenya del client
-            String usr = ois.readUTF();
+            String usr = dis.readUTF();
                         
             //Preparem la resposta
             UserDTO userDTO = dao.userData(usr);
                         
             //Enviem la resposta
-            oos.writeInt(userDTO.getUserId());
-            oos.writeUTF(userDTO.getUserName());
-            oos.writeUTF(userDTO.getUserMail());
-            oos.writeUTF(userDTO.getUserPswd());
-            oos.writeUTF(userDTO.getUserRole());
+            dos.writeInt(userDTO.getUserId());
+            dos.writeUTF(userDTO.getUserName());
+            dos.writeUTF(userDTO.getUserMail());
+            dos.writeUTF(userDTO.getUserPswd());
+            dos.writeUTF(userDTO.getUserRole());
             
             
         } catch (Exception e) {

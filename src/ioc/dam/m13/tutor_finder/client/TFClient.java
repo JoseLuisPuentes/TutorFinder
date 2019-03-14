@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ioc.dam.m13.tutor_finder.client;
 
 import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 
 /**
- *
+ * Interface per crear les diferents implementacions 
+ * de clients amb els serveis del TFserver
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
 public interface TFClient {
