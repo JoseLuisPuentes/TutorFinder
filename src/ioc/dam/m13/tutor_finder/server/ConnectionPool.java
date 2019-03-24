@@ -61,8 +61,10 @@ public class ConnectionPool {
             
         } catch (Exception e) {
             
+            System.out.println("Fallo aqui!");
             e.printStackTrace();
             throw new RuntimeException(e);
+            
             
         }
     }
