@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * Accedeix a les dades dun usuari que hi han a la BBDD
+ * Accedeix a les dades d'un usuari que hi han a la BBDD
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
 public class UserDAO {
@@ -23,37 +23,7 @@ public class UserDAO {
         Connection con = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
-        /*
-        //TODO: Fake test login
-        String uName = "jose";
-        String pass = "tutorfinder";
-        if (userName.equals(uName)) {
-            
-            if (pass.equals(pswd)) {
-                ret = true;
-            }            
-        }
-        
-        String uName2 = "alex";
-        String pass2 = "tutorfinder";
-        if (userName.equals(uName2)) {
-            
-            if (pass2.equals(pswd)) {
-                ret = true;
-            }            
-        }
-        
-        String uName3 = "jaime";
-        String pass3 = "tutorfinder";
-        if (userName.equals(uName3)) {
-            
-            if (pass3.equals(pswd)) {
-                ret = true;
-            }            
-        }
-        */
-        //TODO: Codi comentat per les proves sense servidor BBDD
-       
+               
         try {
             // Agafem una connexio del pool
             con = ConnectionPool.getPool().getConnection();
@@ -116,34 +86,7 @@ public class UserDAO {
         Connection con = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
-        
-        //TODO: Fake DTO's
-        /*
-        if (userName == "jose") {
-            user.setUserId(01);
-            user.setUserName("jose");
-            user.setUserMail("jose@gmail.com");
-            user.setUserRole("admin");
-        }
-
-        if (userName == "alex") {
-            user.setUserId(01);
-            user.setUserName("alex");
-            user.setUserMail("alex@gmail.com");
-            user.setUserRole("tutor");
-        }
-        
-        if (userName == "jaime") {
-            user.setUserId(01);
-            user.setUserName("jaime");
-            user.setUserMail("jaime@gmail.com");
-            user.setUserRole("alumne");
-        }
-        */
-
-
-        
-        
+               
         try {
             // Agafem una connexió del pool
             con = ConnectionPool.getPool().getConnection();
@@ -192,5 +135,21 @@ public class UserDAO {
         
         return user;
     }
+    //TODO: codificar newUser
+    public boolean newUser(){
+        boolean ret = false;
+        
+        return ret;
+    }
+    
+    //TODO: codificar editUser
+    
+    //TODO: codificar delUser
+    
+    //TODO: codificar listUsers
+    
+    //TODO: codificar editUserPswd
+    
+    //TODO: codificar getUserRoles
     
 }
