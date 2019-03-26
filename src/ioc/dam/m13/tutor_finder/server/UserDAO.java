@@ -4,6 +4,8 @@ import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Accedeix a les dades d'un usuari que hi han a la BBDD
@@ -136,20 +138,212 @@ public class UserDAO {
         return user;
     }
     //TODO: codificar newUser
-    public boolean newUser(){
+    public boolean newUser(String userName, String userMail, String userPswd, String roleName){
+        boolean ret = false;
+        int result = 0;
+        Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+               
+        try {
+            // Agafem una connexió del pool
+            con = ConnectionPool.getPool().getConnection();
+            //SQL
+            String sql = "";
+            sql += "INSERT INTO users (user_name, user_mail, user_pswd, user_role_id)";
+            sql += "VALUES (?, ?, ?, ?) ";
+            
+            int roleId = getUserRoles(roleName);
+                        
+            //preparem la inserció
+            pstm = con.prepareStatement(sql);
+            pstm.setString(1, userName);
+            pstm.setString(2, userMail);
+            pstm.setString(3, userPswd);
+            pstm.setInt(4, roleId);
+
+            result = pstm.executeUpdate(sql);
+            
+            if (result > 0) {
+                ret = true;
+            }
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (rs != null) { rs.close();}
+                if (pstm != null) { pstm.close();}
+                
+            } catch (Exception e) {
+                
+                e.printStackTrace();
+                throw new RuntimeException(e);
+                
+            }
+        }
+        return ret;
+    }
+    
+    //TODO: codificar editUser
+    public boolean editUser(String userName){
         boolean ret = false;
         
         return ret;
     }
     
-    //TODO: codificar editUser
-    
     //TODO: codificar delUser
+    public boolean delUser(String userName){
+        boolean ret = false;
+        
+        return ret;
+    }
     
-    //TODO: codificar listUsers
+    //TODO: provar listUsers
+    public ArrayList<UserDTO> listUsers(){
+        ArrayList<UserDTO> users = new ArrayList<>();
+                
+        Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+               
+        try {
+            // Agafem una connexió del pool
+            con = ConnectionPool.getPool().getConnection();
+            //SQL
+            String sql = "";
+            sql += "SELECT user_id, user_name, user_mail, user_pswd, role_name ";
+            sql += "FROM users, roles ";
+            sql += "WHERE users.user_role_id = roles.role_id";
+            
+            //Fem la consulta
+            pstm = con.prepareStatement(sql);
+            rs = pstm.executeQuery();
+            
+            while (rs.next()) {                
+                // Construïm l'usuari amb la resposta
+                UserDTO user = new UserDTO();
+                
+                user.setUserId(rs.getInt("user_id"));
+                user.setUserName(rs.getString("user_name"));
+                user.setUserMail(rs.getString("user_mail"));
+                user.setUserPswd(rs.getString("user_pswd"));
+                user.setUserRole(rs.getString("role_name"));
+                
+                users.add(user);
+                
+            }
+           
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (rs != null) { rs.close();}
+                if (pstm != null) { pstm.close();}
+                
+            } catch (Exception e) {
+                
+                e.printStackTrace();
+                throw new RuntimeException(e);
+                
+            }
+        }
+        
+        return users;
+    }
+    
+    public ArrayList<UserDTO> listUsers(String roleName){
+        ArrayList<UserDTO> users = new ArrayList<>();
+        
+        
+        Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+               
+        try {
+            // Agafem una connexió del pool
+            con = ConnectionPool.getPool().getConnection();
+            //SQL
+            String sql = "";
+            sql += "SELECT user_id, user_name, user_mail, user_pswd, role_name ";
+            sql += "FROM users, roles ";
+            sql += "WHERE users.user_role_id = roles.role_id AND roles.role_name = ?";
+            
+            //Fem la consulta
+            pstm = con.prepareStatement(sql);
+            pstm.setString(1, roleName);
+            rs = pstm.executeQuery();
+            
+            while (rs.next()) {                
+                
+                // Construïm l'usuari amb la resposta
+                UserDTO user = new UserDTO();
+                
+                user.setUserId(rs.getInt("user_id"));
+                user.setUserName(rs.getString("user_name"));
+                user.setUserMail(rs.getString("user_mail"));
+                user.setUserPswd(rs.getString("user_pswd"));
+                user.setUserRole(rs.getString("role_name"));
+                
+                users.add(user);
+                
+            }
+           
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (rs != null) { rs.close();}
+                if (pstm != null) { pstm.close();}
+                
+            } catch (Exception e) {
+                
+                e.printStackTrace();
+                throw new RuntimeException(e);
+                
+            }
+        }
+        return users;
+    }
     
     //TODO: codificar editUserPswd
+    public boolean editUserPswd(String userName, String pswd){
+        boolean ret = false;
+        
+        return ret;
+    }
+    
     
     //TODO: codificar getUserRoles
+    public HashMap<Integer, String> getUserRoles(){
+        HashMap<Integer, String> userRoles = new HashMap<>();
+        
+        return userRoles;
+    }
     
+    public int getUserRoles(String userName){
+        int ret = -1;
+        
+        return ret;
+    }
+    
+    public String getUserRoles(int roleId){
+        String ret = null;
+        
+        return ret;
+    }
 }

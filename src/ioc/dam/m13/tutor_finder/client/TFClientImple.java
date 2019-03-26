@@ -3,7 +3,7 @@ package ioc.dam.m13.tutor_finder.client;
 import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 
 /**
- *  Clase que implemetarà el client per demanar els serveis del 
+ *  Clase que implemeta el client per demanar els serveis del 
  *  servidor
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
@@ -22,5 +22,13 @@ public class TFClientImple implements TFClient{
         return ServiceLocator.userData(userName);
         
     }
+
+    @Override
+    public boolean newUser(String userName, String userMail, String userPswd, String userRole) {
+        
+        return ServiceLocator.newUser(userName, userMail, userPswd, userRole);
+        
+    }
+    
 
 }

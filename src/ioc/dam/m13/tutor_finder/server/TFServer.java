@@ -17,6 +17,11 @@ public class TFServer extends Thread{
     public static final int SERVER_PORT = 7474;
     public static final int LOGIN = 0;
     public static final int USER_DATA = 1;
+    public static final int NEW_USER = 2;
+    public static final int EDIT_USER = 3;
+    public static final int DEL_USER = 4;
+    public static final int LIST_USERS = 5;
+    public static final int EDIT_USER_PSWD = 6;
     
     private Socket socket = null;
     private DataInputStream dis = null;
@@ -76,6 +81,26 @@ public class TFServer extends Thread{
                     
                 case USER_DATA:
                     _userData(dis, dos);
+                    break;
+                    
+                case NEW_USER:
+                    _newUser(dis, dos);
+                    break;
+                
+                case EDIT_USER:
+                    _editUser(dis, dos);
+                    break;
+                    
+                case DEL_USER:
+                    _delUser(dis, dos);
+                    break;
+                
+                case LIST_USERS:
+                    _listUsers(dis, dos);
+                    break;
+                
+                case EDIT_USER_PSWD:
+                    _editUserPswd(dis, dos);
                     break;
                     
             }
@@ -152,5 +177,49 @@ public class TFServer extends Thread{
             throw new RuntimeException(e);
             
         }
+    }
+
+    private void _newUser(DataInputStream dis, DataOutputStream dos) {
+        //TODO: _newUser
+        try {
+            UserDAO dao = (UserDAO) TFFactory.getInstance("USER");
+            
+            //Llegim les dades del client per crear un nou usari
+            String userName = dis.readUTF();
+            String userMail = dis.readUTF();
+            String userPswd = dis.readUTF();
+            String userRole = dis.readUTF();
+            
+            //Creem el nou usuari
+            boolean ret = dao.newUser(userName, userMail, userPswd, userRole);
+            
+            //Retornem al client el resultat
+            dos.writeBoolean(ret);
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void _editUser(DataInputStream dis, DataOutputStream dos) {
+        //TODO: _editUser
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void _delUser(DataInputStream dis, DataOutputStream dos) {
+        //TODO: _delUser
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void _listUsers(DataInputStream dis, DataOutputStream dos) {
+        //TODO: _listUsers
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void _editUserPswd(DataInputStream dis, DataOutputStream dos) {
+        //TODO: _editUserPswd
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

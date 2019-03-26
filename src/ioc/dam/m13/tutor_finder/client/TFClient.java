@@ -22,4 +22,68 @@ public interface TFClient {
      * @return Retorna el objecte amb les dades d'usuari
      */
     public UserDTO userData(String userName);
+    
+    /**
+     * Crea un usuari nou
+     * @param userName String amb el Nom de l'usuari
+     * @param userMail String amb el Mail de l'usuari
+     * @param userPswd String amb la Contrasenya de l'usuari
+     * @param userRole String amb el Role de l'usuari
+     * @return Retorna true si s'ha inserit correctament
+     */
+    public boolean newUser(String userName, String userMail, String userPswd, String userRole);
+    /*
+    //TODO: codificar editUser TFC
+    public boolean editUser(String userName){
+        boolean ret = false;
+        
+        return ret;
+    }
+    
+    //TODO: codificar delUser TFC
+    public boolean delUser(String userName){
+        boolean ret = false;
+        
+        return ret;
+    }
+    
+    //TODO: codificar listUsers TFC
+    public ArrayList<UserDTO> listUsers(){
+        ArrayList<UserDTO> users = null;
+        
+        return users;
+    }
+    
+    public ArrayList<UserDTO> listUsers(String roleName){
+        ArrayList<UserDTO> users = new ArrayList<>();
+        
+        return users;
+    }
+    
+    //TODO: codificar editUserPswd TFC
+    public boolean editUserPswd(String userName, String pswd){
+        boolean ret = false;
+        
+        return ret;
+    }
+    
+    
+    //TODO: codificar getUserRoles TFC
+    public HashMap<Integer, String> getUserRoles(){
+        HashMap<Integer, String> userRoles = new HashMap<>();
+        
+        return userRoles;
+    }
+    
+    public int getUserRoles(String userName){
+        int ret = -1;
+        
+        return ret;
+    }
+    
+    public String getUserRoles(int roleId){
+        String ret = null;
+        
+        return ret;
+    */
 }
