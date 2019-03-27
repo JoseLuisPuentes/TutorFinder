@@ -1,6 +1,7 @@
 package ioc.dam.m13.tutor_finder.client;
 
 import ioc.dam.m13.tutor_finder.dtos.UserDTO;
+import java.util.ArrayList;
 
 /**
  * Interface per crear les diferents implementacions 
@@ -46,20 +47,22 @@ public interface TFClient {
         
         return ret;
     }
-    
+    */
     //TODO: codificar listUsers TFC
-    public ArrayList<UserDTO> listUsers(){
-        ArrayList<UserDTO> users = null;
-        
-        return users;
-    }
+    /**
+     * Llista tots els usuaris
+     * @return Retorna un array de UserDTO's amb les dades dels usuaris
+     */
+    public ArrayList<UserDTO> listUsers();
     
-    public ArrayList<UserDTO> listUsers(String roleName){
-        ArrayList<UserDTO> users = new ArrayList<>();
-        
-        return users;
-    }
+    /**
+     * Llista els usuaris que siguin del mateix rol
+     * @param roleName String amb el nom del rol
+     * @return Retorna un array de UserDTO's amb les dades dels usuaris amb el mateix rol 
+     */
+    public ArrayList<UserDTO> listUsers(String roleName);
     
+    /*
     //TODO: codificar editUserPswd TFC
     public boolean editUserPswd(String userName, String pswd){
         boolean ret = false;

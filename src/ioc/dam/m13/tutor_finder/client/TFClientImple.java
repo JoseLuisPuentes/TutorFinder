@@ -1,6 +1,7 @@
 package ioc.dam.m13.tutor_finder.client;
 
 import ioc.dam.m13.tutor_finder.dtos.UserDTO;
+import java.util.ArrayList;
 
 /**
  *  Clase que implemeta el client per demanar els serveis del 
@@ -28,6 +29,16 @@ public class TFClientImple implements TFClient{
         
         return ServiceLocator.newUser(userName, userMail, userPswd, userRole);
         
+    }
+
+    @Override
+    public ArrayList<UserDTO> listUsers() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<UserDTO> listUsers(String roleName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 

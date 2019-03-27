@@ -137,7 +137,15 @@ public class UserDAO {
         
         return user;
     }
-    //TODO: codificar newUser
+    /**
+     * Connecta a la BBDD i crea un usuari nou
+     * @param userName String amb el nom de l'usuari
+     * @param userMail String amd el mail de l'usuari
+     * @param userPswd String amd la contrasenya de l'usuari
+     * @param roleName String amb rol de l'usuari
+     * @return retorna true si s'ha inserit a la BBDD
+     */
+    //TODO: provar newUser
     public boolean newUser(String userName, String userMail, String userPswd, String roleName){
         boolean ret = false;
         int result = 0;
@@ -204,6 +212,10 @@ public class UserDAO {
     }
     
     //TODO: provar listUsers
+    /**
+     * Llista tots els usuaris que hi ha a la BBDD
+     * @return Retorna un array de UserDTO's amb les dades dels usuaris
+     */
     public ArrayList<UserDTO> listUsers(){
         ArrayList<UserDTO> users = new ArrayList<>();
                 
@@ -261,6 +273,11 @@ public class UserDAO {
         return users;
     }
     
+    /**
+     * Llista els usuaris que siguin del mateix rol que hi ha a la BBDD
+     * @param roleName String amb el nom del rol
+     * @return Retorna un array de UserDTO's amb les dades dels usuaris amb el mateix rol 
+     */
     public ArrayList<UserDTO> listUsers(String roleName){
         ArrayList<UserDTO> users = new ArrayList<>();
         

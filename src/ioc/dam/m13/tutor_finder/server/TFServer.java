@@ -180,7 +180,7 @@ public class TFServer extends Thread{
     }
 
     private void _newUser(DataInputStream dis, DataOutputStream dos) {
-        //TODO: _newUser
+        //TODO: provar _newUser
         try {
             UserDAO dao = (UserDAO) TFFactory.getInstance("USER");
             
@@ -214,8 +214,14 @@ public class TFServer extends Thread{
     }
 
     private void _listUsers(DataInputStream dis, DataOutputStream dos) {
-        //TODO: _listUsers
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //TODO: provar _listUsers
+        try {
+            UserDAO dao = (UserDAO) TFFactory.getInstance("USER");
+            //Llegim les dades del client 
+            
+        } catch (Exception e) {
+        }
+        
     }
 
     private void _editUserPswd(DataInputStream dis, DataOutputStream dos) {
