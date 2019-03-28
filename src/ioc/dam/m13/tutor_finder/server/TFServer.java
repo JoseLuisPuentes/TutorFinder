@@ -4,8 +4,10 @@ import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * Servidor que s'encarrega de rebre les solicituts dels clients
@@ -14,7 +16,7 @@ import java.net.Socket;
  */
 public class TFServer extends Thread{
     
-    public static final int SERVER_PORT = 7474;
+    public static final int SERVER_PORT = 7575;
     public static final int LOGIN = 0;
     public static final int USER_DATA = 1;
     public static final int NEW_USER = 2;
@@ -26,6 +28,7 @@ public class TFServer extends Thread{
     private Socket socket = null;
     private DataInputStream dis = null;
     private DataOutputStream dos = null;
+    private ObjectOutputStream oos = null;
         
     public TFServer( Socket s) {
         
@@ -54,7 +57,7 @@ public class TFServer extends Thread{
             
             dis = new DataInputStream(socket.getInputStream());
             dos = new DataOutputStream(socket.getOutputStream());
-            
+            oos = new ObjectOutputStream(socket.getOutputStream());
             //Para probar como hacerlo enviando objetos
             //Faltaria crear un objeto Login o un objeto User
             
@@ -96,7 +99,7 @@ public class TFServer extends Thread{
                     break;
                 
                 case LIST_USERS:
-                    _listUsers(dis, dos);
+                    _listUsers(dis, oos);
                     break;
                 
                 case EDIT_USER_PSWD:
@@ -213,13 +216,44 @@ public class TFServer extends Thread{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private void _listUsers(DataInputStream dis, DataOutputStream dos) {
+    private void _listUsers(DataInputStream dis, ObjectOutputStream oos) {
         //TODO: provar _listUsers
         try {
             UserDAO dao = (UserDAO) TFFactory.getInstance("USER");
-            //Llegim les dades del client 
+            ArrayList<UserDTO> users = new ArrayList<>();
+            
+            //Llegim quin mètode sobre carrgat del UserDAO es vol fer servir 
+            switch(dis.readUTF()){
+                //Mètode listUsers()
+                case "listUsers":
+                    //Demanen a la BBDD la llista d'usuaris
+                    users = dao.listUsers();
+                    for (UserDTO user : users) {
+                    //Retornem els objectes per separat al client
+                        oos.writeObject(user);
+                    }
+                    break;
+                //Mètode listUsers(String roleName)
+                case "listUsersRole":
+                    //Llegim el nom del rol que es vol llistar
+                    String roleName = dis.readUTF();
+                    //Demanem a la BBDD la llista d'usuaris per rol
+                    users = dao.listUsers(roleName);
+                    int nUsers = users.size();
+                    //Enviem la quantitat d'usuaris que hi ha de resposta
+                    oos.writeInt(nUsers);
+                    
+                    for (UserDTO user : users) {
+                        //Retornem els objectes per separat al client
+                        oos.writeObject(user);
+                    }
+                    break;                    
+            }
             
         } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         
     }

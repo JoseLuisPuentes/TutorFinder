@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 
 import ioc.dam.m13.tutor_finder.server.TFServer;
 import ioc.dam.m13.tutor_finder.dtos.UserDTO;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
@@ -215,34 +217,146 @@ public class ServiceLocator {
     }
     
     //TODO: codificar editUser SL
-    public boolean editUser(String userName){
+    public static boolean editUser(String userName){
         boolean ret = false;
         
         return ret;
     }
     
     //TODO: codificar delUser SL
-    public boolean delUser(String userName){
+    public static boolean delUser(String userName){
         boolean ret = false;
         
         return ret;
     }
     
     //TODO: codificar listUsers SL
-    public ArrayList<UserDTO> listUsers(){
-        ArrayList<UserDTO> users = null;
+    public static ArrayList<UserDTO> listUsers(){
+        
+        // Dades de configuració del servidor
+        String serverIp;
+        int port;
+        
+        Socket s = null;
+        ObjectInputStream ois = null;
+        DataOutputStream dos = null;
+        
+        ArrayList<UserDTO> users = new ArrayList<>();
+        
+        try {
+            // Agafem les dades de conexió al server
+            // del arxiu de configuració "config.properties"            
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
+            serverIp = rb.getString("server_ip");
+            port = Integer.parseInt(rb.getString("port"));
+            
+            // Instanciem el Socket i els Input i Output 
+            // per comunicar amb el server
+            s = new Socket(serverIp, port);
+            ois = new ObjectInputStream(s.getInputStream());
+            dos = new DataOutputStream(s.getOutputStream());
+            
+            // Solicitem el llistat de tots els usuaris al servidor
+            dos.writeInt(TFServer.LIST_USERS);
+            dos.writeUTF("listUsers");
+            
+            //Revem el nombre d'ususaris que hi haurà de resposta
+            int nUsers = ois.readInt();
+            
+            for (int i = 0; i < nUsers; i++) {
+                UserDTO user = (UserDTO) ois.readObject();
+                users.add(user);
+            }
+                        
+                        
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (ois != null) { ois.close();}
+                if (dos != null) { dos.close();}
+                if (s != null) { s.close();}
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
         
         return users;
     }
     
-    public ArrayList<UserDTO> listUsers(String roleName){
+    public static ArrayList<UserDTO> listUsers(String roleName){
+        
+        // Dades de configuració del servidor
+        String serverIp;
+        int port;
+        
+        Socket s = null;
+        ObjectInputStream ois = null;
+        DataOutputStream dos = null;
+        
         ArrayList<UserDTO> users = new ArrayList<>();
+        
+        try {
+            // Agafem les dades de conexió al server
+            // del arxiu de configuració "config.properties"            
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
+            serverIp = rb.getString("server_ip");
+            port = Integer.parseInt(rb.getString("port"));
+            
+            // Instanciem el Socket i els Input i Output 
+            // per comunicar amb el server
+            s = new Socket(serverIp, port);
+            ois = new ObjectInputStream(s.getInputStream());
+            dos = new DataOutputStream(s.getOutputStream());
+            
+            // Solicitem el llistat de tots els usuaris al servidor
+            dos.writeInt(TFServer.LIST_USERS);
+            dos.writeUTF("listUsersRole");
+            //Enviem el rol que volem llistar
+            dos.writeUTF(roleName);
+            
+            //Revem el nombre d'ususaris que hi haurà de resposta
+            int nUsers = ois.readInt();
+            
+            for (int i = 0; i < nUsers; i++) {
+                UserDTO user = (UserDTO) ois.readObject();
+                users.add(user);
+            }
+                        
+                        
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (ois != null) { ois.close();}
+                if (dos != null) { dos.close();}
+                if (s != null) { s.close();}
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
         
         return users;
     }
     
     //TODO: codificar editUserPswd SL
-    public boolean editUserPswd(String userName, String pswd){
+    public static boolean editUserPswd(String userName, String pswd){
         boolean ret = false;
         
         return ret;
@@ -250,19 +364,19 @@ public class ServiceLocator {
     
     
     //TODO: codificar getUserRoles SL
-    public HashMap<Integer, String> getUserRoles(){
+    public static HashMap<Integer, String> getUserRoles(){
         HashMap<Integer, String> userRoles = new HashMap<>();
         
         return userRoles;
     }
     
-    public int getUserRoles(String userName){
+    public static int getUserRoles(String userName){
         int ret = -1;
         
         return ret;
     }
     
-    public String getUserRoles(int roleId){
+    public static String getUserRoles(int roleId){
         String ret = null;
         
         return ret;

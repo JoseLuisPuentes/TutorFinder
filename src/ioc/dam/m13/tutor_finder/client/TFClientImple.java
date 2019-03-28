@@ -33,12 +33,14 @@ public class TFClientImple implements TFClient{
 
     @Override
     public ArrayList<UserDTO> listUsers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        return ServiceLocator.listUsers();
     }
 
     @Override
     public ArrayList<UserDTO> listUsers(String roleName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        return ServiceLocator.listUsers(roleName);
     }
     
 
