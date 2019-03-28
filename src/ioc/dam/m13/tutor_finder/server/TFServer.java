@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class TFServer extends Thread{
     
-    public static final int SERVER_PORT = 7575;
+    public static final int SERVER_PORT = 7474;
     public static final int LOGIN = 0;
     public static final int USER_DATA = 1;
     public static final int NEW_USER = 2;
