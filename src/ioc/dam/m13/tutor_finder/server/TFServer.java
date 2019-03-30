@@ -216,7 +216,7 @@ public class TFServer extends Thread{
     }
 
     private void _listUsers(DataInputStream dis, DataOutputStream dos) {
-        //TODO: provar _listUsers
+        
         try {
             UserDAO dao = (UserDAO) TFFactory.getInstance("USER");
             ArrayList<UserDTO> users = new ArrayList<>();

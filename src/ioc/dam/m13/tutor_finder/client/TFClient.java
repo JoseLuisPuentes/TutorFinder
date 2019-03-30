@@ -48,7 +48,7 @@ public interface TFClient {
         return ret;
     }
     */
-    //TODO: codificar listUsers TFC
+    
     /**
      * Llista tots els usuaris
      * @return Retorna un array de UserDTO's amb les dades dels usuaris

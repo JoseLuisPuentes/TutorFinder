@@ -212,7 +212,7 @@ public class UserDAO {
         return ret;
     }
     
-    //TODO: provar listUsers
+    
     /**
      * Llista tots els usuaris que hi ha a la BBDD
      * @return Retorna un array de UserDTO's amb les dades dels usuaris

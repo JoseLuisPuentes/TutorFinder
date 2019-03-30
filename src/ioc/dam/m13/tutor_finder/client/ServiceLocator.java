@@ -146,7 +146,7 @@ public class ServiceLocator {
         
         return user;
     }
-    //TODO: provar newUser SL
+    
     /**
      * Connecta amb el TFserver agafant les dades de l'arxiu "config.properties"
      * i crea un usuari nou amb les dades passdes.
@@ -230,7 +230,7 @@ public class ServiceLocator {
         return ret;
     }
     
-    //TODO: codificar listUsers SL
+    
     public static ArrayList<UserDTO> listUsers(){
         
         // Dades de configuració del servidor
