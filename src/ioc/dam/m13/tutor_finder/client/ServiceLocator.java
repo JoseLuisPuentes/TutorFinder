@@ -1,16 +1,16 @@
 package ioc.dam.m13.tutor_finder.client;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.Socket;
-import java.util.ResourceBundle;
+
 
 import ioc.dam.m13.tutor_finder.server.TFServer;
 import ioc.dam.m13.tutor_finder.dtos.UserDTO;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.net.Socket;
+import java.util.ResourceBundle;
 /**
  * Classe que encapsula la connexió amb el servidor,
  * enviar i rebre les dades i desconnexió
@@ -238,7 +238,7 @@ public class ServiceLocator {
         int port;
         
         Socket s = null;
-        ObjectInputStream ois = null;
+        DataInputStream dis = null;
         DataOutputStream dos = null;
         
         ArrayList<UserDTO> users = new ArrayList<>();
@@ -253,7 +253,7 @@ public class ServiceLocator {
             // Instanciem el Socket i els Input i Output 
             // per comunicar amb el server
             s = new Socket(serverIp, port);
-            ois = new ObjectInputStream(s.getInputStream());
+            dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
             // Solicitem el llistat de tots els usuaris al servidor
@@ -261,11 +261,12 @@ public class ServiceLocator {
             dos.writeUTF("listUsers");
             
             //Revem el nombre d'ususaris que hi haurà de resposta
-            int nUsers = ois.readInt();
+            int nUsers = dis.readInt();
             
             for (int i = 0; i < nUsers; i++) {
-                UserDTO user = (UserDTO) ois.readObject();
-                users.add(user);
+                //TODO: Recoger datos
+                //UserDTO user = (UserDTO) ois.readObject();
+                //users.add(user);
             }
                         
                         
@@ -279,7 +280,7 @@ public class ServiceLocator {
             
             try {
                 // Tanquem connexions
-                if (ois != null) { ois.close();}
+                if (dis != null) { dis.close();}
                 if (dos != null) { dos.close();}
                 if (s != null) { s.close();}
                 
@@ -299,7 +300,7 @@ public class ServiceLocator {
         int port;
         
         Socket s = null;
-        ObjectInputStream ois = null;
+        DataInputStream ois = null;
         DataOutputStream dos = null;
         
         ArrayList<UserDTO> users = new ArrayList<>();
@@ -314,7 +315,7 @@ public class ServiceLocator {
             // Instanciem el Socket i els Input i Output 
             // per comunicar amb el server
             s = new Socket(serverIp, port);
-            ois = new ObjectInputStream(s.getInputStream());
+            ois = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
             // Solicitem el llistat de tots els usuaris al servidor
@@ -327,8 +328,9 @@ public class ServiceLocator {
             int nUsers = ois.readInt();
             
             for (int i = 0; i < nUsers; i++) {
-                UserDTO user = (UserDTO) ois.readObject();
-                users.add(user);
+                //TODO: Recoger datos
+                //UserDTO user = (UserDTO) ois.readObject();
+                //users.add(user);
             }
                         
                         

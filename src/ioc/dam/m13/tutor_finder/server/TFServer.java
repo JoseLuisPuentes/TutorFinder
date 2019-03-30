@@ -4,7 +4,6 @@ import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class TFServer extends Thread{
     private Socket socket = null;
     private DataInputStream dis = null;
     private DataOutputStream dos = null;
-    private ObjectOutputStream oos = null;
+    
         
     public TFServer( Socket s) {
         
@@ -57,12 +56,12 @@ public class TFServer extends Thread{
             
             dis = new DataInputStream(socket.getInputStream());
             dos = new DataOutputStream(socket.getOutputStream());
-            oos = new ObjectOutputStream(socket.getOutputStream());
+            //oos = new DataOutputStream(socket.getOutputStream());
             //Para probar como hacerlo enviando objetos
             //Faltaria crear un objeto Login o un objeto User
             
             /*
-            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+            DataInputStream in = new DataInputStream(socket.getInputStream());
             
             Object obj = in.readObject();
             
@@ -99,7 +98,7 @@ public class TFServer extends Thread{
                     break;
                 
                 case LIST_USERS:
-                    _listUsers(dis, oos);
+                    _listUsers(dis, dos);
                     break;
                 
                 case EDIT_USER_PSWD:
@@ -216,7 +215,7 @@ public class TFServer extends Thread{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private void _listUsers(DataInputStream dis, ObjectOutputStream oos) {
+    private void _listUsers(DataInputStream dis, DataOutputStream dos) {
         //TODO: provar _listUsers
         try {
             UserDAO dao = (UserDAO) TFFactory.getInstance("USER");
@@ -230,7 +229,8 @@ public class TFServer extends Thread{
                     users = dao.listUsers();
                     for (UserDTO user : users) {
                     //Retornem els objectes per separat al client
-                        oos.writeObject(user);
+                        //TODO: enviar datos por separado
+                        //oos.writeObject(user);
                     }
                     break;
                 //Mètode listUsers(String roleName)
@@ -241,11 +241,12 @@ public class TFServer extends Thread{
                     users = dao.listUsers(roleName);
                     int nUsers = users.size();
                     //Enviem la quantitat d'usuaris que hi ha de resposta
-                    oos.writeInt(nUsers);
+                    dos.writeInt(nUsers);
                     
                     for (UserDTO user : users) {
                         //Retornem els objectes per separat al client
-                        oos.writeObject(user);
+                        //TODO: enviar datos por separado
+                        //oos.writeObject(user);
                     }
                     break;                    
             }

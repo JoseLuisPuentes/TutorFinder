@@ -160,8 +160,8 @@ public class UserDAO {
             String sql = "";
             sql += "INSERT INTO users (user_name, user_mail, user_pswd, user_role_id)";
             sql += "VALUES (?, ?, ?, ?) ";
-            
-            int roleId = getUserRoles(roleName);
+            //TODO: prova de ficar role
+            int roleId = 2;//getUserRoles(roleName);
                         
             //preparem la inserció
             pstm = con.prepareStatement(sql);
@@ -170,7 +170,8 @@ public class UserDAO {
             pstm.setString(3, userPswd);
             pstm.setInt(4, roleId);
 
-            result = pstm.executeUpdate(sql);
+            result = pstm.executeUpdate();
+            con.commit();
             
             if (result > 0) {
                 ret = true;
@@ -354,6 +355,49 @@ public class UserDAO {
     
     public int getUserRoles(String userName){
         int ret = -1;
+        Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+               
+        try {
+            // Agafem una connexió del pool
+            con = ConnectionPool.getPool().getConnection();
+            //SQL
+            String sql = "";
+            sql += "SELECT role_id ";
+            sql += "FROM roles ";
+            sql += "WHERE roles.role_name = ?";
+            
+            //Fem la consulta
+            pstm = con.prepareStatement(sql);
+            pstm.setString(1, userName);
+            rs = pstm.executeQuery();
+            
+            while (rs.next()) {                
+                
+                ret = rs.getInt("role_id");
+                                
+            }
+           
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (rs != null) { rs.close();}
+                if (pstm != null) { pstm.close();}
+                
+            } catch (Exception e) {
+                
+                e.printStackTrace();
+                throw new RuntimeException(e);
+                
+            }
+        }
         
         return ret;
     }
