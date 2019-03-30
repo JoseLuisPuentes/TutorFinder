@@ -182,7 +182,7 @@ public class TFServer extends Thread{
     }
 
     private void _newUser(DataInputStream dis, DataOutputStream dos) {
-        //TODO: provar _newUser
+        
         try {
             UserDAO dao = (UserDAO) TFFactory.getInstance("USER");
             
@@ -220,6 +220,7 @@ public class TFServer extends Thread{
         try {
             UserDAO dao = (UserDAO) TFFactory.getInstance("USER");
             ArrayList<UserDTO> users = new ArrayList<>();
+            int nUsers;
             
             //Llegim quin mètode sobre carrgat del UserDAO es vol fer servir 
             switch(dis.readUTF()){
@@ -227,10 +228,20 @@ public class TFServer extends Thread{
                 case "listUsers":
                     //Demanen a la BBDD la llista d'usuaris
                     users = dao.listUsers();
-                    for (UserDTO user : users) {
-                    //Retornem els objectes per separat al client
+                    
+                    //Enviem el nombre d'usuaris que hi ha de resposta
+                    nUsers = users.size();
+                    dos.writeInt(nUsers);
+                    
+                    for (UserDTO userDTO : users) {
+                        //Retornem els objectes per separat al client
                         //TODO: enviar datos por separado
-                        //oos.writeObject(user);
+                        dos.writeInt(userDTO.getUserId());
+                        dos.writeUTF(userDTO.getUserName());
+                        dos.writeUTF(userDTO.getUserMail());
+                        dos.writeUTF(userDTO.getUserPswd());
+                        dos.writeUTF(userDTO.getUserRole());
+                        
                     }
                     break;
                 //Mètode listUsers(String roleName)
@@ -239,14 +250,18 @@ public class TFServer extends Thread{
                     String roleName = dis.readUTF();
                     //Demanem a la BBDD la llista d'usuaris per rol
                     users = dao.listUsers(roleName);
-                    int nUsers = users.size();
+                    nUsers = users.size();
                     //Enviem la quantitat d'usuaris que hi ha de resposta
                     dos.writeInt(nUsers);
                     
-                    for (UserDTO user : users) {
+                    for (UserDTO userDTO : users) {
                         //Retornem els objectes per separat al client
                         //TODO: enviar datos por separado
-                        //oos.writeObject(user);
+                        dos.writeInt(userDTO.getUserId());
+                        dos.writeUTF(userDTO.getUserName());
+                        dos.writeUTF(userDTO.getUserMail());
+                        dos.writeUTF(userDTO.getUserPswd());
+                        dos.writeUTF(userDTO.getUserRole());
                     }
                     break;                    
             }

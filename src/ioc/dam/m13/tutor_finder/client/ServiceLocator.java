@@ -264,9 +264,16 @@ public class ServiceLocator {
             int nUsers = dis.readInt();
             
             for (int i = 0; i < nUsers; i++) {
-                //TODO: Recoger datos
-                //UserDTO user = (UserDTO) ois.readObject();
-                //users.add(user);
+                //Rebem los dades del servidor i construï un UserDTO 
+                //i el fiquem l'ArrayList
+                UserDTO user = new UserDTO();
+                user.setUserId(dis.readInt());
+                user.setUserName(dis.readUTF());
+                user.setUserMail(dis.readUTF());
+                user.setUserPswd(dis.readUTF());
+                user.setUserRole(dis.readUTF());
+                
+                users.add(user);
             }
                         
                         
@@ -300,7 +307,7 @@ public class ServiceLocator {
         int port;
         
         Socket s = null;
-        DataInputStream ois = null;
+        DataInputStream dis = null;
         DataOutputStream dos = null;
         
         ArrayList<UserDTO> users = new ArrayList<>();
@@ -315,7 +322,7 @@ public class ServiceLocator {
             // Instanciem el Socket i els Input i Output 
             // per comunicar amb el server
             s = new Socket(serverIp, port);
-            ois = new DataInputStream(s.getInputStream());
+            dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
             // Solicitem el llistat de tots els usuaris al servidor
@@ -325,12 +332,19 @@ public class ServiceLocator {
             dos.writeUTF(roleName);
             
             //Revem el nombre d'ususaris que hi haurà de resposta
-            int nUsers = ois.readInt();
+            int nUsers = dis.readInt();
             
             for (int i = 0; i < nUsers; i++) {
-                //TODO: Recoger datos
-                //UserDTO user = (UserDTO) ois.readObject();
-                //users.add(user);
+                //Rebem los dades del servidor i construï un UserDTO 
+                //i el fiquem l'ArrayList
+                UserDTO user = new UserDTO();
+                user.setUserId(dis.readInt());
+                user.setUserName(dis.readUTF());
+                user.setUserMail(dis.readUTF());
+                user.setUserPswd(dis.readUTF());
+                user.setUserRole(dis.readUTF());
+                
+                users.add(user);
             }
                         
                         
@@ -344,7 +358,7 @@ public class ServiceLocator {
             
             try {
                 // Tanquem connexions
-                if (ois != null) { ois.close();}
+                if (dis != null) { dis.close();}
                 if (dos != null) { dos.close();}
                 if (s != null) { s.close();}
                 
