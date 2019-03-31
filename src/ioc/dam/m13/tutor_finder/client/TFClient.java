@@ -2,6 +2,7 @@ package ioc.dam.m13.tutor_finder.client;
 
 import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Interface per crear les diferents implementacions 
@@ -69,24 +70,26 @@ public interface TFClient {
         
         return ret;
     }
-    
+    */
     
     //TODO: codificar getUserRoles TFC
-    public HashMap<Integer, String> getUserRoles(){
-        HashMap<Integer, String> userRoles = new HashMap<>();
-        
-        return userRoles;
-    }
+    /**
+     * Llista tots els rols
+     * @return Retorna un HashMap<Integer,String> amb tots els rols
+     */
+    public HashMap<Integer, String> getUserRoles();
     
-    public int getUserRoles(String userName){
-        int ret = -1;
-        
-        return ret;
-    }
+    /**
+     * Lista el id del del rol demanat pel seu nom
+     * @param roleName Stringa amb el nom del rol
+     * @return Retorna un Int amb el Id del rol
+     */
+    public int getUserRoleId(String roleName);
     
-    public String getUserRoles(int roleId){
-        String ret = null;
-        
-        return ret;
-    */
+    /**
+     * Llista el nom del rol demanta pel seu id
+     * @param roleId Int amb el id 
+     * @return 
+     */
+    public String getUserRoleName(int roleId);
 }

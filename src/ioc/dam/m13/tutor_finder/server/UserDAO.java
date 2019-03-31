@@ -145,7 +145,7 @@ public class UserDAO {
      * @param roleName String amb rol de l'usuari
      * @return retorna true si s'ha inserit a la BBDD
      */
-    //TODO: provar newUser
+    
     public boolean newUser(String userName, String userMail, String userPswd, String roleName){
         boolean ret = false;
         int result = 0;
@@ -161,7 +161,7 @@ public class UserDAO {
             sql += "INSERT INTO users (user_name, user_mail, user_pswd, user_role_id)";
             sql += "VALUES (?, ?, ?, ?) ";
             //TODO: prova de ficar role
-            int roleId = 2;//getUserRoles(roleName);
+            int roleId = getUserRoles(roleName);
                         
             //preparem la inserció
             pstm = con.prepareStatement(sql);
