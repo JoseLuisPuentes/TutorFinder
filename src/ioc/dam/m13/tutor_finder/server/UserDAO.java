@@ -220,8 +220,8 @@ public class UserDAO {
             con = ConnectionPool.getPool().getConnection();
             //SQL
             String sql = "";
-            sql += "DELETE FROM users";
-            sql += "WHERE user_name = ?";
+            sql += "DELETE FROM users ";
+            sql += "WHERE users.user_name = ?";
             
             //preparem la eliminació
             pstm = con.prepareStatement(sql);
