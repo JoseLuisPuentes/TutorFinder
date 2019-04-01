@@ -65,6 +65,7 @@ public class UserDAO {
                 // Tanquem connexions
                 if (rs != null) { rs.close();}
                 if (pstm != null) { pstm.close();}
+                ConnectionPool.getPool().releaseConnection(con);
                 
             } catch (Exception e) {
                 
@@ -126,6 +127,7 @@ public class UserDAO {
                 // Tanquem connexions
                 if (rs != null) { rs.close();}
                 if (pstm != null) { pstm.close();}
+                ConnectionPool.getPool().releaseConnection(con);
                 
             } catch (Exception e) {
                 
@@ -187,6 +189,7 @@ public class UserDAO {
                 // Tanquem connexions
                 if (rs != null) { rs.close();}
                 if (pstm != null) { pstm.close();}
+                ConnectionPool.getPool().releaseConnection(con);
                 
             } catch (Exception e) {
                 
@@ -205,7 +208,11 @@ public class UserDAO {
         return ret;
     }
     
-    //TODO: codificar delUser
+    /**
+     * Elimina un usuari de la BBDD
+     * @param userName String amb el nom de l'usuari a eliminar
+     * @return Retorna True si s'ha eliminat
+     */
     public boolean delUser(String userName){
         
         boolean ret = false;
@@ -244,6 +251,7 @@ public class UserDAO {
                 // Tanquem connexions
                 if (rs != null) { rs.close();}
                 if (pstm != null) { pstm.close();}
+                ConnectionPool.getPool().releaseConnection(con);
                 
             } catch (Exception e) {
                 
@@ -305,6 +313,7 @@ public class UserDAO {
                 // Tanquem connexions
                 if (rs != null) { rs.close();}
                 if (pstm != null) { pstm.close();}
+                ConnectionPool.getPool().releaseConnection(con);
                 
             } catch (Exception e) {
                 
@@ -370,6 +379,7 @@ public class UserDAO {
                 // Tanquem connexions
                 if (rs != null) { rs.close();}
                 if (pstm != null) { pstm.close();}
+                ConnectionPool.getPool().releaseConnection(con);
                 
             } catch (Exception e) {
                 
@@ -428,6 +438,7 @@ public class UserDAO {
                 // Tanquem connexions
                 if (rs != null) { rs.close();}
                 if (pstm != null) { pstm.close();}
+                ConnectionPool.getPool().releaseConnection(con);
                 
             } catch (Exception e) {
                 
@@ -477,6 +488,7 @@ public class UserDAO {
                 // Tanquem connexions
                 if (rs != null) { rs.close();}
                 if (pstm != null) { pstm.close();}
+                ConnectionPool.getPool().releaseConnection(con);
                 
             } catch (Exception e) {
                 
@@ -527,6 +539,7 @@ public class UserDAO {
                 // Tanquem connexions
                 if (rs != null) { rs.close();}
                 if (pstm != null) { pstm.close();}
+                ConnectionPool.getPool().releaseConnection(con);
                 
             } catch (Exception e) {
                 

@@ -59,19 +59,7 @@ public class TFServer extends Thread{
             
             dis = new DataInputStream(socket.getInputStream());
             dos = new DataOutputStream(socket.getOutputStream());
-            //oos = new DataOutputStream(socket.getOutputStream());
-            //Para probar como hacerlo enviando objetos
-            //Faltaria crear un objeto Login o un objeto User
-            
-            /*
-            DataInputStream in = new DataInputStream(socket.getInputStream());
-            
-            Object obj = in.readObject();
-            
-            if (obj.getClass().equals(UserDAO)) {
-                
-            }*/
-            
+                        
             //llegim el codi de servei
             int srvCod = dis.readInt();
             
@@ -114,11 +102,11 @@ public class TFServer extends Thread{
                     
             }
             
-                        
+                                   
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
-        }        
+        }    
         
     }
     /**
@@ -152,7 +140,7 @@ public class TFServer extends Thread{
             e.printStackTrace();
             throw new RuntimeException(e);
             
-        }
+        } 
     }
     /**
      * Demana al servidor de BBDD les dades de l'usuari demanat per la 
