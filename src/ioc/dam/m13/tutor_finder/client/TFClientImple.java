@@ -2,6 +2,7 @@ package ioc.dam.m13.tutor_finder.client;
 
 import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *  Clase que implemeta el client per demanar els serveis del 
@@ -41,6 +42,30 @@ public class TFClientImple implements TFClient{
     public ArrayList<UserDTO> listUsers(String roleName) {
         
         return ServiceLocator.listUsers(roleName);
+    }
+
+    @Override
+    public HashMap<Integer, String> getUserRoles() {
+        
+        return ServiceLocator.getUserRoles();
+    }
+
+    @Override
+    public int getUserRoleId(String roleName) {
+        
+        return ServiceLocator.getUserRoles(roleName);
+    }
+
+    @Override
+    public String getUserRoleName(int roleId) {
+        
+        return ServiceLocator.getUserRoles(roleId);
+    }
+
+    @Override
+    public boolean delUser(String userName) {
+        
+        return ServiceLocator.delUser(userName);
     }
     
 

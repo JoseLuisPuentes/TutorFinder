@@ -223,10 +223,59 @@ public class ServiceLocator {
         return ret;
     }
     
-    //TODO: codificar delUser SL
     public static boolean delUser(String userName){
+        
         boolean ret = false;
         
+        // Dades de configuració del servidor
+        String serverIp = null;
+        int port;
+        
+        Socket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos =null;
+        
+        try {
+            // Agafem les dades de conexió al server
+            // del arxiu de configuració "config.properties"            
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
+            serverIp = rb.getString("server_ip");
+            port = Integer.parseInt(rb.getString("port"));
+            
+            // Instanciem el Socket i els Input i Output 
+            // per comunicar amb el server
+            s = new Socket(serverIp, port);
+            dis = new DataInputStream(s.getInputStream());
+            dos = new DataOutputStream(s.getOutputStream());
+            
+            // Solicitem el enviar el nou usuari al servidor
+            dos.writeInt(TFServer.DEL_USER);
+            //Enviem les dades del nou usari
+            dos.writeUTF(userName);
+
+            // Llegim la resposta
+            ret = dis.readBoolean();
+            
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (dis != null) { dis.close();}
+                if (dos != null) { dos.close();}
+                if (s != null) { s.close();}
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+
         return ret;
     }
     
@@ -378,22 +427,192 @@ public class ServiceLocator {
         return ret;
     }
     
-    
-    //TODO: codificar getUserRoles SL
+    /**
+     * Connecta amb el TFserver agafant les dades de l'arxiu "config.properties"
+     * i demana la llista de id's i roles que hi ha a la BBDD
+     * @return Retrona un HashMap amb la taula de roles
+     */
     public static HashMap<Integer, String> getUserRoles(){
+        
+        // Dades de configuració del servidor
+        String serverIp;
+        int port;
+        
+        Socket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos = null;
+        
         HashMap<Integer, String> userRoles = new HashMap<>();
+        
+        try {
+            // Agafem les dades de conexió al server
+            // del arxiu de configuració "config.properties"            
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
+            serverIp = rb.getString("server_ip");
+            port = Integer.parseInt(rb.getString("port"));
+            
+            // Instanciem el Socket i els Input i Output 
+            // per comunicar amb el server
+            s = new Socket(serverIp, port);
+            dis = new DataInputStream(s.getInputStream());
+            dos = new DataOutputStream(s.getOutputStream());
+            
+            // Solicitem el llistat de tots els usuaris al servidor
+            dos.writeInt(TFServer.GET_USER_ROLES);
+            dos.writeUTF("getUserRoles");
+            
+            //Revem el nombre d'ususaris que hi haurà de resposta
+            int nRoles = dis.readInt();
+            
+            for (int i = 0; i < nRoles; i++) {
+                //Rebem los dades del servidor i construïm 
+                //el HashMap de resposta
+                int id = dis.readInt();
+                String name = dis.readUTF();
+                userRoles.put(id, name);           
+                
+            }
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (dis != null) { dis.close();}
+                if (dos != null) { dos.close();}
+                if (s != null) { s.close();}
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
         
         return userRoles;
     }
     
-    public static int getUserRoles(String userName){
+    /**
+     * Connecta amb el TFserver agafant les dades de l'arxiu "config.properties"
+     * i demana el nom del rol per l'id que hi ha a la BBDD
+     * @param userName String amb el nom del rol
+     * @return retorna un int amb l'id del rol
+     */
+    public static int getUserRoles(String roleName){
+        
+        // Dades de configuració del servidor
+        String serverIp;
+        int port;
+        
+        Socket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos = null;
+        
         int ret = -1;
+        
+        try {
+            // Agafem les dades de conexió al server
+            // del arxiu de configuració "config.properties"            
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
+            serverIp = rb.getString("server_ip");
+            port = Integer.parseInt(rb.getString("port"));
+            
+            // Instanciem el Socket i els Input i Output 
+            // per comunicar amb el server
+            s = new Socket(serverIp, port);
+            dis = new DataInputStream(s.getInputStream());
+            dos = new DataOutputStream(s.getOutputStream());
+            
+            // Solicitem l'id del rol
+            dos.writeInt(TFServer.GET_USER_ROLES);
+            dos.writeUTF("getUserRoleId");
+            dos.writeUTF(roleName);
+            
+            //Revem la resposta
+            ret = dis.readInt();
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (dis != null) { dis.close();}
+                if (dos != null) { dos.close();}
+                if (s != null) { s.close();}
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
         
         return ret;
     }
     
+    /**
+     * Connecta amb el TFserver agafant les dades de l'arxiu "config.properties"
+     * i demana l'id del rol pel nom que hi ha a la BBDD
+     * @param roleId Int amd l'Id del rol demanat
+     * @return Retorna un String amd el nom del rol
+     */
     public static String getUserRoles(int roleId){
+        
+        // Dades de configuració del servidor
+        String serverIp;
+        int port;
+        
+        Socket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos = null;
+        
         String ret = null;
+        
+        try {
+            // Agafem les dades de conexió al server
+            // del arxiu de configuració "config.properties"            
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
+            serverIp = rb.getString("server_ip");
+            port = Integer.parseInt(rb.getString("port"));
+            
+            // Instanciem el Socket i els Input i Output 
+            // per comunicar amb el server
+            s = new Socket(serverIp, port);
+            dis = new DataInputStream(s.getInputStream());
+            dos = new DataOutputStream(s.getOutputStream());
+            
+            // Solicitem l'id del rol
+            dos.writeInt(TFServer.GET_USER_ROLES);
+            dos.writeUTF("getUserRoleName");
+            dos.writeInt(roleId);
+            
+            //Revem la resposta
+            ret = dis.readUTF();
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (dis != null) { dis.close();}
+                if (dos != null) { dos.close();}
+                if (s != null) { s.close();}
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
         
         return ret;
     }

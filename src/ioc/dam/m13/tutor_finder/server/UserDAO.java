@@ -207,8 +207,51 @@ public class UserDAO {
     
     //TODO: codificar delUser
     public boolean delUser(String userName){
-        boolean ret = false;
         
+        boolean ret = false;
+        int result = 0;
+        
+        Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+               
+        try {
+            // Agafem una connexió del pool
+            con = ConnectionPool.getPool().getConnection();
+            //SQL
+            String sql = "";
+            sql += "DELETE FROM users";
+            sql += "WHERE user_name = ?";
+            
+            //preparem la eliminació
+            pstm = con.prepareStatement(sql);
+            pstm.setString(1, userName);
+            //Executem
+            result = pstm.executeUpdate();
+            con.commit();
+            
+            if (result > 0) {
+                ret = true;
+            }
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (rs != null) { rs.close();}
+                if (pstm != null) { pstm.close();}
+                
+            } catch (Exception e) {
+                
+                e.printStackTrace();
+                throw new RuntimeException(e);
+                
+            }
+        }
         return ret;
     }
     
@@ -348,12 +391,56 @@ public class UserDAO {
     
     //TODO: codificar getUserRoles
     public HashMap<Integer, String> getUserRoles(){
+        
         HashMap<Integer, String> userRoles = new HashMap<>();
+        Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+               
+        try {
+            // Agafem una connexió del pool
+            con = ConnectionPool.getPool().getConnection();
+            //SQL
+            String sql = "";
+            sql += "SELECT role_id, role_name ";
+            sql += "FROM roles ";
+            
+            //Fem la consulta
+            pstm = con.prepareStatement(sql);
+            rs = pstm.executeQuery();
+            
+            while (rs.next()) {                
+                
+                int id = rs.getInt("role_id");
+                String name = rs.getString("role_name");                
+                userRoles.put(id, name);
+                                
+            }
+           
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (rs != null) { rs.close();}
+                if (pstm != null) { pstm.close();}
+                
+            } catch (Exception e) {
+                
+                e.printStackTrace();
+                throw new RuntimeException(e);
+                
+            }
+        }
         
         return userRoles;
     }
     
-    public int getUserRoles(String userName){
+    public int getUserRoles(String roleName){
         int ret = -1;
         Connection con = null;
         PreparedStatement pstm = null;
@@ -370,7 +457,7 @@ public class UserDAO {
             
             //Fem la consulta
             pstm = con.prepareStatement(sql);
-            pstm.setString(1, userName);
+            pstm.setString(1, roleName);
             rs = pstm.executeQuery();
             
             while (rs.next()) {                
@@ -403,7 +490,51 @@ public class UserDAO {
     }
     
     public String getUserRoles(int roleId){
+        
         String ret = null;
+        Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+               
+        try {
+            // Agafem una connexió del pool
+            con = ConnectionPool.getPool().getConnection();
+            //SQL
+            String sql = "";
+            sql += "SELECT role_name ";
+            sql += "FROM roles ";
+            sql += "WHERE roles.role_id = ?";
+            
+            //Fem la consulta
+            pstm = con.prepareStatement(sql);
+            pstm.setInt(1, roleId);
+            rs = pstm.executeQuery();
+            
+            while (rs.next()) {                
+                
+                ret = rs.getString("role_name");
+                                
+            }
+           
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (rs != null) { rs.close();}
+                if (pstm != null) { pstm.close();}
+                
+            } catch (Exception e) {
+                
+                e.printStackTrace();
+                throw new RuntimeException(e);
+                
+            }
+        }
         
         return ret;
     }

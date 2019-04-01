@@ -7,6 +7,8 @@ import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Servidor que s'encarrega de rebre les solicituts dels clients
@@ -23,6 +25,7 @@ public class TFServer extends Thread{
     public static final int DEL_USER = 4;
     public static final int LIST_USERS = 5;
     public static final int EDIT_USER_PSWD = 6;
+    public static final int GET_USER_ROLES = 7;
     
     private Socket socket = null;
     private DataInputStream dis = null;
@@ -103,6 +106,10 @@ public class TFServer extends Thread{
                 
                 case EDIT_USER_PSWD:
                     _editUserPswd(dis, dos);
+                    break;
+                    
+                case GET_USER_ROLES:
+                    _getUserRoles(dis, dos);
                     break;
                     
             }
@@ -211,8 +218,24 @@ public class TFServer extends Thread{
     }
 
     private void _delUser(DataInputStream dis, DataOutputStream dos) {
-        //TODO: _delUser
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            UserDAO dao = (UserDAO) TFFactory.getInstance("USER");
+            
+            //Llegim les dades del client per eliminar l'usari
+            String userName = dis.readUTF();
+            
+            
+            //Eliminem l'usuari
+            boolean ret = dao.delUser(userName);
+            
+            //Retornem al client el resultat
+            dos.writeBoolean(ret);
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     private void _listUsers(DataInputStream dis, DataOutputStream dos) {
@@ -277,5 +300,66 @@ public class TFServer extends Thread{
     private void _editUserPswd(DataInputStream dis, DataOutputStream dos) {
         //TODO: _editUserPswd
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void _getUserRoles(DataInputStream dis, DataOutputStream dos) {
+        try {
+            
+            int nRoles;
+            HashMap<Integer, String> roles = new HashMap<>();
+            UserDAO role = new UserDAO();
+            
+            //Llegim quin mètode sobre carrgat del UserDAO es vol fer servir 
+            switch(dis.readUTF()){
+                //Mètode getUserRoles()
+                case "getUserRoles":
+                    //Demanen a la BBDD la llista d'usuaris
+                    roles = role.getUserRoles();
+                    
+                    //Enviem el nombre de rols que hi ha de resposta
+                    nRoles = roles.size();
+                    dos.writeInt(nRoles);
+                    
+                    for (Map.Entry<Integer, String> entry : roles.entrySet()) {
+                        //Agafem les dades del hashMap
+                        Integer roleId = entry.getKey();
+                        String roleName = entry.getValue();
+                        //Les enviem al client
+                        dos.writeInt(roleId);
+                        dos.writeUTF(roleName);
+                    }
+                    
+                    break;
+                    
+                //Mètode getUserRoleId(String roleName)
+                case "getUserRoleId":
+                    //Llegim el nom del rol que es vol llistar
+                    String roleName = dis.readUTF();
+                    //Demanem a la BBDD per l'Id del rol
+                    int id = role.getUserRoles(roleName);
+                    
+                    //Enviem l'id del rol demanat
+                    dos.writeInt(id);
+                    
+                    break;   
+                    
+                //Mètode getUserRoleName(int roleId)
+                case "getUserRoleName":
+                    //Llegim l'Id del rol que es vol llistar
+                    int roleId = dis.readInt();
+                    //Demanem a la BBDD pel nom del rol
+                    String name = role.getUserRoles(roleId);
+                    
+                    //Enviem el nom del rol demanat
+                    dos.writeUTF(name);
+                    
+                    break;    
+            }
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 }

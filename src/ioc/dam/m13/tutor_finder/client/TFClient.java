@@ -41,14 +41,13 @@ public interface TFClient {
         
         return ret;
     }
-    
-    //TODO: codificar delUser TFC
-    public boolean delUser(String userName){
-        boolean ret = false;
-        
-        return ret;
-    }
     */
+    /**
+     * Elimina un usuari
+     * @param userName String amb el nom de l'usuari a eliminar
+     * @return Retorna True si s'ha eliminat
+     */
+    public boolean delUser(String userName);
     
     /**
      * Llista tots els usuaris
