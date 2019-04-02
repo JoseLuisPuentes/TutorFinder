@@ -4,11 +4,14 @@ import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Servidor que s'encarrega de rebre les solicituts dels clients
@@ -63,7 +66,7 @@ public class TFServer extends Thread{
             //llegim el codi de servei
             int srvCod = dis.readInt();
             
-            //TODO: Mostra les provas de connexió
+            //Mostra les provas de connexió
             System.out.println("cliente pide: " + srvCod);
             
             
@@ -125,7 +128,7 @@ public class TFServer extends Thread{
             String usr = dis.readUTF();
             String pwd = dis.readUTF();
             
-            //TODO: Mostra entrades del client per proves
+            // Mostra entrades del client per proves
             System.out.println("user: " + usr);
             System.out.println("password: " + pwd);
             
@@ -246,7 +249,6 @@ public class TFServer extends Thread{
                     
                     for (UserDTO userDTO : users) {
                         //Retornem els objectes per separat al client
-                        //TODO: enviar datos por separado
                         dos.writeInt(userDTO.getUserId());
                         dos.writeUTF(userDTO.getUserName());
                         dos.writeUTF(userDTO.getUserMail());
@@ -267,7 +269,6 @@ public class TFServer extends Thread{
                     
                     for (UserDTO userDTO : users) {
                         //Retornem els objectes per separat al client
-                        //TODO: enviar datos por separado
                         dos.writeInt(userDTO.getUserId());
                         dos.writeUTF(userDTO.getUserName());
                         dos.writeUTF(userDTO.getUserMail());
@@ -286,8 +287,29 @@ public class TFServer extends Thread{
     }
 
     private void _editUserPswd(DataInputStream dis, DataOutputStream dos) {
-        //TODO: _editUserPswd
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //TODO: provar _editUserPswd 
+        try {
+            
+            UserDAO dao = (UserDAO) TFFactory.getInstance("USER");
+            
+            //Llegim les dades del client per canbiar la contrasenya
+            String userName = dis.readUTF();
+            String newPswd = dis.readUTF();
+            
+            //Canviem la contrasenya de l'usari
+            boolean ret = dao.editUserPswd(userName, newPswd);
+            
+            //Retornem al client el resultat
+            dos.writeBoolean(ret);
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        
+        
+        
     }
 
     private void _getUserRoles(DataInputStream dis, DataOutputStream dos) {
@@ -295,7 +317,8 @@ public class TFServer extends Thread{
             
             int nRoles;
             HashMap<Integer, String> roles = new HashMap<>();
-            UserDAO role = new UserDAO();
+            UserDAO role = (UserDAO) TFFactory.getInstance("USER");
+            
             
             //Llegim quin mètode sobre carrgat del UserDAO es vol fer servir 
             switch(dis.readUTF()){

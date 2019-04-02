@@ -62,16 +62,16 @@ public interface TFClient {
      */
     public ArrayList<UserDTO> listUsers(String roleName);
     
-    /*
-    //TODO: codificar editUserPswd TFC
-    public boolean editUserPswd(String userName, String pswd){
-        boolean ret = false;
-        
-        return ret;
-    }
-    */
     
-    //TODO: codificar getUserRoles TFC
+    //TODO: codificar editUserPswd TFC
+    /**
+     * Modifica el password de l'usuari
+     * @param userName String amb el nom de l'usuari
+     * @param newPswd Srting amb el password nou a cambiar
+     * @return Retorna true si s'ha cambiat correctament
+     */
+    public boolean editUserPswd(String userName, String newPswd);
+    
     /**
      * Llista tots els rols
      * @return Retorna un HashMap<Integer,String> amb tots els rols

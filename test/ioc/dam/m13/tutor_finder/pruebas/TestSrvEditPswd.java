@@ -9,31 +9,30 @@ import java.util.Scanner;
  *
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
-public class TestSrvNewUser {
+public class TestSrvEditPswd {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
-        TestSrvNewUser prg = new TestSrvNewUser();
+        // TODO code application logic here
+        TestSrvEditPswd prg = new TestSrvEditPswd();
         prg.inici();
 
     }
     
     public void inici(){
-        
         TFClient client = new TFClientImple();
         UserDTO userDTO = null;
         
-        System.out.println("---Login--- ");
+        System.out.println("---Edit User Password--- ");
         System.out.println("User: ");
         Scanner scanner = new Scanner(System.in);
         String user = scanner.nextLine();
         System.out.println("Password: ");
         String pwd = scanner.nextLine();
         
-        boolean ret = client.login(user, pwd);
+        boolean ret = client.editUserPswd(user, pwd);
         
         if (ret) {
             userDTO = client.userData(user);
@@ -42,27 +41,8 @@ public class TestSrvNewUser {
             
         } else {
             
-            System.out.println("Aquest ususari no existeix!!");
-            System.out.println("Crei un nou usuari..."
-                    + "\nNom: ");
-            String nom = scanner.nextLine();
-            System.out.println("Email: ");
-            String email = scanner.nextLine();
-            System.out.println("Password: ");
-            String pswd = scanner.nextLine();
-            System.out.println("Rol: ");
-            String role = scanner.nextLine();
-            
-            boolean resposta = client.newUser(nom, email, pswd, role);
-            
-            if (resposta) {
-                System.out.println("S'ha creat un nou usuari");
-            } else {
-                System.out.println("No s'ha creat un nou usuari");
-            }
-            
+            System.out.println("No s'ha pugut canviar la contrasenya");
             
         }
     }
-
 }

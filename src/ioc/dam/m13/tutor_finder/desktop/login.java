@@ -176,7 +176,7 @@ public class login extends javax.swing.JFrame {
      */
 
     private void buttonSortirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSortirActionPerformed
-        // TODO add your handling code here:
+        
         System.exit(0);
     }//GEN-LAST:event_buttonSortirActionPerformed
 
@@ -186,7 +186,7 @@ public class login extends javax.swing.JFrame {
      *
      */
     private void buttonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIniciarActionPerformed
-        // TODO add your handling code here:
+        
         
         //Fem la connexió amb la classe que es connecta amb el servidor
         TFClient l = new TFClientImple();
@@ -313,7 +313,7 @@ public class login extends javax.swing.JFrame {
      */
 
     private void buttonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistrarActionPerformed
-        // TODO add your handling code here:
+        
 
         registrar formRegistrar = new registrar();
 

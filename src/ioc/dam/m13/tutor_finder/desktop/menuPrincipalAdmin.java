@@ -94,7 +94,7 @@ public class menuPrincipalAdmin extends javax.swing.JFrame {
      * Botó per sortir de l'aplicació
      * */
     private void buttonSortirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSortirActionPerformed
-        // TODO add your handling code here:
+        
         System.exit(0);
     }//GEN-LAST:event_buttonSortirActionPerformed
 

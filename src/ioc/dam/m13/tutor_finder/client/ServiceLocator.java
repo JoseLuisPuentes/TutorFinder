@@ -420,9 +420,66 @@ public class ServiceLocator {
         return users;
     }
     
-    //TODO: codificar editUserPswd SL
-    public static boolean editUserPswd(String userName, String pswd){
+    //TODO: provar editUserPswd SL
+    /**
+     * Connecta amb el TFServer agafant les dades de l'arxiu "config.properties"
+     * i canvia la contrasenya de l'usuari
+     * @param userName String amb el nom de l'usuari
+     * @param newPswd String amb la nova contrasenya
+     * @return Retorna true si s'ha cenviat correctament
+     */
+    public static boolean editUserPswd(String userName, String newPswd){
         boolean ret = false;
+        
+        // Dades de configuració del servidor
+        String serverIp = null;
+        int port;
+        
+        Socket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos =null;
+        
+        try {
+            // Agafem les dades de conexió al server
+            // del arxiu de configuració "config.properties"            
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
+            serverIp = rb.getString("server_ip");
+            port = Integer.parseInt(rb.getString("port"));
+            
+            // Instanciem el Socket i els Input i Output 
+            // per comunicar amb el server
+            s = new Socket(serverIp, port);
+            dis = new DataInputStream(s.getInputStream());
+            dos = new DataOutputStream(s.getOutputStream());
+            
+            // Solicitem el canvi de contrasenya al servidor
+            dos.writeInt(TFServer.EDIT_USER_PSWD);
+            dos.writeUTF(userName);
+            dos.writeUTF(newPswd);
+            
+            
+            // Llegim la resposta
+            ret = dis.readBoolean();
+            
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (dis != null) { dis.close();}
+                if (dos != null) { dos.close();}
+                if (s != null) { s.close();}
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
         
         return ret;
     }

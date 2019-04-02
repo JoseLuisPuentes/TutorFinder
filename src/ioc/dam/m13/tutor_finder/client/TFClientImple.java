@@ -67,6 +67,12 @@ public class TFClientImple implements TFClient{
         
         return ServiceLocator.delUser(userName);
     }
+
+    @Override
+    public boolean editUserPswd(String userName, String newPswd) {
+        
+        return ServiceLocator.editUserPswd(userName, newPswd);
+    }
     
 
 }

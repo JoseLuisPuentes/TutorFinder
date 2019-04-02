@@ -146,11 +146,12 @@ public class UserDAO {
      * @param userPswd String amd la contrasenya de l'usuari
      * @param roleName String amb rol de l'usuari
      * @return retorna true si s'ha inserit a la BBDD
-     */
-    
+     */    
     public boolean newUser(String userName, String userMail, String userPswd, String roleName){
+        
         boolean ret = false;
-        int result = 0;
+        int result;
+        
         Connection con = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -162,7 +163,7 @@ public class UserDAO {
             String sql = "";
             sql += "INSERT INTO users (user_name, user_mail, user_pswd, user_role_id)";
             sql += "VALUES (?, ?, ?, ?) ";
-            //TODO: prova de ficar role
+            //Busquem el id del rol
             int roleId = getUserRoles(roleName);
                         
             //preparem la inserció
@@ -202,9 +203,64 @@ public class UserDAO {
     }
     
     //TODO: codificar editUser
+    /**
+     * Modifica les dades d'un usuari a la BBDD
+     * @param userName
+     * @return 
+     */
     public boolean editUser(String userName){
-        boolean ret = false;
         
+        boolean ret = false;
+        /*
+        int result;
+        Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+               
+        try {
+            // Agafem una connexió del pool
+            con = ConnectionPool.getPool().getConnection();
+            //SQL
+            String sql = "";
+            sql += "INSERT INTO users (user_name, user_mail, user_pswd, user_role_id)";
+            sql += "VALUES (?, ?, ?, ?) ";
+            //Busquem el id del rol
+            int roleId = getUserRoles(roleName);
+                        
+            //preparem la inserció
+            pstm = con.prepareStatement(sql);
+            pstm.setString(1, userName);
+            pstm.setString(2, userMail);
+            pstm.setString(3, userPswd);
+            pstm.setInt(4, roleId);
+
+            result = pstm.executeUpdate();
+            con.commit();
+            
+            if (result > 0) {
+                ret = true;
+            }
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (rs != null) { rs.close();}
+                if (pstm != null) { pstm.close();}
+                ConnectionPool.getPool().releaseConnection(con);
+                
+            } catch (Exception e) {
+                
+                e.printStackTrace();
+                throw new RuntimeException(e);
+                
+            }
+        }
+        */
         return ret;
     }
     
@@ -391,15 +447,68 @@ public class UserDAO {
         return users;
     }
     
-    //TODO: codificar editUserPswd
-    public boolean editUserPswd(String userName, String pswd){
-        boolean ret = false;
+    //TODO: provar editUserPswd
+    /**
+     * Modifica el password de l'usuari
+     * @param userName String amb el nom de l'usuari
+     * @param newPswd Srting amb el password nou a cambiar
+     * @return Retorna true si s'ha cambiat correctament
+     */
+    public boolean editUserPswd(String userName, String newPswd){
         
+        boolean ret = false;
+        int result;
+        
+        Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+               
+        try {
+            // Agafem una connexió del pool
+            con = ConnectionPool.getPool().getConnection();
+            //SQL
+            String sql = "";
+            sql += "UPDATE users ";
+            sql += "SET user_pswd = ? ";
+            sql += "WHERE user_name = ?";
+                                   
+            //preparem la inserció
+            pstm = con.prepareStatement(sql);
+            pstm.setString(1, newPswd);
+            pstm.setString(2, userName);
+            
+            result = pstm.executeUpdate();
+            con.commit();
+            
+            if (result > 0) {
+                ret = true;
+            }
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (rs != null) { rs.close();}
+                if (pstm != null) { pstm.close();}
+                ConnectionPool.getPool().releaseConnection(con);
+                
+            } catch (Exception e) {
+                
+                e.printStackTrace();
+                throw new RuntimeException(e);
+                
+            }
+        }
         return ret;
     }
-    
-    
-    //TODO: codificar getUserRoles
+    /**
+     * Llista els rols amd els seus id's
+     * @return Retorna un HashMap amb tots els rols i els seus id's
+     */
     public HashMap<Integer, String> getUserRoles(){
         
         HashMap<Integer, String> userRoles = new HashMap<>();
@@ -450,7 +559,11 @@ public class UserDAO {
         
         return userRoles;
     }
-    
+    /**
+     * Demana quin id te el rol pel seu nom
+     * @param roleName String amb el nom del rol
+     * @return Retorna un int amb l'id del rol demanat
+     */
     public int getUserRoles(String roleName){
         int ret = -1;
         Connection con = null;
@@ -500,7 +613,11 @@ public class UserDAO {
         
         return ret;
     }
-    
+    /**
+     * Demana quin nom te el rol pel seu id
+     * @param roleId int amb l'id del rol
+     * @return Retorna un String amb el nom del rol demanat
+     */
     public String getUserRoles(int roleId){
         
         String ret = null;

@@ -16,7 +16,7 @@ public class TestSrvListUserRol {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+
         TestSrvListUserRol prg = new TestSrvListUserRol();
         prg.inici();
 

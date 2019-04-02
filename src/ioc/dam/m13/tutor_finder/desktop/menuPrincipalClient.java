@@ -93,7 +93,7 @@ public class menuPrincipalClient extends javax.swing.JFrame {
      * Botó per sortir de l'aplicació
      * */
     private void buttonSortieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSortieActionPerformed
-        // TODO add your handling code here:
+        
        System.exit(0);
     }//GEN-LAST:event_buttonSortieActionPerformed
 

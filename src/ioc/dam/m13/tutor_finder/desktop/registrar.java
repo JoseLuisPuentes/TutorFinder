@@ -230,14 +230,14 @@ public class registrar extends javax.swing.JFrame {
      * Botó per sortir de l'aplicació
      * */
     private void buttonSortirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSortirActionPerformed
-        // TODO add your handling code here:
+        
         System.exit(0);
     }//GEN-LAST:event_buttonSortirActionPerformed
     /**
      * Botó per tornar a iniciar sesió 
      * */
     private void buttonTornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTornarActionPerformed
-        // TODO add your handling code here:
+        
             login formLogin = new login();
 
             formLogin.setVisible(true);
@@ -249,13 +249,13 @@ public class registrar extends javax.swing.JFrame {
      * Text del correu que introduim
      * */
     private void textEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textEmailActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_textEmailActionPerformed
     /**
      * Text del nom que introduim
      * */
     private void textNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_textNomActionPerformed
 
     /**
