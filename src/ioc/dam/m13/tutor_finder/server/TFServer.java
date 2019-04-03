@@ -151,7 +151,6 @@ public class TFServer extends Thread{
      * @param dis InputStream del client
      * @param dos OutputStream del client
      */
-    
     private void _userData(DataInputStream dis, DataOutputStream dos) {
         try {
             
@@ -178,7 +177,11 @@ public class TFServer extends Thread{
             
         }
     }
-
+    /**
+     * Crea un nou usuari a la BBDD amb les dades que rep del client
+     * @param dis DataInputStream del client
+     * @param dos DataOutputStream del client
+     */
     private void _newUser(DataInputStream dis, DataOutputStream dos) {
         
         try {
@@ -202,12 +205,40 @@ public class TFServer extends Thread{
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     * Modifica les dades d'un ususari amb les dades que rep del client
+     * @param dis DataInputStream del client
+     * @param dos DataOutputStream del client
+     */
     private void _editUser(DataInputStream dis, DataOutputStream dos) {
-        //TODO: _editUser
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //TODO: provar _editUser
+        try {
+            
+            UserDAO dao = (UserDAO) TFFactory.getInstance("USER");
+            
+            //Llegim les dades del client a canviar 
+            int userId = dis.readInt();
+            String userName = dis.readUTF();
+            String userMail = dis.readUTF();
+            String userRole = dis.readUTF();
+            
+            //Canviem les dades de l'usari
+            boolean ret = dao.editUser(userId, userName, userMail, userRole);
+            
+            //Retornem al client el resultat
+            dos.writeBoolean(ret);
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
-
+    /**
+     * Esborra un ususari de la BBDD
+     * @param dis DataInputStream del client
+     * @param dos DataOutputStream del client
+     */
     private void _delUser(DataInputStream dis, DataOutputStream dos) {
         try {
             UserDAO dao = (UserDAO) TFFactory.getInstance("USER");
@@ -228,7 +259,11 @@ public class TFServer extends Thread{
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     * Llista els ususaris de la BBDD
+     * @param dis DataInputStream del client
+     * @param dos DataOutputStream del client
+     */
     private void _listUsers(DataInputStream dis, DataOutputStream dos) {
         
         try {
@@ -285,9 +320,13 @@ public class TFServer extends Thread{
         }
         
     }
-
+    /**
+     * Mododifica la contrasenya de l'usuari
+     * @param dis DataInputStream del client
+     * @param dos DataOutputStream del client
+     */
     private void _editUserPswd(DataInputStream dis, DataOutputStream dos) {
-        //TODO: provar _editUserPswd 
+
         try {
             
             UserDAO dao = (UserDAO) TFFactory.getInstance("USER");
@@ -307,11 +346,12 @@ public class TFServer extends Thread{
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        
-        
-        
     }
-
+    /**
+     * Llista els rols que hi ha a la BBDD
+     * @param dis DataInputStream del client
+     * @param dos DataOutputStream del client
+     */
     private void _getUserRoles(DataInputStream dis, DataOutputStream dos) {
         try {
             

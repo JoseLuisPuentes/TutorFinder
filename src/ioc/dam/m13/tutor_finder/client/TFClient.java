@@ -34,14 +34,17 @@ public interface TFClient {
      * @return Retorna true si s'ha inserit correctament
      */
     public boolean newUser(String userName, String userMail, String userPswd, String userRole);
-    /*
-    //TODO: codificar editUser TFC
-    public boolean editUser(String userName){
-        boolean ret = false;
-        
-        return ret;
-    }
-    */
+    
+    /**
+     * Modifica les dades d'un usuari 
+     * @param userId Int amb el id de l'usuari
+     * @param userName String amb el nou nom de l'usuari
+     * @param userMail String amb el nou mail de l'usuari
+     * @param userRole String amd el nou role de l'usuari
+     * @return Retorna true si s'han canviat les dades correctament
+     */
+    public boolean editUser(int userId, String userName, String userMail, String userRole);
+    
     /**
      * Elimina un usuari
      * @param userName String amb el nom de l'usuari a eliminar
@@ -63,7 +66,6 @@ public interface TFClient {
     public ArrayList<UserDTO> listUsers(String roleName);
     
     
-    //TODO: codificar editUserPswd TFC
     /**
      * Modifica el password de l'usuari
      * @param userName String amb el nom de l'usuari

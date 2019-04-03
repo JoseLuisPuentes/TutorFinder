@@ -202,17 +202,20 @@ public class UserDAO {
         return ret;
     }
     
-    //TODO: codificar editUser
+    //TODO: provar editUser
     /**
      * Modifica les dades d'un usuari a la BBDD
-     * @param userName
-     * @return 
+     * @param userId Int amb el id de l'usuari
+     * @param userName String amb el nou nom de l'usuari
+     * @param userMail String amb el nou mail de l'usuari
+     * @param userRole String amd el nou role de l'usuari
+     * @return Retorna true si s'han canviat les dades correctament
      */
-    public boolean editUser(String userName){
+    public boolean editUser(int userId, String userName, String userMail, String userRole){
         
-        boolean ret = false;
-        /*
+        boolean ret = false;        
         int result;
+        
         Connection con = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -222,17 +225,19 @@ public class UserDAO {
             con = ConnectionPool.getPool().getConnection();
             //SQL
             String sql = "";
-            sql += "INSERT INTO users (user_name, user_mail, user_pswd, user_role_id)";
-            sql += "VALUES (?, ?, ?, ?) ";
+            sql += "UPDATE users ";
+            sql += "SET user_name = ?, user_mail = ?, user_role = ? ";
+            sql += "WHERE user_name = ?";
+            
             //Busquem el id del rol
-            int roleId = getUserRoles(roleName);
+            int roleId = getUserRoles(userRole);
                         
             //preparem la inserció
             pstm = con.prepareStatement(sql);
             pstm.setString(1, userName);
             pstm.setString(2, userMail);
-            pstm.setString(3, userPswd);
-            pstm.setInt(4, roleId);
+            pstm.setInt(3, roleId);
+            pstm.setInt(4, userId);
 
             result = pstm.executeUpdate();
             con.commit();
@@ -260,7 +265,7 @@ public class UserDAO {
                 
             }
         }
-        */
+        
         return ret;
     }
     
@@ -447,7 +452,7 @@ public class UserDAO {
         return users;
     }
     
-    //TODO: provar editUserPswd
+
     /**
      * Modifica el password de l'usuari
      * @param userName String amb el nom de l'usuari
