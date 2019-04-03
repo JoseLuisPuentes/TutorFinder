@@ -161,13 +161,27 @@ public class TFServer extends Thread{
                         
             //Preparem la resposta
             UserDTO userDTO = dao.userData(usr);
-                        
-            //Enviem la resposta
-            dos.writeInt(userDTO.getUserId());
-            dos.writeUTF(userDTO.getUserName());
-            dos.writeUTF(userDTO.getUserMail());
-            dos.writeUTF(userDTO.getUserPswd());
-            dos.writeUTF(userDTO.getUserRole());
+            
+            System.out.println(userDTO.toString());
+            if (userDTO.getUserId() == 0) {
+                //enviem l'id
+                dos.writeInt(userDTO.getUserId());
+                dos.writeUTF("");
+                dos.writeUTF("");
+                dos.writeUTF("");
+                dos.writeUTF("");
+                
+            } else {
+                //Enviem la resposta
+            
+                dos.writeInt(userDTO.getUserId());
+                dos.writeUTF(userDTO.getUserName());
+                dos.writeUTF(userDTO.getUserMail());
+                dos.writeUTF(userDTO.getUserPswd());
+                dos.writeUTF(userDTO.getUserRole());
+            
+            }
+            
             
             
         } catch (Exception e) {

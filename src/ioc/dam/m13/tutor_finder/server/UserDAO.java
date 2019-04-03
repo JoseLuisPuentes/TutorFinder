@@ -224,11 +224,12 @@ public class UserDAO {
             // Agafem una connexió del pool
             con = ConnectionPool.getPool().getConnection();
             //SQL
-            String sql = "";
-            sql += "UPDATE users ";
-            sql += "SET user_name = ?, user_mail = ?, user_role = ? ";
-            sql += "WHERE user_name = ?";
+            String sql = "update users set user_name = ?, user_mail = ?, user_role_id = ? where user_id = ?";
             
+            /*sql += "UPDATE users ";
+            sql += "SET user_name = ?, user_mail = ?, user_role = ?";
+            sql += "WHERE user_id = ?";
+            */
             //Busquem el id del rol
             int roleId = getUserRoles(userRole);
                         
