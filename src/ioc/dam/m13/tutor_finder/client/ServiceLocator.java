@@ -217,7 +217,7 @@ public class ServiceLocator {
     }
     
     //TODO: codificar editUser SL
-    public static boolean editUser(String userName){
+    public static boolean editUser(int userId, String userName, String userMail, String userRole){
         boolean ret = false;
         
         return ret;
@@ -420,7 +420,7 @@ public class ServiceLocator {
         return users;
     }
     
-    //TODO: provar editUserPswd SL
+
     /**
      * Connecta amb el TFServer agafant les dades de l'arxiu "config.properties"
      * i canvia la contrasenya de l'usuari
