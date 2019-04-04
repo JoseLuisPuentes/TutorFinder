@@ -59,12 +59,11 @@ public class UserDTO {
 //toString()
     @Override
     public String toString() {
-        return " --- User --- " + 
-                "\n userId = " + userId + 
-                "\n userName = " + userName + 
-                "\n userMail = " + userMail + 
-                "\n userRole = " + userRole + 
-                "\n userPswd = " + userPswd;
+        return "Id = " + userId + 
+                "\t Name = " + userName + 
+                "\t Mail = " + userMail + 
+                "\t Password = " + userPswd +
+                "\t Role = " + userRole;
     }
     
 

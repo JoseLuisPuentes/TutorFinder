@@ -344,8 +344,8 @@ public class UserDAO {
             String sql = "";
             sql += "SELECT user_id, user_name, user_mail, user_pswd, role_name ";
             sql += "FROM users, roles ";
-            sql += "WHERE users.user_role_id = roles.role_id";
-            
+            sql += "WHERE users.user_role_id = roles.role_id ";
+            sql += "ORDER BY user_id ";
             //Fem la consulta
             pstm = con.prepareStatement(sql);
             rs = pstm.executeQuery();
@@ -409,7 +409,7 @@ public class UserDAO {
             sql += "SELECT user_id, user_name, user_mail, user_pswd, role_name ";
             sql += "FROM users, roles ";
             sql += "WHERE users.user_role_id = roles.role_id AND roles.role_name = ?";
-            
+            sql += "ORDER BY user_id ";
             //Fem la consulta
             pstm = con.prepareStatement(sql);
             pstm.setString(1, roleName);

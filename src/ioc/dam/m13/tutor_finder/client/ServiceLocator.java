@@ -119,9 +119,9 @@ public class ServiceLocator {
             
             // Llegim la resposta i creem la resposta
             user.setUserId(dis.readInt());
-            user.setUserName(dis.readUTF());
-            user.setUserPswd(dis.readUTF());
+            user.setUserName(dis.readUTF());            
             user.setUserMail(dis.readUTF());
+            user.setUserPswd(dis.readUTF());
             user.setUserRole(dis.readUTF());
                         
             
