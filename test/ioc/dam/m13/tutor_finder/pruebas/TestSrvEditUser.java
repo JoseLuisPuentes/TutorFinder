@@ -3,6 +3,7 @@ package ioc.dam.m13.tutor_finder.pruebas;
 import ioc.dam.m13.tutor_finder.client.TFClient;
 import ioc.dam.m13.tutor_finder.client.TFClientImple;
 import ioc.dam.m13.tutor_finder.dtos.UserDTO;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -53,9 +54,12 @@ public class TestSrvEditUser {
             ret = client.editUser(userDTO.getUserId(), name, mail, role);
 
             if (ret) {
-                userDTO = client.userData(name);
-
-                System.out.println(userDTO.toString());
+                ArrayList<UserDTO> users = client.listUsers();
+        
+                for (UserDTO user1 : users) {
+                    System.out.println(user1.toString());
+                    System.out.println("--------------------");
+                }
 
             } else {
 
