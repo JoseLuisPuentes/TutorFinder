@@ -1,5 +1,6 @@
 package ioc.dam.m13.tutor_finder.server;
 
+import ioc.dam.m13.tutor_finder.dtos.AdDTO;
 import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 
 import java.io.DataInputStream;
@@ -29,6 +30,14 @@ public class TFServer extends Thread{
     public static final int LIST_USERS = 5;
     public static final int EDIT_USER_PSWD = 6;
     public static final int GET_USER_ROLES = 7;
+    public static final int CRATE_AD = 8;
+    public static final int LIST_ADS = 9;
+    public static final int LIST_ADS_BY_USER = 10;
+    public static final int LIST_ADS_BY_ROLE = 11;
+    public static final int LIST_ADS_BY_TYPE = 12;
+    public static final int EDIT_AD = 13;
+    public static final int DEL_AD = 14;
+    
     
     private Socket socket = null;
     private DataInputStream dis = null;
@@ -102,6 +111,37 @@ public class TFServer extends Thread{
                 case GET_USER_ROLES:
                     _getUserRoles(dis, dos);
                     break;
+                
+                case CRATE_AD:
+                    _createAd(dis, dos);
+                    break;
+                    
+                case LIST_ADS:
+                    _listAds(dis, dos);
+                    break;
+                    
+                case LIST_ADS_BY_USER:
+                    _listAdsByUser(dis, dos);
+                    break;
+                    
+                case LIST_ADS_BY_ROLE:
+                    _listAdsByRole(dis, dos);
+                    break;
+                    
+                case LIST_ADS_BY_TYPE:
+                    _listAdsByType(dis, dos);
+                    break;
+                    
+                case EDIT_AD:
+                    _editAd(dis, dos);
+                    break;
+                    
+                case DEL_AD:
+                    _delAd(dis, dos);
+                    break;
+                    
+                
+    
                     
             }
             
@@ -225,7 +265,7 @@ public class TFServer extends Thread{
      * @param dos DataOutputStream del client
      */
     private void _editUser(DataInputStream dis, DataOutputStream dos) {
-        //TODO: provar _editUser
+        
         try {
             
             UserDAO dao = (UserDAO) TFFactory.getInstance("USER");
@@ -329,8 +369,7 @@ public class TFServer extends Thread{
             
         } catch (Exception e) {
             
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            
         }
         
     }
@@ -420,6 +459,214 @@ public class TFServer extends Thread{
                     
                     break;    
             }
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void _createAd(DataInputStream dis, DataOutputStream dos) {
+        
+        try {
+            AdDAO dao = (AdDAO) TFFactory.getInstance("AD");
+            
+            //Llegim les dades del client per crear un nou anunci
+            int userId = dis.readInt();
+            String tittle = dis.readUTF();
+            String description = dis.readUTF();
+            int adTypeId = dis.readInt();
+            int price = dis.readInt();
+            
+            System.out.println("user: " + userId);
+            System.out.println("tittle: " + tittle);
+            System.out.println("description: " + description);
+            System.out.println("type: " + adTypeId);
+            System.out.println("price: " + price);
+            
+            
+            //Creem el nou usuari
+            boolean ret = dao.createAd(userId, tittle, description, adTypeId, price);
+            
+            //Retornem al client el resultat
+            dos.writeBoolean(ret);
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void _listAds(DataInputStream dis, DataOutputStream dos) {
+        
+        try {
+            AdDAO dao = (AdDAO) TFFactory.getInstance("AD");
+            ArrayList<AdDTO> ads = new ArrayList<>();
+            int nAds;
+            
+            //Demanem a la BBDD la llista de tots els anuncis
+            ads = dao.listAds();
+            //Enviem el nombre d'anuncis que hi ha de resposta
+            nAds = ads.size();
+            dos.writeInt(nAds);
+            
+            //TODO:prova resposta adslist
+            for (AdDTO ad : ads) {
+                System.out.println(ad.toString());
+            }
+            
+            
+            for (AdDTO ad : ads) {
+                //Retornem els objectes per separat al client
+                dos.writeInt(ad.getAdId());
+                dos.writeInt(ad.getAdUserId());
+                dos.writeUTF(ad.getUserName());
+                dos.writeUTF(ad.getAdTittle());
+                dos.writeUTF(ad.getAdDescription());
+                dos.writeInt(ad.getAdTypeId());
+                dos.writeInt(ad.getAdPrice());
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void _listAdsByUser(DataInputStream dis, DataOutputStream dos) {
+        
+        try {
+            AdDAO dao = (AdDAO) TFFactory.getInstance("AD");
+            ArrayList<AdDTO> ads = new ArrayList<>();
+            int nAds;
+            //Llegim l'id d'usuari
+            int userId = dis.readInt();
+            
+            //Demanem a la BBDD la llista de tots els anuncis
+            ads = dao.listAdsByUser(userId);
+            //Enviem el nombre d'anuncis que hi ha de resposta
+            nAds = ads.size();
+            dos.writeInt(nAds);
+            
+            for (AdDTO ad : ads) {
+                //Retornem els objectes per separat al client
+                dos.writeInt(ad.getAdId());
+                dos.writeInt(ad.getAdUserId());
+                dos.writeUTF(ad.getUserName());
+                dos.writeUTF(ad.getAdTittle());
+                dos.writeUTF(ad.getAdDescription());
+                dos.writeInt(ad.getAdTypeId());
+                dos.writeInt(ad.getAdPrice());
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void _listAdsByRole(DataInputStream dis, DataOutputStream dos) {
+        
+        try {
+            AdDAO dao = (AdDAO) TFFactory.getInstance("AD");
+            ArrayList<AdDTO> ads = new ArrayList<>();
+            int nAds;
+            //Llegim l'id del rol
+            int roleId = dis.readInt();
+            //Demanem a la BBDD la llista de tots els anuncis
+            ads = dao.listAdsByRole(roleId);
+            //Enviem el nombre d'anuncis que hi ha de resposta
+            nAds = ads.size();
+            dos.writeInt(nAds);
+            
+            for (AdDTO ad : ads) {
+                //Retornem els objectes per separat al client
+                dos.writeInt(ad.getAdId());
+                dos.writeInt(ad.getAdUserId());
+                dos.writeUTF(ad.getUserName());
+                dos.writeUTF(ad.getAdTittle());
+                dos.writeUTF(ad.getAdDescription());
+                dos.writeInt(ad.getAdTypeId());
+                dos.writeInt(ad.getAdPrice());
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void _listAdsByType(DataInputStream dis, DataOutputStream dos) {
+        
+        try {
+            AdDAO dao = (AdDAO) TFFactory.getInstance("AD");
+            ArrayList<AdDTO> ads = new ArrayList<>();
+            int nAds;
+            //Llegim l'id del tipus
+            int typeId = dis.readInt();
+            //Demanem a la BBDD la llista de tots els anuncis
+            ads = dao.listAdsByType(typeId);
+            //Enviem el nombre d'anuncis que hi ha de resposta
+            nAds = ads.size();
+            dos.writeInt(nAds);
+            
+            for (AdDTO ad : ads) {
+                //Retornem els objectes per separat al client
+                dos.writeInt(ad.getAdId());
+                dos.writeInt(ad.getAdUserId());
+                dos.writeUTF(ad.getUserName());
+                dos.writeUTF(ad.getAdTittle());
+                dos.writeUTF(ad.getAdDescription());
+                dos.writeInt(ad.getAdTypeId());
+                dos.writeInt(ad.getAdPrice());
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void _editAd(DataInputStream dis, DataOutputStream dos) {
+        try {
+            
+            AdDAO dao = (AdDAO) TFFactory.getInstance("AD");
+            
+            //Llegim les dades de l'anunci a canviar 
+            int adId = dis.readInt();
+            String tittle = dis.readUTF();
+            String description = dis.readUTF();
+            int adTypeId = dis.readInt();
+            int price = dis.readInt();
+            
+            //Canviem les dades de l'usari
+            boolean ret = dao.editAd(adId, tittle,description,adTypeId, price);
+            
+            //Retornem al client el resultat
+            dos.writeBoolean(ret);
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void _delAd(DataInputStream dis, DataOutputStream dos) {
+        try {
+            AdDAO dao = (AdDAO) TFFactory.getInstance("AD");
+            
+            //Llegim l'id de l'anunci a eliminar
+            int adId = dis.readInt();
+            
+            
+            //Eliminem l'anunci
+            boolean ret = dao.delAd(adId);
+            
+            //Retornem al client el resultat
+            dos.writeBoolean(ret);
             
         } catch (Exception e) {
             

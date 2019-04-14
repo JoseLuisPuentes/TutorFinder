@@ -1,5 +1,6 @@
 package ioc.dam.m13.tutor_finder.client;
 
+import ioc.dam.m13.tutor_finder.dtos.AdDTO;
 import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -93,4 +94,8 @@ public interface TFClient {
      * @return 
      */
     public String getUserRoleName(int roleId);
+    
+    public boolean createAd (int userId, String tittle, String description, int adTypeId, int price);
+    
+    public ArrayList<AdDTO> listAds();
 }

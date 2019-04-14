@@ -42,6 +42,7 @@ public class TestSrvNewUser {
             
         } else {
             
+            
             System.out.println("Aquest ususari no existeix!!");
             System.out.println("Crei un nou usuari..."
                     + "\nNom: ");

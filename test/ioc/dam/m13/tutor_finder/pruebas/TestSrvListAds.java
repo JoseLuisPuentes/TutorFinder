@@ -2,21 +2,21 @@ package ioc.dam.m13.tutor_finder.pruebas;
 
 import ioc.dam.m13.tutor_finder.client.TFClient;
 import ioc.dam.m13.tutor_finder.client.TFClientImple;
-import ioc.dam.m13.tutor_finder.dtos.UserDTO;
+import ioc.dam.m13.tutor_finder.dtos.AdDTO;
 import java.util.ArrayList;
 
 /**
  *
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
-public class TestSrvListUsers {
+public class TestSrvListAds {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
-        TestSrvListUsers prg = new TestSrvListUsers();
+        // TODO code application logic here
+        TestSrvListAds prg = new TestSrvListAds();
         prg.inici();
 
     }
@@ -27,12 +27,12 @@ public class TestSrvListUsers {
         
         
         
-        ArrayList<UserDTO> users = client.listUsers();
+        ArrayList<AdDTO> ads = client.listAds();
         
-        for (UserDTO user : users) {
-            System.out.println(user.toString());
+        for (AdDTO ad : ads) {
+            System.out.println(ad.toString());
             System.out.println("--------------------");
         }
     }
 
-}        
+}

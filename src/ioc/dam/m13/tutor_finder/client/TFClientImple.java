@@ -1,5 +1,6 @@
 package ioc.dam.m13.tutor_finder.client;
 
+import ioc.dam.m13.tutor_finder.dtos.AdDTO;
 import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,6 +79,18 @@ public class TFClientImple implements TFClient{
     public boolean editUser(int userId, String userName, String userMail, String userRole) {
         
         return ServiceLocator.editUser(userId, userName, userMail, userRole);
+    }
+
+    @Override
+    public boolean createAd(int userId, String tittle, String description, int adTypeId, int price) {
+        
+        return ServiceLocator.createAd(userId, tittle, description, adTypeId, price);
+    }
+
+    @Override
+    public ArrayList<AdDTO> listAds() {
+        
+        return ServiceLocator.listAds();        
     }
 
 }

@@ -2,6 +2,7 @@ package ioc.dam.m13.tutor_finder.client;
 
 
 
+import ioc.dam.m13.tutor_finder.dtos.AdDTO;
 import ioc.dam.m13.tutor_finder.server.TFServer;
 import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 
@@ -733,5 +734,136 @@ public class ServiceLocator {
         }
         
         return ret;
+    }
+    
+    public static boolean createAd (int userId, String tittle, String description, int adTypeId, int price) {
+        
+        boolean ret = false;
+        
+        // Dades de configuració del servidor
+        String serverIp = null;
+        int port;
+        
+        Socket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos =null;
+        
+        try {
+            // Agafem les dades de conexió al server
+            // del arxiu de configuració "config.properties"            
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
+            serverIp = rb.getString("server_ip");
+            port = Integer.parseInt(rb.getString("port"));
+            
+            // Instanciem el Socket i els Input i Output 
+            // per comunicar amb el server
+            s = new Socket(serverIp, port);
+            dis = new DataInputStream(s.getInputStream());
+            dos = new DataOutputStream(s.getOutputStream());
+            
+            // Solicitem el enviar el nou usuari al servidor
+            dos.writeInt(TFServer.CRATE_AD);
+            //Enviem les dades del nou usari
+            dos.writeInt(userId);
+            dos.writeUTF(tittle);
+            dos.writeUTF(description);
+            dos.writeInt(adTypeId);
+            dos.writeInt(price);
+            
+            // Llegim la resposta
+            ret = dis.readBoolean();
+            
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (dis != null) { dis.close();}
+                if (dos != null) { dos.close();}
+                if (s != null) { s.close();}
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        
+        return ret;
+    }
+    
+    public static ArrayList<AdDTO> listAds(){
+        // Dades de configuració del servidor
+        String serverIp;
+        int port;
+        
+        Socket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos = null;
+        
+        ArrayList<AdDTO> ads = new ArrayList<>();
+        
+        try {
+            // Agafem les dades de conexió al server
+            // del arxiu de configuració "config.properties"            
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
+            serverIp = rb.getString("server_ip");
+            port = Integer.parseInt(rb.getString("port"));
+            
+            // Instanciem el Socket i els Input i Output 
+            // per comunicar amb el server
+            s = new Socket(serverIp, port);
+            dis = new DataInputStream(s.getInputStream());
+            dos = new DataOutputStream(s.getOutputStream());
+            
+            // Solicitem el llistat de tots els anuncis al servidor
+            dos.writeInt(TFServer.LIST_ADS);
+            
+            
+            //Revem el nombre d'anuncis que hi haurà de resposta
+            int nAds = dis.readInt();
+            
+            for (int i = 0; i < nAds; i++) {
+                //Rebem los dades del servidor i construï un UserDTO 
+                //i el fiquem l'ArrayList
+                AdDTO ad = new AdDTO();
+                ad.setAdId(dis.readInt());
+                ad.setAdUserId(dis.readInt());
+                ad.setUserName(dis.readUTF());
+                ad.setAdTittle(dis.readUTF());
+                ad.setAdDescription(dis.readUTF());
+                ad.setAdTypeId(dis.readInt());
+                ad.setAdPrice(dis.readInt());
+                                
+                ads.add(ad);
+            }
+                        
+                        
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (dis != null) { dis.close();}
+                if (dos != null) { dos.close();}
+                if (s != null) { s.close();}
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        
+        return ads;
+    
     }
 }
