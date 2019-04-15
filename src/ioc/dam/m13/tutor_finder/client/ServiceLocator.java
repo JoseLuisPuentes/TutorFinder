@@ -837,6 +837,7 @@ public class ServiceLocator {
                 ad.setAdTittle(dis.readUTF());
                 ad.setAdDescription(dis.readUTF());
                 ad.setAdTypeId(dis.readInt());
+                ad.setTypesName(dis.readUTF());
                 ad.setAdPrice(dis.readInt());
                                 
                 ads.add(ad);

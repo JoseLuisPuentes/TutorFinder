@@ -526,6 +526,7 @@ public class TFServer extends Thread{
                 dos.writeUTF(ad.getAdTittle());
                 dos.writeUTF(ad.getAdDescription());
                 dos.writeInt(ad.getAdTypeId());
+                dos.writeUTF(ad.getTypesName());
                 dos.writeInt(ad.getAdPrice());
             }
             
