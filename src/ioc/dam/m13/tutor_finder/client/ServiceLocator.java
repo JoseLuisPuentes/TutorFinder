@@ -217,7 +217,6 @@ public class ServiceLocator {
         return ret;
     }
     
-    //TODO: provar editUser SL
     /**
      * Connecta amb el TFserver agafant les dades de l'arxiu "config.properties"
      * i modificar les dades d'un usuari amb les dades passdes.
@@ -866,5 +865,47 @@ public class ServiceLocator {
         
         return ads;
     
+    }
+    //TODO: listAdsByUser ServiceLocator
+    public static ArrayList<AdDTO> listAdsByUser(int userId){
+        
+        ArrayList<AdDTO> ads = new ArrayList<>();
+        return ads;
+        
+    }
+    //TODO: listAdsByRole ServiceLocator        
+    public static ArrayList<AdDTO> listAdsByRole(int roleId){
+        ArrayList<AdDTO> ads = new ArrayList<>();
+        return ads;
+    }
+    //TODO: listAdsByType ServiceLocator        
+    public static ArrayList<AdDTO> listAdsByType(int typeId){
+        ArrayList<AdDTO> ads = new ArrayList<>();
+        return ads;
+    }
+    //TODO: editAd ServiceLocator
+    public static boolean editAd(int adId, String tittle, String description, int adTypeId, int price){
+        boolean ret = false;
+        return ret;
+    }
+    //TODO: delAd ServiceLocator
+    public static boolean delAd(int adId){
+        boolean ret = false;
+        return ret;
+    }
+    //TODO: getAdTypes ServiceLocator
+    public static HashMap<Integer, String> getAdTypes(){
+        HashMap<Integer, String> adTypes = new HashMap<>();
+        return adTypes;
+    }
+    //TODO: getAdTypeById ServiceLocator
+    public static String getAdTypeById(int adTypeId){
+        String ret = null;
+        return ret;
+    }
+    //TODO: getAdTypeByNAme ServiceLocator
+    public static int getAdTypeByName(String AdTypeName){
+        int ret = 0 ;
+        return ret;
     }
 }

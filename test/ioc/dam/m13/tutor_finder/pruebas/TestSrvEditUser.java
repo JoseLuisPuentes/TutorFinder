@@ -16,7 +16,6 @@ public class TestSrvEditUser {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
         TestSrvEditUser prg = new TestSrvEditUser();
         prg.inici();
 

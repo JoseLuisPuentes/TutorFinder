@@ -37,6 +37,9 @@ public class TFServer extends Thread{
     public static final int LIST_ADS_BY_TYPE = 12;
     public static final int EDIT_AD = 13;
     public static final int DEL_AD = 14;
+    public static final int GET_AD_TYPES = 15;
+    public static final int GET_AD_TYPE_BY_ID = 16;
+    public static final int GET_AD_TYPE_BY_NAME = 17;
     
     
     private Socket socket = null;
@@ -140,7 +143,18 @@ public class TFServer extends Thread{
                     _delAd(dis, dos);
                     break;
                     
-                
+                case GET_AD_TYPES:
+                    _getAdTypes(dis, dos);
+                    break;
+                    
+                case GET_AD_TYPE_BY_ID:
+                    _getAdTypeById(dis, dos);
+                    break;
+                    
+                case GET_AD_TYPE_BY_NAME:
+                    _getAdTypeByName(dis, dos);
+                    break;
+                    
     
                     
             }
@@ -559,6 +573,7 @@ public class TFServer extends Thread{
                 dos.writeUTF(ad.getAdTittle());
                 dos.writeUTF(ad.getAdDescription());
                 dos.writeInt(ad.getAdTypeId());
+                dos.writeUTF(ad.getTypesName());
                 dos.writeInt(ad.getAdPrice());
             }
             
@@ -590,6 +605,7 @@ public class TFServer extends Thread{
                 dos.writeUTF(ad.getAdTittle());
                 dos.writeUTF(ad.getAdDescription());
                 dos.writeInt(ad.getAdTypeId());
+                dos.writeUTF(ad.getTypesName());
                 dos.writeInt(ad.getAdPrice());
             }
             
@@ -621,6 +637,7 @@ public class TFServer extends Thread{
                 dos.writeUTF(ad.getAdTittle());
                 dos.writeUTF(ad.getAdDescription());
                 dos.writeInt(ad.getAdTypeId());
+                dos.writeUTF(ad.getTypesName());
                 dos.writeInt(ad.getAdPrice());
             }
             
@@ -674,5 +691,17 @@ public class TFServer extends Thread{
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+//TODO: _getAdTypes
+    private void _getAdTypes(DataInputStream dis, DataOutputStream dos) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+//TODO: _getAdTypeById 
+    private void _getAdTypeById(DataInputStream dis, DataOutputStream dos) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+//TODO: _getAdTypeByNAme
+    private void _getAdTypeByName(DataInputStream dis, DataOutputStream dos) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

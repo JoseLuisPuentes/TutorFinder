@@ -202,7 +202,6 @@ public class UserDAO {
         return ret;
     }
     
-    //TODO: provar editUser
     /**
      * Modifica les dades d'un usuari a la BBDD
      * @param userId Int amb el id de l'usuari
@@ -224,12 +223,12 @@ public class UserDAO {
             // Agafem una connexió del pool
             con = ConnectionPool.getPool().getConnection();
             //SQL
-            String sql = "update users set user_name = ?, user_mail = ?, user_role_id = ? where user_id = ?";
+            //String sql = "update users set user_name = ?, user_mail = ?, user_role_id = ? where user_id = ?";
+            String sql = "";
+            sql += "UPDATE users ";
+            sql += "SET user_name = ?, user_mail = ?, user_role = ? ";
+            sql += "WHERE user_id = ? ";
             
-            /*sql += "UPDATE users ";
-            sql += "SET user_name = ?, user_mail = ?, user_role = ?";
-            sql += "WHERE user_id = ?";
-            */
             //Busquem el id del rol
             int roleId = getUserRoles(userRole);
                         
