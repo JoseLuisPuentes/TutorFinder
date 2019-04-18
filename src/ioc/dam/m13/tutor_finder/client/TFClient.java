@@ -94,8 +94,25 @@ public interface TFClient {
      * @return 
      */
     public String getUserRoleName(int roleId);
-    
+    //TODO: documentar createAD
     public boolean createAd (int userId, String tittle, String description, int adTypeId, int price);
-    
+    //TODO: documentar listAds
     public ArrayList<AdDTO> listAds();
+    //TODO: documentar listAdByUser
+    public ArrayList<AdDTO> listAdsByUser(int userId);
+    //TODO: documentar listAdsByRole
+    public ArrayList<AdDTO> listAdsByRole(int roleId);
+    //TODO: documentar lsitAdsByType
+    public ArrayList<AdDTO> listAdsByType(int typeId);
+    //TODO: documentar editAd
+    public boolean editAd(int adId, String tittle, String description, int adTypeId, int price);
+    //TODO: documentar delAd
+    public boolean delAd(int adId);
+    //TODO: documentar getAdTypes
+    public HashMap<Integer, String> getAdTypes();
+    //TODO: documentar getAdTypeById
+    public String getAdTypeById(int adTypeId);
+    //TODO: documentar getAdTypeByName
+    public int getAdTypeByName(String adTypeName);
+    
 }

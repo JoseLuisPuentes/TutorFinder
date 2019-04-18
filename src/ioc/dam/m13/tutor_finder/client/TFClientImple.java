@@ -93,4 +93,52 @@ public class TFClientImple implements TFClient{
         return ServiceLocator.listAds();        
     }
 
+    @Override
+    public ArrayList<AdDTO> listAdsByUser(int userId) {
+        
+        return ServiceLocator.listAdsByUser(userId);
+    }
+
+    @Override
+    public ArrayList<AdDTO> listAdsByRole(int roleId) {
+        
+        return ServiceLocator.listAdsByRole(roleId);
+    }
+
+    @Override
+    public ArrayList<AdDTO> listAdsByType(int typeId) {
+        
+        return ServiceLocator.listAdsByType(typeId);
+    }
+
+    @Override
+    public boolean editAd(int adId, String tittle, String description, int adTypeId, int price) {
+        
+        return ServiceLocator.editAd(adId, tittle, description, adTypeId, price);
+    }
+
+    @Override
+    public boolean delAd(int adId) {
+        
+        return ServiceLocator.delAd(adId);
+    }
+
+    @Override
+    public HashMap<Integer, String> getAdTypes() {
+        
+        return ServiceLocator.getAdTypes();
+    }
+
+    @Override
+    public String getAdTypeById(int adTypeId) {
+        
+        return ServiceLocator.getAdTypeById(adTypeId);
+    }
+
+    @Override
+    public int getAdTypeByName(String adTypeName) {
+        
+        return ServiceLocator.getAdTypeByName(adTypeName);
+    }
+
 }

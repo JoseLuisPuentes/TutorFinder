@@ -480,7 +480,7 @@ public class TFServer extends Thread{
             throw new RuntimeException(e);
         }
     }
-
+    //TODO: documentar createAD
     private void _createAd(DataInputStream dis, DataOutputStream dos) {
         
         try {
@@ -512,7 +512,7 @@ public class TFServer extends Thread{
             throw new RuntimeException(e);
         }
     }
-
+    //TODO: documentar listAds
     private void _listAds(DataInputStream dis, DataOutputStream dos) {
         
         try {
@@ -526,7 +526,7 @@ public class TFServer extends Thread{
             nAds = ads.size();
             dos.writeInt(nAds);
             
-            //TODO:prova resposta adslist
+            //TODO: prova de resposta adslist
             for (AdDTO ad : ads) {
                 System.out.println(ad.toString());
             }
@@ -549,7 +549,7 @@ public class TFServer extends Thread{
             throw new RuntimeException(e);
         }
     }
-
+    //TODO: documentar listAdByUser
     private void _listAdsByUser(DataInputStream dis, DataOutputStream dos) {
         
         try {
@@ -582,7 +582,7 @@ public class TFServer extends Thread{
             throw new RuntimeException(e);
         }
     }
-
+    //TODO: documentar listAdsByRole
     private void _listAdsByRole(DataInputStream dis, DataOutputStream dos) {
         
         try {
@@ -614,7 +614,7 @@ public class TFServer extends Thread{
             throw new RuntimeException(e);
         }
     }
-
+    //TODO: documentar lsitAdsByType
     private void _listAdsByType(DataInputStream dis, DataOutputStream dos) {
         
         try {
@@ -646,7 +646,7 @@ public class TFServer extends Thread{
             throw new RuntimeException(e);
         }
     }
-
+    //TODO: documentar editAd
     private void _editAd(DataInputStream dis, DataOutputStream dos) {
         try {
             
@@ -671,7 +671,7 @@ public class TFServer extends Thread{
             throw new RuntimeException(e);
         }
     }
-
+    //TODO: documentar delAd
     private void _delAd(DataInputStream dis, DataOutputStream dos) {
         try {
             AdDAO dao = (AdDAO) TFFactory.getInstance("AD");
@@ -692,16 +692,74 @@ public class TFServer extends Thread{
             throw new RuntimeException(e);
         }
     }
-//TODO: _getAdTypes
+    //TODO: documentar _getAdTypes
     private void _getAdTypes(DataInputStream dis, DataOutputStream dos) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            int nTypes;
+            HashMap<Integer, String> ads = new HashMap<>();
+            AdDAO ad = (AdDAO) TFFactory.getInstance("AD");
+            
+            //Demanen a la BBDD la llista de tipus
+            ads = ad.getAdTypes();
+            
+            //Enviem el nombre de tipus que hi ha a la resposta
+            nTypes = ads.size();
+            dos.writeInt(nTypes);
+            
+            for (Map.Entry<Integer, String> entry : ads.entrySet()) {
+                //Agafem les dades del hashMap
+                Integer adTypeId = entry.getKey();
+                String adTypeName = entry.getValue();
+                //Les enviem al client
+                dos.writeInt(adTypeId);
+                dos.writeUTF(adTypeName);
+            }
+            
+            
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
-//TODO: _getAdTypeById 
+    //TODO: documentar _getAdTypeById 
     private void _getAdTypeById(DataInputStream dis, DataOutputStream dos) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        try {
+            
+            String adTypeName = null;
+            AdDAO ad = (AdDAO) TFFactory.getInstance("AD");
+            //Agafem del client el id a buscar
+            int adTypeId = dis.readInt();
+            //Demanem a la BBDD el nom del tipus pel seu id
+            adTypeName = ad.getAdTypeById(adTypeId);
+            //Retonem al client la resposta
+            dos.writeUTF(adTypeName);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
     }
-//TODO: _getAdTypeByNAme
+    //TODO: documentar _getAdTypeByNAme
     private void _getAdTypeByName(DataInputStream dis, DataOutputStream dos) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            
+            int adTypeId = -1;
+             
+            AdDAO ad = (AdDAO) TFFactory.getInstance("AD");
+            //Agafem del client el id a buscar
+            String adTypeName= dis.readUTF();
+            //Demanem a la BBDD el nom del tipus pel sue nom
+            adTypeId = ad.getAdTypeByName(adTypeName);
+            //Retonem al client la resposta
+            dos.writeInt(adTypeId);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 }

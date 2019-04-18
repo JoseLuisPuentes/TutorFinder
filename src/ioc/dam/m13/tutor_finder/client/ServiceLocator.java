@@ -734,7 +734,7 @@ public class ServiceLocator {
         
         return ret;
     }
-    
+    //TODO: documentar crateAd
     public static boolean createAd (int userId, String tittle, String description, int adTypeId, int price) {
         
         boolean ret = false;
@@ -794,7 +794,7 @@ public class ServiceLocator {
         
         return ret;
     }
-    
+    //TODO: documentar listAds
     public static ArrayList<AdDTO> listAds(){
         // Dades de configuració del servidor
         String serverIp;
@@ -866,46 +866,510 @@ public class ServiceLocator {
         return ads;
     
     }
-    //TODO: listAdsByUser ServiceLocator
+    //TODO: documentar listAdsByUser ServiceLocator
     public static ArrayList<AdDTO> listAdsByUser(int userId){
         
+        // Dades de configuració del servidor
+        String serverIp;
+        int port;
+        
+        Socket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos = null;
+        
         ArrayList<AdDTO> ads = new ArrayList<>();
+        
+        try {
+            // Agafem les dades de conexió al server
+            // del arxiu de configuració "config.properties"            
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
+            serverIp = rb.getString("server_ip");
+            port = Integer.parseInt(rb.getString("port"));
+            
+            // Instanciem el Socket i els Input i Output 
+            // per comunicar amb el server
+            s = new Socket(serverIp, port);
+            dis = new DataInputStream(s.getInputStream());
+            dos = new DataOutputStream(s.getOutputStream());
+            
+            // Solicitem el llistat de tots els anuncis al servidor
+            dos.writeInt(TFServer.LIST_ADS_BY_USER);
+            
+            //Enviem el id de l'usuari del que volem rebre els anuncis
+            dos.writeInt(userId);
+            
+            
+            //Revem el nombre d'anuncis que hi haurà de resposta
+            int nAds = dis.readInt();
+            
+            for (int i = 0; i < nAds; i++) {
+                //Rebem los dades del servidor i construï un UserDTO 
+                //i el fiquem l'ArrayList
+                AdDTO ad = new AdDTO();
+                ad.setAdId(dis.readInt());
+                ad.setAdUserId(dis.readInt());
+                ad.setUserName(dis.readUTF());
+                ad.setAdTittle(dis.readUTF());
+                ad.setAdDescription(dis.readUTF());
+                ad.setAdTypeId(dis.readInt());
+                ad.setTypesName(dis.readUTF());
+                ad.setAdPrice(dis.readInt());
+                                
+                ads.add(ad);
+            }
+                        
+                        
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (dis != null) { dis.close();}
+                if (dos != null) { dos.close();}
+                if (s != null) { s.close();}
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        
         return ads;
+    
         
     }
-    //TODO: listAdsByRole ServiceLocator        
+    //TODO: documentar listAdsByRole ServiceLocator        
     public static ArrayList<AdDTO> listAdsByRole(int roleId){
+        // Dades de configuració del servidor
+        String serverIp;
+        int port;
+        
+        Socket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos = null;
+        
         ArrayList<AdDTO> ads = new ArrayList<>();
+        
+        try {
+            // Agafem les dades de conexió al server
+            // del arxiu de configuració "config.properties"            
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
+            serverIp = rb.getString("server_ip");
+            port = Integer.parseInt(rb.getString("port"));
+            
+            // Instanciem el Socket i els Input i Output 
+            // per comunicar amb el server
+            s = new Socket(serverIp, port);
+            dis = new DataInputStream(s.getInputStream());
+            dos = new DataOutputStream(s.getOutputStream());
+            
+            // Solicitem el llistat de tots els anuncis al servidor
+            dos.writeInt(TFServer.LIST_ADS_BY_ROLE);
+            
+            //Enviem el id del rol del que volem rebre els anuncis
+            dos.writeInt(roleId);
+            
+            //Revem el nombre d'anuncis que hi haurà de resposta
+            int nAds = dis.readInt();
+            
+            for (int i = 0; i < nAds; i++) {
+                //Rebem los dades del servidor i construï un UserDTO 
+                //i el fiquem l'ArrayList
+                AdDTO ad = new AdDTO();
+                ad.setAdId(dis.readInt());
+                ad.setAdUserId(dis.readInt());
+                ad.setUserName(dis.readUTF());
+                ad.setAdTittle(dis.readUTF());
+                ad.setAdDescription(dis.readUTF());
+                ad.setAdTypeId(dis.readInt());
+                ad.setTypesName(dis.readUTF());
+                ad.setAdPrice(dis.readInt());
+                                
+                ads.add(ad);
+            }
+                        
+                        
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (dis != null) { dis.close();}
+                if (dos != null) { dos.close();}
+                if (s != null) { s.close();}
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        
         return ads;
+    
     }
-    //TODO: listAdsByType ServiceLocator        
+    //TODO: documentar listAdsByType ServiceLocator        
     public static ArrayList<AdDTO> listAdsByType(int typeId){
+        // Dades de configuració del servidor
+        String serverIp;
+        int port;
+        
+        Socket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos = null;
+        
         ArrayList<AdDTO> ads = new ArrayList<>();
+        
+        try {
+            // Agafem les dades de conexió al server
+            // del arxiu de configuració "config.properties"            
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
+            serverIp = rb.getString("server_ip");
+            port = Integer.parseInt(rb.getString("port"));
+            
+            // Instanciem el Socket i els Input i Output 
+            // per comunicar amb el server
+            s = new Socket(serverIp, port);
+            dis = new DataInputStream(s.getInputStream());
+            dos = new DataOutputStream(s.getOutputStream());
+            
+            // Solicitem el llistat de tots els anuncis al servidor
+            dos.writeInt(TFServer.LIST_ADS_BY_TYPE);
+            
+            //Enviem el id del tipus de clasificació del que volem rebre els anuncis
+            dos.writeInt(typeId);
+            
+            //Revem el nombre d'anuncis que hi haurà de resposta
+            int nAds = dis.readInt();
+            
+            for (int i = 0; i < nAds; i++) {
+                //Rebem los dades del servidor i construï un UserDTO 
+                //i el fiquem l'ArrayList
+                AdDTO ad = new AdDTO();
+                ad.setAdId(dis.readInt());
+                ad.setAdUserId(dis.readInt());
+                ad.setUserName(dis.readUTF());
+                ad.setAdTittle(dis.readUTF());
+                ad.setAdDescription(dis.readUTF());
+                ad.setAdTypeId(dis.readInt());
+                ad.setTypesName(dis.readUTF());
+                ad.setAdPrice(dis.readInt());
+                                
+                ads.add(ad);
+            }
+                        
+                        
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (dis != null) { dis.close();}
+                if (dos != null) { dos.close();}
+                if (s != null) { s.close();}
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        
         return ads;
+
     }
-    //TODO: editAd ServiceLocator
+    //TODO: documentar editAd ServiceLocator
     public static boolean editAd(int adId, String tittle, String description, int adTypeId, int price){
         boolean ret = false;
+        // Dades de configuració del servidor
+        String serverIp = null;
+        int port;
+        
+        Socket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos =null;
+        
+        try {
+            // Agafem les dades de conexió al server
+            // del arxiu de configuració "config.properties"            
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
+            serverIp = rb.getString("server_ip");
+            port = Integer.parseInt(rb.getString("port"));
+            
+            // Instanciem el Socket i els Input i Output 
+            // per comunicar amb el server
+            s = new Socket(serverIp, port);
+            dis = new DataInputStream(s.getInputStream());
+            dos = new DataOutputStream(s.getOutputStream());
+            
+            // Solicitem el editar un nou anunci al servidor
+            dos.writeInt(TFServer.EDIT_AD);
+            //Enviem les dades del nou usari
+            dos.writeInt(adId);
+            dos.writeUTF(tittle);
+            dos.writeUTF(description);
+            dos.writeInt(adTypeId);
+            dos.writeInt(price);
+            
+            
+            // Llegim la resposta
+            ret = dis.readBoolean();
+            
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (dis != null) { dis.close();}
+                if (dos != null) { dos.close();}
+                if (s != null) { s.close();}
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
         return ret;
     }
-    //TODO: delAd ServiceLocator
+    //TODO: documentar delAd ServiceLocator
     public static boolean delAd(int adId){
+        
+        // Dades de configuració del servidor
+        String serverIp;
+        int port;
+        
+        Socket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos = null;
+        
         boolean ret = false;
+        
+        try {
+            // Agafem les dades de conexió al server
+            // del arxiu de configuració "config.properties"            
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
+            serverIp = rb.getString("server_ip");
+            port = Integer.parseInt(rb.getString("port"));
+            
+            // Instanciem el Socket i els Input i Output 
+            // per comunicar amb el server
+            s = new Socket(serverIp, port);
+            dis = new DataInputStream(s.getInputStream());
+            dos = new DataOutputStream(s.getOutputStream());
+            
+            // Solicitem el nom del tipus pel seu id
+            dos.writeInt(TFServer.DEL_AD);
+            
+            dos.writeInt(adId);
+            
+            //Revem la resposta
+            ret = dis.readBoolean();
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (dis != null) { dis.close();}
+                if (dos != null) { dos.close();}
+                if (s != null) { s.close();}
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
         return ret;
     }
-    //TODO: getAdTypes ServiceLocator
+    //TODO: documentar getAdTypes ServiceLocator
     public static HashMap<Integer, String> getAdTypes(){
+        
+        // Dades de configuració del servidor
+        String serverIp;
+        int port;
+        
+        Socket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos = null;
+        
         HashMap<Integer, String> adTypes = new HashMap<>();
+        
+        try {
+            // Agafem les dades de conexió al server
+            // del arxiu de configuració "config.properties"            
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
+            serverIp = rb.getString("server_ip");
+            port = Integer.parseInt(rb.getString("port"));
+            
+            // Instanciem el Socket i els Input i Output 
+            // per comunicar amb el server
+            s = new Socket(serverIp, port);
+            dis = new DataInputStream(s.getInputStream());
+            dos = new DataOutputStream(s.getOutputStream());
+            
+            // Solicitem el llistat de tots els tipus d'anuncis que hi ha al servidor
+            dos.writeInt(TFServer.GET_AD_TYPES);
+                        
+            //Revem el nombre de tipus que hi haurà de resposta
+            int nRoles = dis.readInt();
+            
+            for (int i = 0; i < nRoles; i++) {
+                //Rebem los dades del servidor i construïm 
+                //el HashMap de resposta
+                int id = dis.readInt();
+                String name = dis.readUTF();
+                adTypes.put(id, name);           
+                
+            }
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (dis != null) { dis.close();}
+                if (dos != null) { dos.close();}
+                if (s != null) { s.close();}
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        
         return adTypes;
     }
-    //TODO: getAdTypeById ServiceLocator
+    //TODO: documentar getAdTypeById ServiceLocator
     public static String getAdTypeById(int adTypeId){
+        // Dades de configuració del servidor
+        String serverIp;
+        int port;
+        
+        Socket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos = null;
+        
         String ret = null;
+        
+        try {
+            // Agafem les dades de conexió al server
+            // del arxiu de configuració "config.properties"            
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
+            serverIp = rb.getString("server_ip");
+            port = Integer.parseInt(rb.getString("port"));
+            
+            // Instanciem el Socket i els Input i Output 
+            // per comunicar amb el server
+            s = new Socket(serverIp, port);
+            dis = new DataInputStream(s.getInputStream());
+            dos = new DataOutputStream(s.getOutputStream());
+            
+            // Solicitem el nom del tipus pel seu id
+            dos.writeInt(TFServer.GET_AD_TYPE_BY_ID);
+            
+            dos.writeInt(adTypeId);
+            
+            //Revem la resposta
+            ret = dis.readUTF();
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (dis != null) { dis.close();}
+                if (dos != null) { dos.close();}
+                if (s != null) { s.close();}
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        
         return ret;
     }
-    //TODO: getAdTypeByNAme ServiceLocator
-    public static int getAdTypeByName(String AdTypeName){
-        int ret = 0 ;
+    //TODO: documentar getAdTypeByNAme ServiceLocator
+    public static int getAdTypeByName(String adTypeName){
+        // Dades de configuració del servidor
+        String serverIp;
+        int port;
+        
+        Socket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos = null;
+        
+        int ret = -1;
+        
+        try {
+            // Agafem les dades de conexió al server
+            // del arxiu de configuració "config.properties"            
+            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
+            serverIp = rb.getString("server_ip");
+            port = Integer.parseInt(rb.getString("port"));
+            
+            // Instanciem el Socket i els Input i Output 
+            // per comunicar amb el server
+            s = new Socket(serverIp, port);
+            dis = new DataInputStream(s.getInputStream());
+            dos = new DataOutputStream(s.getOutputStream());
+            
+            // Solicitem l'id del tipus pel seu nom
+            dos.writeInt(TFServer.GET_AD_TYPE_BY_NAME);
+            dos.writeUTF(adTypeName);
+            
+            //Revem la resposta
+            ret = dis.readInt();
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            
+        } finally {
+            
+            try {
+                // Tanquem connexions
+                if (dis != null) { dis.close();}
+                if (dos != null) { dos.close();}
+                if (s != null) { s.close();}
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        
         return ret;
     }
 }

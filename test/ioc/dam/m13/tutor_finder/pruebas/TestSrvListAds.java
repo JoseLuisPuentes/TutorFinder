@@ -26,13 +26,36 @@ public class TestSrvListAds {
         TFClient client = new TFClientImple();
         
         
-        
+        System.out.println("----- ListAds -----");
         ArrayList<AdDTO> ads = client.listAds();
         
         for (AdDTO ad : ads) {
             System.out.println(ad.toString());
             System.out.println("--------------------");
         }
+        System.out.println("----- ListAdsByRole -----");
+        ads = client.listAdsByRole(2);
+        
+        for (AdDTO ad : ads) {
+            System.out.println(ad.toString());
+            System.out.println("--------------------");
+        }
+        System.out.println("----- ListAdsByType -----");
+        ads = client.listAdsByType(5);
+        
+        for (AdDTO ad : ads) {
+            System.out.println(ad.toString());
+            System.out.println("--------------------");
+        }
+        
+        System.out.println("----- ListAdsByUser -----");
+        ads = client.listAdsByUser(2);
+        
+        for (AdDTO ad : ads) {
+            System.out.println(ad.toString());
+            System.out.println("--------------------");
+        }
+        
     }
 
 }
