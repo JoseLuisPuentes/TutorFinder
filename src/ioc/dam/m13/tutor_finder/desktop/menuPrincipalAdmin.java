@@ -17,6 +17,7 @@ public class menuPrincipalAdmin extends javax.swing.JFrame {
     public menuPrincipalAdmin() {
         initComponents();
         System.out.println("Administrador");
+        
     }
 
     /**
@@ -30,62 +31,66 @@ public class menuPrincipalAdmin extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         labelRol = new javax.swing.JLabel();
-        labelTitol = new javax.swing.JLabel();
         buttonSortir = new javax.swing.JButton();
+        labelTitol = new javax.swing.JLabel();
+        labelPublicacions = new javax.swing.JLabel();
+        labelUsuaris1 = new javax.swing.JLabel();
+        buttonUsuaris1 = new javax.swing.JButton();
+        gestioPublicacions = new javax.swing.JButton();
         fons = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridBagLayout());
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         labelRol.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        labelRol.setText("Administrador");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(240, 10, 0, 0);
-        getContentPane().add(labelRol, gridBagConstraints);
-
-        labelTitol.setFont(new java.awt.Font("Gigi", 0, 105)); // NOI18N
-        labelTitol.setText("TutorFinder");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = -70;
-        gridBagConstraints.ipady = -33;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(270, 380, 0, 0);
-        getContentPane().add(labelTitol, gridBagConstraints);
+        labelRol.setText("Admin");
+        getContentPane().add(labelRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 600, -1, -1));
 
         buttonSortir.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        buttonSortir.setText("SORTIR");
+        buttonSortir.setText("Sortir");
         buttonSortir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSortirActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 16;
-        gridBagConstraints.ipady = 11;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(230, 50, 0, 0);
-        getContentPane().add(buttonSortir, gridBagConstraints);
+        getContentPane().add(buttonSortir, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 600, 140, 40));
+
+        labelTitol.setFont(new java.awt.Font("Gigi", 0, 105)); // NOI18N
+        labelTitol.setText("TutorFinder");
+        getContentPane().add(labelTitol, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 270, 540, 90));
+
+        labelPublicacions.setFont(new java.awt.Font("Matura MT Script Capitals", 0, 24)); // NOI18N
+        labelPublicacions.setForeground(new java.awt.Color(0, 0, 204));
+        labelPublicacions.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelPublicacions.setText("Gestió de Publicacions");
+        getContentPane().add(labelPublicacions, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 370, 270, -1));
+
+        labelUsuaris1.setFont(new java.awt.Font("Matura MT Script Capitals", 0, 24)); // NOI18N
+        labelUsuaris1.setForeground(new java.awt.Color(0, 0, 204));
+        labelUsuaris1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelUsuaris1.setText("Gestió d'Usuaris");
+        getContentPane().add(labelUsuaris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 370, 210, -1));
+
+        buttonUsuaris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ioc/dam/m13/tutor_finder/desktop/usuario.jpg"))); // NOI18N
+        buttonUsuaris1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUsuaris1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(buttonUsuaris1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 410, 170, 170));
+
+        gestioPublicacions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ioc/dam/m13/tutor_finder/desktop/llistarPublicacions.png"))); // NOI18N
+        gestioPublicacions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gestioPublicacionsActionPerformed(evt);
+            }
+        });
+        getContentPane().add(gestioPublicacions, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 410, 170, 170));
 
         fons.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ioc/dam/m13/tutor_finder/desktop/fondo.jpg"))); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.gridheight = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 11, 2);
-        getContentPane().add(fons, gridBagConstraints);
+        getContentPane().add(fons, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 660));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -95,8 +100,25 @@ public class menuPrincipalAdmin extends javax.swing.JFrame {
      * */
     private void buttonSortirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSortirActionPerformed
         // TODO add your handling code here:
+        //Boto per sortir de l'aplicacio
         System.exit(0);
     }//GEN-LAST:event_buttonSortirActionPerformed
+
+    private void buttonUsuaris1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUsuaris1ActionPerformed
+        // TODO add your handling code here:
+        //Boto per anar a la pantalla que ens permetra la gestio d'usuaris
+        gestioUsuaris formMenuGestioUsuaris = new gestioUsuaris();
+        formMenuGestioUsuaris.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_buttonUsuaris1ActionPerformed
+
+    private void gestioPublicacionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestioPublicacionsActionPerformed
+        // TODO add your handling code here:
+        //Boto per anar a la pantalla que ens permetra la gestio de les publicacions
+        gestioPublicacionsTest formMenuGestioPublicacions = new gestioPublicacionsTest();
+        formMenuGestioPublicacions.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_gestioPublicacionsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -125,8 +147,6 @@ public class menuPrincipalAdmin extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -138,8 +158,12 @@ public class menuPrincipalAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonSortir;
+    private javax.swing.JButton buttonUsuaris1;
     private javax.swing.JLabel fons;
+    private javax.swing.JButton gestioPublicacions;
+    private javax.swing.JLabel labelPublicacions;
     private javax.swing.JLabel labelRol;
     private javax.swing.JLabel labelTitol;
+    private javax.swing.JLabel labelUsuaris1;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,14 @@
  */
 package ioc.dam.m13.tutor_finder.desktop;
 
+import ioc.dam.m13.tutor_finder.client.TFClient;
+import ioc.dam.m13.tutor_finder.client.TFClientImple;
+import ioc.dam.m13.tutor_finder.dtos.UserDTO;
+import java.security.MessageDigest;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,6 +26,7 @@ public class registrar extends javax.swing.JFrame {
      */
     public registrar() {
         initComponents();
+        
     }
 
     /**
@@ -28,201 +37,108 @@ public class registrar extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         labelTitol = new javax.swing.JLabel();
-        labelNom = new javax.swing.JLabel();
         labelNomusuari = new javax.swing.JLabel();
         labelEmail = new javax.swing.JLabel();
         labelContrasenya = new javax.swing.JLabel();
-        labelCognoms = new javax.swing.JLabel();
         textContrasenya = new javax.swing.JPasswordField();
         textEmail = new javax.swing.JTextField();
-        textNom = new javax.swing.JTextField();
         buttonRegistrar = new javax.swing.JButton();
-        textCognoms = new javax.swing.JTextField();
         textNomusuari = new javax.swing.JTextField();
         buttonSortir = new javax.swing.JButton();
         buttonTornar = new javax.swing.JButton();
+        labelTipusUsuari = new javax.swing.JLabel();
+        tipusUsuari = new javax.swing.JComboBox<>();
+        icono = new javax.swing.JLabel();
         fons = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridBagLayout());
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         labelTitol.setFont(new java.awt.Font("Tahoma", 0, 55)); // NOI18N
-        labelTitol.setText("Registrar usuari:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 11;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(260, 380, 0, 0);
-        getContentPane().add(labelTitol, gridBagConstraints);
-
-        labelNom.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        labelNom.setText("Nom: ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 38;
-        gridBagConstraints.ipady = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(35, 380, 0, 0);
-        getContentPane().add(labelNom, gridBagConstraints);
+        labelTitol.setText("Registrar Usuari:");
+        getContentPane().add(labelTitol, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 260, -1, -1));
 
         labelNomusuari.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         labelNomusuari.setText("Nom usuari: ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(11, 380, 0, 0);
-        getContentPane().add(labelNomusuari, gridBagConstraints);
+        getContentPane().add(labelNomusuari, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 370, -1, -1));
 
         labelEmail.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         labelEmail.setText("E-mail: ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(11, 380, 0, 0);
-        getContentPane().add(labelEmail, gridBagConstraints);
+        getContentPane().add(labelEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 450, -1, -1));
 
         labelContrasenya.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         labelContrasenya.setText("Contrasenya: ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(11, 380, 0, 0);
-        getContentPane().add(labelContrasenya, gridBagConstraints);
+        getContentPane().add(labelContrasenya, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, -1, -1));
 
-        labelCognoms.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        labelCognoms.setText("Cognoms: ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 380, 0, 0);
-        getContentPane().add(labelCognoms, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.ipadx = 236;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(21, 7, 0, 0);
-        getContentPane().add(textContrasenya, gridBagConstraints);
+        textContrasenya.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textContrasenyaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(textContrasenya, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 420, 240, -1));
 
         textEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textEmailActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.ipadx = 236;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(21, 7, 0, 0);
-        getContentPane().add(textEmail, gridBagConstraints);
-
-        textNom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textNomActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.ipadx = 236;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(45, 7, 0, 0);
-        getContentPane().add(textNom, gridBagConstraints);
+        getContentPane().add(textEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 460, 240, -1));
 
         buttonRegistrar.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        buttonRegistrar.setText("REGISTRAR");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.ipadx = -1;
-        gridBagConstraints.ipady = -3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(34, 7, 0, 0);
-        getContentPane().add(buttonRegistrar, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.gridheight = 4;
-        gridBagConstraints.ipadx = 236;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 7, 0, 0);
-        getContentPane().add(textCognoms, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.ipadx = 236;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(21, 7, 0, 0);
-        getContentPane().add(textNomusuari, gridBagConstraints);
+        buttonRegistrar.setText("Registrar");
+        buttonRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRegistrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(buttonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 560, 360, 50));
+
+        textNomusuari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textNomusuariActionPerformed(evt);
+            }
+        });
+        getContentPane().add(textNomusuari, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 380, 240, -1));
 
         buttonSortir.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        buttonSortir.setText("SORTIR");
+        buttonSortir.setText("Sortir");
         buttonSortir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSortirActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 11;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = -4;
-        gridBagConstraints.ipady = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(31, 200, 0, 0);
-        getContentPane().add(buttonSortir, gridBagConstraints);
+        getContentPane().add(buttonSortir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 570, 130, 40));
 
         buttonTornar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        buttonTornar.setText("TORNAR");
+        buttonTornar.setText("Tornar");
         buttonTornar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonTornarActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 11;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(55, 200, 0, 0);
-        getContentPane().add(buttonTornar, gridBagConstraints);
+        getContentPane().add(buttonTornar, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 570, 130, -1));
+
+        labelTipusUsuari.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        labelTipusUsuari.setText("Tipus d'usuari: ");
+        getContentPane().add(labelTipusUsuari, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 500, -1, -1));
+
+        tipusUsuari.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "            ", "student", "tutor" }));
+        tipusUsuari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipusUsuariActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tipusUsuari, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 500, 240, -1));
+
+        icono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ioc/dam/m13/tutor_finder/desktop/registre usuari.png"))); // NOI18N
+        getContentPane().add(icono, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 340, 140, 140));
 
         fons.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         fons.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ioc/dam/m13/tutor_finder/desktop/fondo.jpg"))); // NOI18N
         fons.setToolTipText("");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 14;
-        gridBagConstraints.gridheight = 14;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 9, 2);
-        getContentPane().add(fons, gridBagConstraints);
+        getContentPane().add(fons, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -239,24 +155,128 @@ public class registrar extends javax.swing.JFrame {
     private void buttonTornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTornarActionPerformed
         // TODO add your handling code here:
             login formLogin = new login();
-
             formLogin.setVisible(true);
-            this.dispose();
-        
+            this.dispose();       
     }//GEN-LAST:event_buttonTornarActionPerformed
 
-    /**
-     * Text del correu que introduim
-     * */
     private void textEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textEmailActionPerformed
         // TODO add your handling code here:
+        //Controlar que el format del email sigui correcte
+        Pattern pattern = Pattern
+                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher mather = pattern.matcher(textEmail.getText());
+ 
+        if (mather.find() == true) {
+            System.out.println("El email introduit es correcte.");
+            JOptionPane.showMessageDialog(rootPane, "El email introduit es correcte.");
+        } else {
+            System.out.println("El email introduit NO es correcte.");
+            JOptionPane.showMessageDialog(rootPane, "El email introduit NO es correcte.");
+        }
     }//GEN-LAST:event_textEmailActionPerformed
-    /**
-     * Text del nom que introduim
-     * */
-    private void textNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomActionPerformed
+
+    private void tipusUsuariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipusUsuariActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textNomActionPerformed
+    }//GEN-LAST:event_tipusUsuariActionPerformed
+
+    private void textNomusuariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomusuariActionPerformed
+        // TODO add your handling code here:
+        //Controlar que el usuari ha de contenir minim 6 caracters
+        int numero=5;        
+        if (textNomusuari.getText().length()<=numero){
+            //evt.consume();
+            JOptionPane.showMessageDialog(rootPane, "Ha de contenir 6 caracters o mes");
+        }
+    }//GEN-LAST:event_textNomusuariActionPerformed
+
+    private void textContrasenyaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textContrasenyaActionPerformed
+        // TODO add your handling code here:
+        //Controlar que la contrasenya ha de contenir minim 6 caracters
+        int numero=5;
+        char clave[]=textContrasenya.getPassword();
+        String clavedef=new String(clave);        
+        if (clavedef.length()<=numero){
+            //evt.consume();
+            JOptionPane.showMessageDialog(rootPane, "Ha de contenir 6 caracters o mes");
+        }
+    }//GEN-LAST:event_textContrasenyaActionPerformed
+
+    //Metode per encriptar l'String que passem
+    public static String md5(String clear) throws Exception {
+    MessageDigest md = MessageDigest.getInstance("MD5");
+    byte[] b = md.digest(clear.getBytes());
+    int size = b.length;
+    StringBuffer h = new StringBuffer(size);
+        for (int i = 0; i < size; i++) {
+            int u = b[i] & 255;
+                if (u < 16) {
+                    h.append("0" + Integer.toHexString(u));
+                }
+               else {
+                    h.append(Integer.toHexString(u));
+               }
+           }
+      //clau encriptada
+      return h.toString();
+    }
+    
+    private void buttonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistrarActionPerformed
+        // TODO add your handling code here:
+        //Fem la connexió amb la classe que es connecta amb el servidor
+        TFClient l = new TFClientImple();
+        UserDTO userDTO = new UserDTO();
+        //variable Contrasenya que l'encriptem amb el metode MD5
+        char clave[]=textContrasenya.getPassword();
+        String clavedef=new String(clave);
+        try {
+            clavedef = md5(textContrasenya.getText());
+            System.out.println("Encriptat: "+clavedef);
+        } catch (Exception ex) {
+            Logger.getLogger(registrar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //Variables per transformar  a Sting
+        String usuari = textNomusuari.getText();
+        String email = textEmail.getText();
+        String tipus = tipusUsuari.getSelectedItem().toString();
+        
+        //Comprovar si l'usuari a crea ja existeix
+        boolean res2 = l.login(usuari,clavedef);
+        if(res2){
+            userDTO = l.userData(usuari);
+            JOptionPane.showMessageDialog(rootPane, "Usuari ja existeix.");
+            System.out.println("Usuari ja existeix");
+            this.textNomusuari.setText("");
+            this.textContrasenya.setText("");
+            this.textEmail.setText("");
+            this.tipusUsuari.setSelectedItem("");
+        }
+        else{
+            // comprovem que ens retorni true o false les dades introduides
+            boolean res = l.newUser(usuari,email,clavedef, tipus);
+            System.out.println("Resposta a les dades: "+res);
+            // Mostrem les dades per veure que s'han introduit correctament
+            System.out.println("Usuari: "+ usuari);
+            System.out.println("Contrasenya: "+ clavedef);
+            System.out.println("Email: "+ email);
+            System.out.println("Tipus: "+ tipus);
+
+            // Si es true mostrem missatge que s'ha creat l'usuari correctament si es false no
+            if(res){
+                JOptionPane.showMessageDialog(rootPane, "Usuari creat correctament.");
+                System.out.println("S'ha creat un nou usuari");
+                this.textNomusuari.setText("");
+                this.textContrasenya.setText("");
+                this.textEmail.setText("");
+                this.tipusUsuari.setSelectedItem("");
+            }
+            else{
+                JOptionPane.showMessageDialog(rootPane, "No s'ha creat correctament l'usuari.");
+                System.out.println("No s'ha creat un nou usuari");
+            }
+
+        }
+    }//GEN-LAST:event_buttonRegistrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -285,8 +305,6 @@ public class registrar extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -301,16 +319,15 @@ public class registrar extends javax.swing.JFrame {
     private javax.swing.JButton buttonSortir;
     private javax.swing.JButton buttonTornar;
     private javax.swing.JLabel fons;
-    private javax.swing.JLabel labelCognoms;
+    private javax.swing.JLabel icono;
     private javax.swing.JLabel labelContrasenya;
     private javax.swing.JLabel labelEmail;
-    private javax.swing.JLabel labelNom;
     private javax.swing.JLabel labelNomusuari;
+    private javax.swing.JLabel labelTipusUsuari;
     private javax.swing.JLabel labelTitol;
-    private javax.swing.JTextField textCognoms;
     private javax.swing.JPasswordField textContrasenya;
     private javax.swing.JTextField textEmail;
-    private javax.swing.JTextField textNom;
     private javax.swing.JTextField textNomusuari;
+    private javax.swing.JComboBox<String> tipusUsuari;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,18 +5,22 @@
  */
 package ioc.dam.m13.tutor_finder.desktop;
 
+import ioc.dam.m13.tutor_finder.client.TFClient;
+import ioc.dam.m13.tutor_finder.client.TFClientImple;
+import ioc.dam.m13.tutor_finder.dtos.AdDTO;
+
 /**
  *
  * @author Alexandre
  */
-public class menuPrincipalClient extends javax.swing.JFrame {
+public class gestioPublicacions extends javax.swing.JFrame {
 
     /**
      * Creates new form menuPrincipal
      */
-    public menuPrincipalClient() {
+    public gestioPublicacions() {
         initComponents();
-        System.out.println("Student");
+        
         
     }
 
@@ -33,10 +37,8 @@ public class menuPrincipalClient extends javax.swing.JFrame {
     private void initComponents() {
 
         labelROl = new javax.swing.JLabel();
-        buttonSortie = new javax.swing.JButton();
+        buttonTornar = new javax.swing.JButton();
         labelTitol = new javax.swing.JLabel();
-        buttonContrasenya = new javax.swing.JButton();
-        buttonDades = new javax.swing.JButton();
         labelPublicacions2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -51,58 +53,40 @@ public class menuPrincipalClient extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        textTitle = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        TextDescription = new javax.swing.JTextArea();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
+        buttonCreateAds = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
-        jTextField4 = new javax.swing.JTextField();
+        textPreu = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboBoxCategoria = new javax.swing.JComboBox<>();
         fons = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         labelROl.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        labelROl.setText("Student");
+        labelROl.setText("Admin");
         getContentPane().add(labelROl, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 610, -1, -1));
 
-        buttonSortie.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        buttonSortie.setText("Sortir");
-        buttonSortie.addActionListener(new java.awt.event.ActionListener() {
+        buttonTornar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        buttonTornar.setText("Tornar");
+        buttonTornar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSortieActionPerformed(evt);
+                buttonTornarActionPerformed(evt);
             }
         });
-        getContentPane().add(buttonSortie, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 610, 120, 30));
+        getContentPane().add(buttonTornar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 603, 120, 30));
 
         labelTitol.setFont(new java.awt.Font("Gigi", 0, 105)); // NOI18N
         labelTitol.setText("TutorFinder");
         getContentPane().add(labelTitol, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 190, 540, 90));
-
-        buttonContrasenya.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        buttonContrasenya.setText("Canviar Contrasenya");
-        buttonContrasenya.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonContrasenyaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(buttonContrasenya, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 610, 200, 30));
-
-        buttonDades.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        buttonDades.setText("Canviar Dades Usuari");
-        buttonDades.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDadesActionPerformed(evt);
-            }
-        });
-        getContentPane().add(buttonDades, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 610, 210, 30));
 
         labelPublicacions2.setFont(new java.awt.Font("Matura MT Script Capitals", 0, 24)); // NOI18N
         labelPublicacions2.setForeground(new java.awt.Color(0, 0, 204));
@@ -173,7 +157,7 @@ public class menuPrincipalClient extends javax.swing.JFrame {
 
         jButton12.setText("Arts Esceniques");
         getContentPane().add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 560, 130, -1));
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 360, 260, -1));
+        getContentPane().add(textTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 360, 260, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Titol: ");
@@ -183,9 +167,9 @@ public class menuPrincipalClient extends javax.swing.JFrame {
         jLabel3.setText("Descripció: ");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 390, 100, -1));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        TextDescription.setColumns(20);
+        TextDescription.setRows(5);
+        jScrollPane2.setViewportView(TextDescription);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 390, 260, 110));
 
@@ -197,14 +181,19 @@ public class menuPrincipalClient extends javax.swing.JFrame {
         jButton3.setText("Eliminar");
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 320, 80, -1));
 
-        jButton13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton13.setText("Crear");
-        getContentPane().add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 320, 70, -1));
+        buttonCreateAds.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        buttonCreateAds.setText("Crear");
+        buttonCreateAds.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCreateAdsActionPerformed(evt);
+            }
+        });
+        getContentPane().add(buttonCreateAds, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 320, 70, -1));
 
         jButton14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton14.setText("Carregar Dades");
         getContentPane().add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 320, 130, -1));
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 540, 260, -1));
+        getContentPane().add(textPreu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 540, 260, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Categoria: ");
@@ -214,8 +203,8 @@ public class menuPrincipalClient extends javax.swing.JFrame {
         jLabel1.setText("Preu: ");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 540, 50, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "                     ", "Informàtica", "Economia", "Musica", "Fisica/Quimica", "Dibuix", "Electricitat/Mecanica", "Idiomes", "Arts Esceniques" }));
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 510, 260, -1));
+        comboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "                   ", "Informàtica", "Economia", "Musica", "Fisica/Quimica", "Dibuix", "Electricitat/Mecanica", "Idiomes", "Arts Esceniques" }));
+        getContentPane().add(comboBoxCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 510, 260, -1));
 
         fons.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ioc/dam/m13/tutor_finder/desktop/fondo.jpg"))); // NOI18N
         getContentPane().add(fons, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -225,27 +214,41 @@ public class menuPrincipalClient extends javax.swing.JFrame {
     /**
      * Botó per sortir de l'aplicació
      * */
-    private void buttonSortieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSortieActionPerformed
+    private void buttonTornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTornarActionPerformed
         // TODO add your handling code here:
-        //Boto per sortir de l'aplicacio
-       System.exit(0);
-    }//GEN-LAST:event_buttonSortieActionPerformed
-
-    private void buttonContrasenyaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonContrasenyaActionPerformed
-        // TODO add your handling code here:
-        //Boto per anar a la pantalla que ens permetra canviar la contrasenya
+        //Boto per tornar a la pantalla principal administrador
+        menuPrincipalAdmin formMenuAdmin = new menuPrincipalAdmin();
+        formMenuAdmin.setVisible(true);
         this.dispose();
-        canvi_ContrasenyaClient formMenuCanviContrasenya = new canvi_ContrasenyaClient();
-        formMenuCanviContrasenya.setVisible(true);
-    }//GEN-LAST:event_buttonContrasenyaActionPerformed
+    }//GEN-LAST:event_buttonTornarActionPerformed
 
-    private void buttonDadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDadesActionPerformed
+    private void buttonCreateAdsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateAdsActionPerformed
         // TODO add your handling code here:
-        //Boto per anar a la pantalla que ens permetra modificar les dades
-        this.dispose();
-        modificar_Dades formMenuDades = new modificar_Dades();
-        formMenuDades.setVisible(true);
-    }//GEN-LAST:event_buttonDadesActionPerformed
+       
+        TFClient l = new TFClientImple();
+        AdDTO a = new AdDTO();
+        int userID = a.getAdUserId();
+        System.out.print("userID: "+userID);
+        
+        String tittle = textTitle.getText();
+        System.out.println("tittle: " + tittle);
+        String description = TextDescription.getText();
+        System.out.println("description: " + description);
+        int type = a.getAdTypeId();
+        System.out.println("type: "+type); 
+        
+        String tipus = comboBoxCategoria.getSelectedItem().toString();
+        int numtipus = Integer.parseInt(tipus);
+        System.out.println("NumTipus: : "+numtipus); 
+        
+        int price = a.getAdPrice();
+        System.out.println("Price: "+price);
+        boolean ret = l.createAd(userID, tittle, description, type, price);
+        if(ret){
+            System.out.println("Anunci creat");
+        }
+        
+    }//GEN-LAST:event_buttonCreateAdsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,48 +267,33 @@ public class menuPrincipalClient extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(menuPrincipalClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(gestioPublicacions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(menuPrincipalClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(gestioPublicacions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(menuPrincipalClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(gestioPublicacions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(menuPrincipalClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(gestioPublicacions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new menuPrincipalClient().setVisible(true);
+                new gestioPublicacions().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonContrasenya;
-    private javax.swing.JButton buttonDades;
-    private javax.swing.JButton buttonSortie;
+    private javax.swing.JTextArea TextDescription;
+    private javax.swing.JButton buttonCreateAds;
+    private javax.swing.JButton buttonTornar;
+    private javax.swing.JComboBox<String> comboBoxCategoria;
     private javax.swing.JLabel fons;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -315,7 +303,6 @@ public class menuPrincipalClient extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -323,13 +310,12 @@ public class menuPrincipalClient extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel labelPublicacions;
     private javax.swing.JLabel labelPublicacions2;
     private javax.swing.JLabel labelPublicacions3;
     private javax.swing.JLabel labelROl;
     private javax.swing.JLabel labelTitol;
+    private javax.swing.JTextField textPreu;
+    private javax.swing.JTextField textTitle;
     // End of variables declaration//GEN-END:variables
 }

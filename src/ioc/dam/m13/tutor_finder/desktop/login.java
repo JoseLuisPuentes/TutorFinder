@@ -8,6 +8,9 @@ package ioc.dam.m13.tutor_finder.desktop;
 import ioc.dam.m13.tutor_finder.client.TFClient;
 import ioc.dam.m13.tutor_finder.client.TFClientImple;
 import ioc.dam.m13.tutor_finder.dtos.UserDTO;
+import java.security.MessageDigest;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,12 +20,15 @@ import javax.swing.JOptionPane;
 public class login extends javax.swing.JFrame {
 
     int intents = 0;
+    public static int UserID;
+    public static String usuari;
 
     /**
      * Creates new form login
      */
     public login() {
         initComponents();
+        
     }
 
     /**
@@ -37,9 +43,7 @@ public class login extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
-        jOptionPane1 = new javax.swing.JOptionPane();
         labelTitol = new javax.swing.JLabel();
         labelUser = new javax.swing.JLabel();
         labelPassword = new javax.swing.JLabel();
@@ -51,121 +55,51 @@ public class login extends javax.swing.JFrame {
         fons = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridBagLayout());
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         labelTitol.setFont(new java.awt.Font("Gigi", 0, 105)); // NOI18N
         labelTitol.setText("TutorFinder");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.ipadx = -70;
-        gridBagConstraints.ipady = -33;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(270, 380, 0, 0);
-        getContentPane().add(labelTitol, gridBagConstraints);
+        getContentPane().add(labelTitol, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 270, 540, 90));
 
         labelUser.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        labelUser.setText("USUARI:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 11;
-        gridBagConstraints.ipady = 11;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(40, 400, 0, 0);
-        getContentPane().add(labelUser, gridBagConstraints);
+        labelUser.setText("Usuari:");
+        getContentPane().add(labelUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 400, 110, 40));
 
         labelPassword.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        labelPassword.setText("CONTRASENYA:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 1;
-        gridBagConstraints.ipady = 21;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 400, 0, 0);
-        getContentPane().add(labelPassword, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.ipadx = 276;
-        gridBagConstraints.ipady = 31;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
-        getContentPane().add(textPassword, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 276;
-        gridBagConstraints.ipady = 31;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
-        getContentPane().add(textUser, gridBagConstraints);
+        labelPassword.setText("Contrasenya");
+        getContentPane().add(labelPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 450, 190, 50));
+        getContentPane().add(textPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 460, 280, 30));
+        getContentPane().add(textUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 400, 280, 30));
 
         buttonRegistrar.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        buttonRegistrar.setText("REGISTRAR-SE GRATIS");
+        buttonRegistrar.setText("Regsitrar-se Gratis");
         buttonRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRegistrarActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.ipadx = -35;
-        gridBagConstraints.ipady = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(50, 80, 0, 0);
-        getContentPane().add(buttonRegistrar, gridBagConstraints);
+        getContentPane().add(buttonRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 570, 410, 50));
 
         buttonSortir.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        buttonSortir.setText("SORTIR");
+        buttonSortir.setText("Sortir");
         buttonSortir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSortirActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 86;
-        gridBagConstraints.ipady = 21;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 50, 0, 0);
-        getContentPane().add(buttonSortir, gridBagConstraints);
+        getContentPane().add(buttonSortir, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 450, 210, 40));
 
         buttonIniciar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        buttonIniciar.setText("INICIAR SESSIÓ");
+        buttonIniciar.setText("Iniciar Sessió ");
         buttonIniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonIniciarActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = -7;
-        gridBagConstraints.ipady = 21;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 50, 0, 0);
-        getContentPane().add(buttonIniciar, gridBagConstraints);
+        getContentPane().add(buttonIniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 400, 210, 40));
 
         fons.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ioc/dam/m13/tutor_finder/desktop/fondo.jpg"))); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 13;
-        gridBagConstraints.gridheight = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        getContentPane().add(fons, gridBagConstraints);
+        getContentPane().add(fons, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -177,9 +111,29 @@ public class login extends javax.swing.JFrame {
 
     private void buttonSortirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSortirActionPerformed
         // TODO add your handling code here:
+        //Boto per sortir de l'aplicacio
         System.exit(0);
     }//GEN-LAST:event_buttonSortirActionPerformed
 
+    //Metode per encriptar l'string que li passem
+    public static String md5(String clear) throws Exception {
+    MessageDigest md = MessageDigest.getInstance("MD5");
+    byte[] b = md.digest(clear.getBytes());
+    int size = b.length;
+    StringBuffer h = new StringBuffer(size);
+        for (int i = 0; i < size; i++) {
+            int u = b[i] & 255;
+                if (u < 16) {
+                    h.append("0" + Integer.toHexString(u));
+                }
+               else {
+                    h.append(Integer.toHexString(u));
+               }
+           }
+      //clau encriptada
+      return h.toString();
+    }
+    
     /**
      * Botó que valida si es correcte el usuari i contrasenya per iniciar
      * sessió.
@@ -187,30 +141,35 @@ public class login extends javax.swing.JFrame {
      */
     private void buttonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIniciarActionPerformed
         // TODO add your handling code here:
-        
         //Fem la connexió amb la classe que es connecta amb el servidor
         TFClient l = new TFClientImple();
-        // comprovem que ens retorni tru o false amb el usuari i contrasenya
-
-
+        //Variable per encriptar la contrasenya amb el metode MD5
         char clave[]=textPassword.getPassword();
-
         String clavedef=new String(clave);
-        //Mostre usuari i contrasenya
-        String usuari = textUser.getText();
+        try {
+            clavedef = md5(textPassword.getText());
+        } catch (Exception ex) {
+            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //Variable per transformar usauri a String
+        usuari = textUser.getText();
+        // comprovem que ens retorni true o false amb el usuari i contrasenya
         boolean res = l.login(usuari,clavedef);
-
+        //Mostre usuari i contrasenya
         System.out.println("USUARI: " + usuari);
         System.out.println("CONTRASENYA: " + clavedef);
 
-        System.out.println("AQUI SI QUE LLEGO ");
-        //Fem les comprovacions si ens retorna true i l'usuari es admin. admin ara mateix es com si 
-        //fos el rol, això s'ha de acabar de polir.
+        //Fem les comprovacions si ens retorna true i l'usuari es admin, tutor o student. 
+        //admin ara mateix es com si fos el rol, això s'ha de acabar de polir.
         if(res==true){
-            menuPrincipalAdmin formMenu;
+            menuPrincipalAdmin formMenuAdmin;
+            menuPrincipalProfessor formMenuProfessor;
+            menuPrincipalClient formMenuCLient;
             //instanciem un objecte UserDTO que es on ens torna 
             //tota la informació el metode userData del TFClientImple
             UserDTO userData = l.userData(usuari);
+            UserID=l.userData(usuari).getUserId();
+            System.out.println("USERID: "+ UserID);
             
             //Del userData saquem el role que es un String i pot ser
             //"admin", "tutor", "student"
@@ -219,79 +178,35 @@ public class login extends javax.swing.JFrame {
             switch (userRole){
                 case "admin" :
                     this.dispose();
-                    JOptionPane.showMessageDialog(null, "Benvingut Administrador!!\n"
+                    JOptionPane.showMessageDialog(null, "Benvingut Admin!!\n"
                         + "Acabes d'entrar al sistema correctament", "Missatge de benvinguda",
                         JOptionPane.INFORMATION_MESSAGE);
-                    formMenu = new menuPrincipalAdmin();
-                    formMenu.setVisible(true);
+                    formMenuAdmin = new menuPrincipalAdmin();
+                    formMenuAdmin.setVisible(true);
                     break;
                     
                 case "tutor" :
                     this.dispose();
-                    JOptionPane.showMessageDialog(null, "Benvingut Administrador!!\n"
+                    JOptionPane.showMessageDialog(null, "Benvingut Tutor!!\n"
                         + "Acabes d'entrar al sistema correctament", "Missatge de benvinguda",
                         JOptionPane.INFORMATION_MESSAGE);
-                    formMenu = new menuPrincipalAdmin();
-                    formMenu.setVisible(true);
+                    formMenuProfessor = new menuPrincipalProfessor();
+                    formMenuProfessor.setVisible(true);
                     break;
                     
                 case "student" :
-                    System.out.println("AQUI SI QUE LLEGO 3333");
                     this.dispose();
-                    JOptionPane.showMessageDialog(null, "Benvingut Administrador!!\n"
+                    JOptionPane.showMessageDialog(null, "Benvingut Student!!\n"
                         + "Acabes d'entrar al sistema correctament", "Missatge de benvinguda",
                         JOptionPane.INFORMATION_MESSAGE);
-                    formMenu = new menuPrincipalAdmin();
-                    formMenu.setVisible(true);
+                    formMenuCLient = new menuPrincipalClient();
+                    formMenuCLient.setVisible(true);
                     break;
-                    
-            }
-            
-            /*
-            System.out.println("AQUI SI QUE LLEGOoooooooooo ");
-            System.out.println("Uusuari i contrasenya correctes"+ res);
-            
-            if(usuari.equals("admin")){
-                this.dispose();
-                JOptionPane.showMessageDialog(null, "Benvingut Administrador!!\n"
-                    + "Acabes d'entrar al sistema correctament", "Missatge de benvinguda",
-                    JOptionPane.INFORMATION_MESSAGE);
-                menuPrincipalAdmin formMenu = new menuPrincipalAdmin();
-                formMenu.setVisible(true);
-            }
-            
-            if(res==true){
-                
-                System.out.println("Uusuari i contrasenya correctes"+ res);
-                
-                if(usuari.equals("client")){
-                    System.out.println("AQUI SI QUE LLEGO 3333");
-                    this.dispose();
-                    JOptionPane.showMessageDialog(null, "Benvingut Administrador!!\n"
-                        + "Acabes d'entrar al sistema correctament", "Missatge de benvinguda",
-                        JOptionPane.INFORMATION_MESSAGE);
-                    menuPrincipalAdmin formMenu = new menuPrincipalAdmin();
-                    formMenu.setVisible(true);
                 }
             }
-            
-            if(res==true){
-                System.out.println("Uusuari i contrasenya correctes"+ res);
-                
-                if(usuari.equals("professor")){
-                    this.dispose();
-                    JOptionPane.showMessageDialog(null, "Benvingut Administrador!!\n"
-                        + "Acabes d'entrar al sistema correctament", "Missatge de benvinguda",
-                        JOptionPane.INFORMATION_MESSAGE);
-                    menuPrincipalAdmin formMenu = new menuPrincipalAdmin();
-                    formMenu.setVisible(true);
-                }
-            }
-            */
-        }
         
-        //si es false el usuari i contrasenya mostra error      
-        if(res==false){                  
+        //Si es false el usuari i contrasenya mostra error      
+        else{
             System.out.println("Uusuari i contrasenya INCORRECTE "+ res);
             JOptionPane.showMessageDialog(null, "Acces denegat !!\n"
             + "Si us plau introduieix l'usuari o contrasenya correctes", "Acces denegat",
@@ -304,19 +219,13 @@ public class login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Acces Bloquejat ha superat el maxim d'intents erronis!!");
             System.exit(0);
         }
-        
-        
+            
     }//GEN-LAST:event_buttonIniciarActionPerformed
-    /**
-     * Botó que ens fa anar a la pantalla de crear usuari nou.
-     *
-     */
 
     private void buttonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistrarActionPerformed
         // TODO add your handling code here:
-
+        //Botó per crear usuari
         registrar formRegistrar = new registrar();
-
         formRegistrar.setVisible(true);
         this.dispose();
 
@@ -349,8 +258,6 @@ public class login extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -365,7 +272,6 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JButton buttonRegistrar;
     private javax.swing.JButton buttonSortir;
     private javax.swing.JLabel fons;
-    private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JLabel labelPassword;
     private javax.swing.JLabel labelTitol;
     private javax.swing.JLabel labelUser;
