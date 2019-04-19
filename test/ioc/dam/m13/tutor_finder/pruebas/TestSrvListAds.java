@@ -33,6 +33,7 @@ public class TestSrvListAds {
             System.out.println(ad.toString());
             System.out.println("--------------------");
         }
+        
         System.out.println("----- ListAdsByRole -----");
         ads = client.listAdsByRole(2);
         
