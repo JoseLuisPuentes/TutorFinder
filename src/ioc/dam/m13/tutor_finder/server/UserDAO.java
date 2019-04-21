@@ -226,7 +226,7 @@ public class UserDAO {
             //String sql = "update users set user_name = ?, user_mail = ?, user_role_id = ? where user_id = ?";
             String sql = "";
             sql += "UPDATE users ";
-            sql += "SET user_name = ?, user_mail = ?, user_role = ? ";
+            sql += "SET user_name = ?, user_mail = ?, user_role_id = ? ";
             sql += "WHERE user_id = ? ";
             
             //Busquem el id del rol

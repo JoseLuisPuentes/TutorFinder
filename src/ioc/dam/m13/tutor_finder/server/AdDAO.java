@@ -368,6 +368,7 @@ public class AdDAO {
             pstm.setString(2, description);
             pstm.setInt(3, adTypeId);
             pstm.setInt(4, price);
+            pstm.setInt(5, adId);
 
             result = pstm.executeUpdate();
             con.commit();

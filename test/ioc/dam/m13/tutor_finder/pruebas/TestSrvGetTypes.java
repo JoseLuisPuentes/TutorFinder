@@ -36,15 +36,15 @@ public class TestSrvGetTypes {
         
         System.out.println("----- getTypesById -----");
         
-        String typeName = client.getAdTypeById(5);
+        String typeName = client.getAdTypeById(17);
         
-        System.out.println("TypeId 5 is : " + typeName );
+        System.out.println("TypeId 17 is : " + typeName );
         
         
         System.out.println("----- getTypesByName -----");
         
-        int typeId = client.getAdTypeByName("Castellà");
-        System.out.println("TypeName Catellà is: " + typeId);
+        int typeId = client.getAdTypeByName("Electricitat/Mecànica");
+        System.out.println("TypeName Electricitat/Mecànica is: " + typeId);
         
     
     }
