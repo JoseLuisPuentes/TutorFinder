@@ -12,6 +12,15 @@ import java.util.HashMap;
  */
 public class TFClientImple implements TFClient{
 
+    public TFClientImple() {
+        
+        System.setProperty("javax.net.ssl.trustStore", "ClientKeyStore.jks");
+        System.setProperty("javax.net.ssl.trustStorePassword", "tutorfinder");
+//        System.getProperties().list(System.out);
+//        System.setProperty("javax.net.debug", "SSL,handshake");
+        
+    }
+    
     @Override
     public boolean login(String userName, String pswd) {
         

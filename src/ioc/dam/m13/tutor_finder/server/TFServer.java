@@ -5,14 +5,12 @@ import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLSocket;
 
 /**
  * Servidor que s'encarrega de rebre les solicituts dels clients
@@ -42,27 +40,41 @@ public class TFServer extends Thread{
     public static final int GET_AD_TYPE_BY_NAME = 17;
     
     
-    private Socket socket = null;
+    private SSLSocket socket = null;
     private DataInputStream dis = null;
     private DataOutputStream dos = null;
     
         
-    public TFServer( Socket s) {
+    public TFServer( SSLSocket s) {
         
         this.socket = s;        
     }
     
     public static void main(String[] args) throws Exception {
         
-        ServerSocket ss = new ServerSocket(SERVER_PORT);
-        Socket s;
+        //ServerSocket ss = new ServerSocket(SERVER_PORT);
         
+        
+        //System.getProperties().list(System.out);
+        
+        System.setProperty("javax.net.ssl.keyStore", "ServerKeyStore.jks");
+        System.setProperty("javax.net.ssl.keyStorePassword", "tutorfinder");
+        //System.setProperty("javax.net.debug", "SSL,handshake");
+        
+        
+        SSLSocket sslClient;
+        SSLServerSocketFactory sslFactory =  (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
+        SSLServerSocket sslSrvSocket = (SSLServerSocket) sslFactory.createServerSocket(SERVER_PORT);
+        
+        sslSrvSocket.setNeedClientAuth(false);
         System.out.println("Server is running ...");
         
         while (true) {            
             
-            s = ss.accept();
-            new TFServer(s).start();
+            sslClient = (SSLSocket) sslSrvSocket.accept();
+            TFServer server = new TFServer(sslClient);
+            server.start();
+            server.join();
             
         }
     }

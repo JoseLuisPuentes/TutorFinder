@@ -8,16 +8,48 @@ import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.net.Socket;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
 /**
  * Classe que encapsula la connexió amb el servidor,
  * enviar i rebre les dades i desconnexió
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
 public class ServiceLocator {
+    
+    private static SSLSocket _getSSLSocket(){
+        SSLSocket ret = null;
+        
+        
+        
+        String serverIp = null;
+        int port;
+        ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
+        serverIp = rb.getString("server_ip");
+        port = Integer.parseInt(rb.getString("port"));
+        
+        SSLSocketFactory sslFactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
+        
+        try {
+            
+            ret = (SSLSocket) sslFactory.createSocket(serverIp, port);
+        
+        } catch (IOException ex) {
+            
+            ex.printStackTrace();
+            throw new RuntimeException(ex);
+        }
+        
+        return ret;
+    }
     
     /**
      * Connecta amb el TFserver agafant les dades de l'arxiu "config.properties"
@@ -29,25 +61,16 @@ public class ServiceLocator {
     public static boolean login(String userName, String pswd) {
         
         boolean ret = false;
+        SSLSocket s = null;
         
-        // Dades de configuració del servidor
-        String serverIp = null;
-        int port;
-        
-        Socket s = null;
         DataInputStream dis = null;
         DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            
+            s = (SSLSocket) _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -92,25 +115,15 @@ public class ServiceLocator {
     public static UserDTO userData(String userName) {
         
         UserDTO user = new UserDTO();
-        
-         // Dades de configuració del servidor
-        String serverIp = null;
-        int port;
-        
-        Socket s = null;
+
+        SSLSocket s = null;
         DataInputStream dis = null;
         DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -161,24 +174,14 @@ public class ServiceLocator {
         
         boolean ret = false;
         
-        // Dades de configuració del servidor
-        String serverIp = null;
-        int port;
-        
-        Socket s = null;
+        SSLSocket s = null;
         DataInputStream dis = null;
         DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -229,24 +232,14 @@ public class ServiceLocator {
     public static boolean editUser(int userId, String userName, String userMail, String userRole){
         
         boolean ret = false;
-        // Dades de configuració del servidor
-        String serverIp = null;
-        int port;
-        
-        Socket s = null;
+        SSLSocket s = null;
         DataInputStream dis = null;
         DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -288,24 +281,14 @@ public class ServiceLocator {
         
         boolean ret = false;
         
-        // Dades de configuració del servidor
-        String serverIp = null;
-        int port;
-        
-        Socket s = null;
+        SSLSocket s = null;
         DataInputStream dis = null;
         DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -343,26 +326,15 @@ public class ServiceLocator {
     
     public static ArrayList<UserDTO> listUsers(){
         
-        // Dades de configuració del servidor
-        String serverIp;
-        int port;
-        
-        Socket s = null;
-        DataInputStream dis = null;
-        DataOutputStream dos = null;
-        
         ArrayList<UserDTO> users = new ArrayList<>();
+        SSLSocket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -412,26 +384,15 @@ public class ServiceLocator {
     
     public static ArrayList<UserDTO> listUsers(String roleName){
         
-        // Dades de configuració del servidor
-        String serverIp;
-        int port;
-        
-        Socket s = null;
-        DataInputStream dis = null;
-        DataOutputStream dos = null;
-        
         ArrayList<UserDTO> users = new ArrayList<>();
+        SSLSocket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -456,9 +417,7 @@ public class ServiceLocator {
                 
                 users.add(user);
             }
-                        
-                        
-            
+         
         } catch (Exception e) {
             
             e.printStackTrace();
@@ -492,24 +451,14 @@ public class ServiceLocator {
     public static boolean editUserPswd(String userName, String newPswd){
         boolean ret = false;
         
-        // Dades de configuració del servidor
-        String serverIp = null;
-        int port;
-        
-        Socket s = null;
+        SSLSocket s = null;
         DataInputStream dis = null;
         DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -551,27 +500,15 @@ public class ServiceLocator {
      * @return Retrona un HashMap amb la taula de roles
      */
     public static HashMap<Integer, String> getUserRoles(){
-        
-        // Dades de configuració del servidor
-        String serverIp;
-        int port;
-        
-        Socket s = null;
-        DataInputStream dis = null;
-        DataOutputStream dos = null;
-        
         HashMap<Integer, String> userRoles = new HashMap<>();
+        SSLSocket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -620,27 +557,15 @@ public class ServiceLocator {
      * @return retorna un int amb l'id del rol
      */
     public static int getUserRoles(String roleName){
-        
-        // Dades de configuració del servidor
-        String serverIp;
-        int port;
-        
-        Socket s = null;
-        DataInputStream dis = null;
-        DataOutputStream dos = null;
-        
         int ret = -1;
+        SSLSocket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -681,27 +606,15 @@ public class ServiceLocator {
      * @return Retorna un String amd el nom del rol
      */
     public static String getUserRoles(int roleId){
-        
-        // Dades de configuració del servidor
-        String serverIp;
-        int port;
-        
-        Socket s = null;
-        DataInputStream dis = null;
-        DataOutputStream dos = null;
-        
         String ret = null;
+        SSLSocket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -739,24 +652,14 @@ public class ServiceLocator {
         
         boolean ret = false;
         
-        // Dades de configuració del servidor
-        String serverIp = null;
-        int port;
-        
-        Socket s = null;
+        SSLSocket s = null;
         DataInputStream dis = null;
         DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -796,26 +699,15 @@ public class ServiceLocator {
     }
     //TODO: documentar listAds
     public static ArrayList<AdDTO> listAds(){
-        // Dades de configuració del servidor
-        String serverIp;
-        int port;
-        
-        Socket s = null;
-        DataInputStream dis = null;
-        DataOutputStream dos = null;
-        
         ArrayList<AdDTO> ads = new ArrayList<>();
+        SSLSocket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -841,9 +733,7 @@ public class ServiceLocator {
                                 
                 ads.add(ad);
             }
-                        
-                        
-            
+        
         } catch (Exception e) {
             
             e.printStackTrace();
@@ -868,27 +758,15 @@ public class ServiceLocator {
     }
     //TODO: documentar listAdsByUser ServiceLocator
     public static ArrayList<AdDTO> listAdsByUser(int userId){
-        
-        // Dades de configuració del servidor
-        String serverIp;
-        int port;
-        
-        Socket s = null;
-        DataInputStream dis = null;
-        DataOutputStream dos = null;
-        
         ArrayList<AdDTO> ads = new ArrayList<>();
+        SSLSocket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -918,9 +796,7 @@ public class ServiceLocator {
                 ads.add(ad);
             }
                         
-                        
-            
-        } catch (Exception e) {
+       } catch (Exception e) {
             
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -941,30 +817,18 @@ public class ServiceLocator {
         
         return ads;
     
-        
     }
     //TODO: documentar listAdsByRole ServiceLocator        
     public static ArrayList<AdDTO> listAdsByRole(int roleId){
-        // Dades de configuració del servidor
-        String serverIp;
-        int port;
-        
-        Socket s = null;
-        DataInputStream dis = null;
-        DataOutputStream dos = null;
-        
         ArrayList<AdDTO> ads = new ArrayList<>();
+        SSLSocket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -993,9 +857,7 @@ public class ServiceLocator {
                 ads.add(ad);
             }
                         
-                        
-            
-        } catch (Exception e) {
+         } catch (Exception e) {
             
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -1019,26 +881,15 @@ public class ServiceLocator {
     }
     //TODO: documentar listAdsByType ServiceLocator        
     public static ArrayList<AdDTO> listAdsByType(int typeId){
-        // Dades de configuració del servidor
-        String serverIp;
-        int port;
-        
-        Socket s = null;
-        DataInputStream dis = null;
-        DataOutputStream dos = null;
-        
         ArrayList<AdDTO> ads = new ArrayList<>();
+        SSLSocket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -1067,8 +918,6 @@ public class ServiceLocator {
                 ads.add(ad);
             }
                         
-                        
-            
         } catch (Exception e) {
             
             e.printStackTrace();
@@ -1094,24 +943,14 @@ public class ServiceLocator {
     //TODO: documentar editAd ServiceLocator
     public static boolean editAd(int adId, String tittle, String description, int adTypeId, int price){
         boolean ret = false;
-        // Dades de configuració del servidor
-        String serverIp = null;
-        int port;
-        
-        Socket s = null;
+        SSLSocket s = null;
         DataInputStream dis = null;
         DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -1124,10 +963,8 @@ public class ServiceLocator {
             dos.writeInt(adTypeId);
             dos.writeInt(price);
             
-            
             // Llegim la resposta
             ret = dis.readBoolean();
-            
             
         } catch (Exception e) {
             
@@ -1151,27 +988,15 @@ public class ServiceLocator {
     }
     //TODO: documentar delAd ServiceLocator
     public static boolean delAd(int adId){
-        
-        // Dades de configuració del servidor
-        String serverIp;
-        int port;
-        
-        Socket s = null;
-        DataInputStream dis = null;
-        DataOutputStream dos = null;
-        
         boolean ret = false;
+        SSLSocket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -1205,27 +1030,15 @@ public class ServiceLocator {
     }
     //TODO: documentar getAdTypes ServiceLocator
     public static HashMap<Integer, String> getAdTypes(){
-        
-        // Dades de configuració del servidor
-        String serverIp;
-        int port;
-        
-        Socket s = null;
-        DataInputStream dis = null;
-        DataOutputStream dos = null;
-        
         HashMap<Integer, String> adTypes = new HashMap<>();
+        SSLSocket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -1267,26 +1080,15 @@ public class ServiceLocator {
     }
     //TODO: documentar getAdTypeById ServiceLocator
     public static String getAdTypeById(int adTypeId){
-        // Dades de configuració del servidor
-        String serverIp;
-        int port;
-        
-        Socket s = null;
-        DataInputStream dis = null;
-        DataOutputStream dos = null;
-        
         String ret = null;
+        SSLSocket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
@@ -1321,26 +1123,15 @@ public class ServiceLocator {
     }
     //TODO: documentar getAdTypeByNAme ServiceLocator
     public static int getAdTypeByName(String adTypeName){
-        // Dades de configuració del servidor
-        String serverIp;
-        int port;
-        
-        Socket s = null;
-        DataInputStream dis = null;
-        DataOutputStream dos = null;
-        
         int ret = -1;
+        SSLSocket s = null;
+        DataInputStream dis = null;
+        DataOutputStream dos =null;
         
         try {
-            // Agafem les dades de conexió al server
-            // del arxiu de configuració "config.properties"            
-            ResourceBundle rb = ResourceBundle.getBundle("ioc.dam.m13.tutor_finder.client.config");
-            serverIp = rb.getString("server_ip");
-            port = Integer.parseInt(rb.getString("port"));
-            
-            // Instanciem el Socket i els Input i Output 
+            // Instanciem el SSLSocket i els Input i Output 
             // per comunicar amb el server
-            s = new Socket(serverIp, port);
+            s = _getSSLSocket();
             dis = new DataInputStream(s.getInputStream());
             dos = new DataOutputStream(s.getOutputStream());
             
