@@ -55,11 +55,11 @@ public class TFServer extends Thread{
         //ServerSocket ss = new ServerSocket(SERVER_PORT);
         
         
-        //System.getProperties().list(System.out);
+        System.getProperties().list(System.out);
         
-        System.setProperty("javax.net.ssl.keyStore", "ServerKeyStore.jks");
-        System.setProperty("javax.net.ssl.keyStorePassword", "tutorfinder");
-        //System.setProperty("javax.net.debug", "SSL,handshake");
+        //System.setProperty("javax.net.ssl.keyStore", "src/certs/server/ServerKeyStore.jks");
+        //System.setProperty("javax.net.ssl.keyStorePassword", "tutorfinder");
+        System.setProperty("javax.net.debug", "SSL,handshake");
         
         
         SSLSocket sslClient;
@@ -74,7 +74,7 @@ public class TFServer extends Thread{
             sslClient = (SSLSocket) sslSrvSocket.accept();
             TFServer server = new TFServer(sslClient);
             server.start();
-            server.join();
+            //server.join();
             
         }
     }
