@@ -6,7 +6,7 @@ import ioc.dam.m13.tutor_finder.dtos.AdDTO;
 import java.util.ArrayList;
 
 /**
- *
+ * Prova les quatre maneres de llistar anuncis
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
 public class TestSrvListAds {

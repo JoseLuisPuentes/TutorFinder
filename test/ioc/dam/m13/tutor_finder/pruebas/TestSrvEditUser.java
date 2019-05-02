@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- *
+ * Prova de modificar les dades d'un usuari
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
 public class TestSrvEditUser {

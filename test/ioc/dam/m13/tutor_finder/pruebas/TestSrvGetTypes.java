@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * Prova les atres maneres de llistar els tipus d'anuncis
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
 public class TestSrvGetTypes {
@@ -36,7 +36,7 @@ public class TestSrvGetTypes {
         
         System.out.println("----- getTypesById -----");
         
-        String typeName = client.getAdTypeById(17);
+        String typeName = client.getAdTypeById(7);
         
         System.out.println("TypeId 17 is : " + typeName );
         

@@ -16,8 +16,8 @@ public class TFClientImple implements TFClient{
         
         System.setProperty("javax.net.ssl.trustStore", "src/certs/client/ClientKeyStore.jks");
         System.setProperty("javax.net.ssl.trustStorePassword", "tutorfinder");
-        //System.getProperties().list(System.out);
-        //System.setProperty("javax.net.debug", "SSL,handshake");
+        System.getProperties().list(System.out);
+        System.setProperty("javax.net.debug", "SSL,handshake");
         
     }
     

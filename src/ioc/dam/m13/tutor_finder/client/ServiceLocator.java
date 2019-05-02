@@ -647,7 +647,17 @@ public class ServiceLocator {
         
         return ret;
     }
-    //TODO: documentar crateAd
+    
+    /**
+     * Connecta amb el TFserver agafant les dades de l'arxiu "config.properties"
+     * i crea un anunci a la BBDD
+     * @param userId int amb l'id de l'usuari que crea l'anunci
+     * @param tittle String amb el titol de l'anunci
+     * @param description String amb el text de l'anunci
+     * @param adTypeId int amd el id del tipus d'anunci que es vol publicar
+     * @param price int amb el preu del servei que ofereix
+     * @return retorna true si es crea correctament
+     */
     public static boolean createAd (int userId, String tittle, String description, int adTypeId, int price) {
         
         boolean ret = false;
@@ -697,7 +707,12 @@ public class ServiceLocator {
         
         return ret;
     }
-    //TODO: documentar listAds
+    
+    /**
+     * Connecta amb el TFserver agafant les dades de l'arxiu "config.properties"
+     * i llista tots els anuncis que hi ha al BBDD
+     * @return Retorna un ArrayList de objectes AdDTO 
+     */
     public static ArrayList<AdDTO> listAds(){
         ArrayList<AdDTO> ads = new ArrayList<>();
         SSLSocket s = null;
@@ -756,7 +771,13 @@ public class ServiceLocator {
         return ads;
     
     }
-    //TODO: documentar listAdsByUser ServiceLocator
+    
+    /**
+     * Connecta amb el TFserver agafant les dades de l'arxiu "config.properties"
+     * i llista tots els anuncis que ha creat un usuari a la BBDD
+     * @param userId int amb el id de l'usuari
+     * @return Retorna un ArrayList de objectes AdDTO 
+     */
     public static ArrayList<AdDTO> listAdsByUser(int userId){
         ArrayList<AdDTO> ads = new ArrayList<>();
         SSLSocket s = null;
@@ -818,7 +839,13 @@ public class ServiceLocator {
         return ads;
     
     }
-    //TODO: documentar listAdsByRole ServiceLocator        
+    
+    /**
+     * Connecta amb el TFserver agafant les dades de l'arxiu "config.properties"
+     * i llista els tots els anuncis del mateix tipus
+     * @param roleId int amb l'id del tipus de rol
+     * @return Retorna un ArrayList de objectes AdDTO 
+     */    
     public static ArrayList<AdDTO> listAdsByRole(int roleId){
         ArrayList<AdDTO> ads = new ArrayList<>();
         SSLSocket s = null;
@@ -879,7 +906,13 @@ public class ServiceLocator {
         return ads;
     
     }
-    //TODO: documentar listAdsByType ServiceLocator        
+    
+    /**
+     * Connecta amb el TFserver agafant les dades de l'arxiu "config.properties"
+     * i llista tots els anuncis del mateix tipus que hi ha a la BBDD
+     * @param typeId int amb l'id del tipus d'anunci
+     * @return Retorna un ArrayList de objectes AdDTO 
+     */
     public static ArrayList<AdDTO> listAdsByType(int typeId){
         ArrayList<AdDTO> ads = new ArrayList<>();
         SSLSocket s = null;
@@ -940,7 +973,17 @@ public class ServiceLocator {
         return ads;
 
     }
-    //TODO: documentar editAd ServiceLocator
+    
+    /**
+     * Connecta amb el TFserver agafant les dades de l'arxiu "config.properties"
+     * i modifica les dades s'un anunci a la BBDD
+     * @param adId int amb l'id de l'anunci
+     * @param tittle String amb la modificació del títol 
+     * @param description String amb la modificació de la descripció
+     * @param adTypeId int amb l'id del tipus d'anunci al que es vol modificar
+     * @param price int amb el nou preu
+     * @return Retorna true si s'ha modificat correctament
+     */
     public static boolean editAd(int adId, String tittle, String description, int adTypeId, int price){
         boolean ret = false;
         SSLSocket s = null;
@@ -986,7 +1029,13 @@ public class ServiceLocator {
         }
         return ret;
     }
-    //TODO: documentar delAd ServiceLocator
+    
+    /**
+     * Connecta amb el TFserver agafant les dades de l'arxiu "config.properties"
+     * i esborra un anunci de la BBDD
+     * @param adId int amb l'id de l'anunci que es vol esborrar
+     * @return Retorna true si s'ha esborrat correctament
+     */
     public static boolean delAd(int adId){
         boolean ret = false;
         SSLSocket s = null;
@@ -1028,7 +1077,12 @@ public class ServiceLocator {
         }
         return ret;
     }
-    //TODO: documentar getAdTypes ServiceLocator
+    
+    /**
+     * Connecta amb el TFserver agafant les dades de l'arxiu "config.properties"
+     * i llista tots el tipus d'anunci que hi ha a la BBDD
+     * @return HashMap amb l'id i el lnom del tipus d'anunci
+     */
     public static HashMap<Integer, String> getAdTypes(){
         HashMap<Integer, String> adTypes = new HashMap<>();
         SSLSocket s = null;
@@ -1078,7 +1132,13 @@ public class ServiceLocator {
         
         return adTypes;
     }
-    //TODO: documentar getAdTypeById ServiceLocator
+    
+    /**
+     * Connecta amb el TFserver agafant les dades de l'arxiu "config.properties"
+     * i retorna el nom del tipus d'anunci demanat pel seu id
+     * @param adTypeId int amb l'id del tipus d'anunci
+     * @return Retorna un String amb el nom del tipus d'anunci
+     */
     public static String getAdTypeById(int adTypeId){
         String ret = null;
         SSLSocket s = null;
@@ -1121,7 +1181,13 @@ public class ServiceLocator {
         
         return ret;
     }
-    //TODO: documentar getAdTypeByNAme ServiceLocator
+    
+    /**
+     * Connecta amb el TFserver agafant les dades de l'arxiu "config.properties"
+     * i retorna l'id del tipus d'anunci demanat pel seu nom
+     * @param adTypeName String amb el nom del tipus d'anunci
+     * @return Retorna un int amb l'id del tipus d'anunci
+     */
     public static int getAdTypeByName(String adTypeName){
         int ret = -1;
         SSLSocket s = null;

@@ -5,7 +5,7 @@ import ioc.dam.m13.tutor_finder.client.TFClientImple;
 import java.util.HashMap;
 
 /**
- *
+ * Prova de llistar les tres maneres de llistar tipus de rols
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
 public class TestSrvRoles {

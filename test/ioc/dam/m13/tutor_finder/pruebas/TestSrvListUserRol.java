@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- *
+ * Prova de llistar tots els rols d'usuari
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
 public class TestSrvListUserRol {
