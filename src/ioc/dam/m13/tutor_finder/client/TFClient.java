@@ -94,25 +94,81 @@ public interface TFClient {
      * @return 
      */
     public String getUserRoleName(int roleId);
-    //TODO: documentar createAD
+    
+    /**
+     * Crea un anunci nou
+     * @param userId int amb l'id de l'usuari que crea l'anunci
+     * @param tittle String amb el titol de l'anunci
+     * @param description String amb el text de l'anunci
+     * @param adTypeId int amd el id del tipus d'anunci que es vol publicar
+     * @param price int amb el preu del servei que ofereix
+     * @return retorna true si es crea correctament
+     */
     public boolean createAd (int userId, String tittle, String description, int adTypeId, int price);
-    //TODO: documentar listAds
+    
+    /**
+     * Llista tots els anuncis 
+     * @return Retorna un ArrayList de objectes AdDTO 
+     */
     public ArrayList<AdDTO> listAds();
-    //TODO: documentar listAdByUser
+    
+    /**
+     * Llista tots els anuncis que ha creat un usuari
+     * @param userId int amb el id de l'usuari
+     * @return Retorna un ArrayList de objectes AdDTO 
+     */
     public ArrayList<AdDTO> listAdsByUser(int userId);
-    //TODO: documentar listAdsByRole
+    
+    /**
+     * Llista els tots els anuncis del mateix tipus
+     * @param roleId int amb l'id del tipus de rol
+     * @return Retorna un ArrayList de objectes AdDTO 
+     */
     public ArrayList<AdDTO> listAdsByRole(int roleId);
-    //TODO: documentar lsitAdsByType
+    
+    /**
+     * Llista tots els anuncis del mateix tipus
+     * @param typeId int amb l'id del tipus d'anunci
+     * @return Retorna un ArrayList de objectes AdDTO 
+     */
     public ArrayList<AdDTO> listAdsByType(int typeId);
-    //TODO: documentar editAd
+    
+    /**
+     * Modifica les dades s'un anunci
+     * @param adId int amb l'id de l'anunci
+     * @param tittle String amb la modificació del títol 
+     * @param description String amb la modificació de la descripció
+     * @param adTypeId int amb l'id del tipus d'anunci al que es vol modificar
+     * @param price int amb el nou preu
+     * @return Retorna true si s'ha modificat correctament
+     */
     public boolean editAd(int adId, String tittle, String description, int adTypeId, int price);
-    //TODO: documentar delAd
+    
+    /**
+     * Esborra un anunci
+     * @param adId int amb l'id de l'anunci que es vol esborrar
+     * @return Retorna true si s'ha esborrat correctament
+     */
     public boolean delAd(int adId);
-    //TODO: documentar getAdTypes
+    
+    /**
+     * Llista tots el tipus d'anunci 
+     * @return HashMap amb l'id i el lnom del tipus d'anunci
+     */
     public HashMap<Integer, String> getAdTypes();
-    //TODO: documentar getAdTypeById
+    
+    /**
+     * Retorna el nom del tipus d'anunci demanat pel seu id
+     * @param adTypeId int amb l'id del tipus d'anunci
+     * @return Retorna un String amb el nom del tipus d'anunci
+     */
     public String getAdTypeById(int adTypeId);
-    //TODO: documentar getAdTypeByName
+    
+    /**
+     * Retorna l'id del tipus d'anunci demanat pel seu nom
+     * @param adTypeName String amb el nom del tipus d'anunci
+     * @return Retorna un int amb l'id del tipus d'anunci
+     */
     public int getAdTypeByName(String adTypeName);
     
 }

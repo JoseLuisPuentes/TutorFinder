@@ -491,8 +491,12 @@ public class TFServer extends Thread{
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-    }
-    //TODO: documentar createAD
+    }    
+    /**
+     * Crea un anunci nou
+     * @param dis DataInputStream del client
+     * @param dos DataOutputStream del client
+     */
     private void _createAd(DataInputStream dis, DataOutputStream dos) {
         
         try {
@@ -524,7 +528,11 @@ public class TFServer extends Thread{
             throw new RuntimeException(e);
         }
     }
-    //TODO: documentar listAds
+    /**
+     * Llista tots els anuncis
+     * @param dis DataInputStream del client
+     * @param dos DataOutputStream del client
+     */
     private void _listAds(DataInputStream dis, DataOutputStream dos) {
         
         try {
@@ -539,9 +547,9 @@ public class TFServer extends Thread{
             dos.writeInt(nAds);
             
             //TODO: prova de resposta adslist
-            for (AdDTO ad : ads) {
-                System.out.println(ad.toString());
-            }
+//            for (AdDTO ad : ads) {
+//                System.out.println(ad.toString());
+//            }
             
             
             for (AdDTO ad : ads) {
@@ -560,8 +568,12 @@ public class TFServer extends Thread{
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-    }
-    //TODO: documentar listAdByUser
+    }    
+    /**
+     * Llista tots els anuncis que ha creat un usuari
+     * @param dis DataInputStream del client
+     * @param dos DataOutputStream del client
+     */
     private void _listAdsByUser(DataInputStream dis, DataOutputStream dos) {
         
         try {
@@ -593,8 +605,12 @@ public class TFServer extends Thread{
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-    }
-    //TODO: documentar listAdsByRole
+    }    
+    /**
+     * Llista els tots els anuncis del mateix tipus
+     * @param dis DataInputStream del client
+     * @param dos DataOutputStream del client
+     */
     private void _listAdsByRole(DataInputStream dis, DataOutputStream dos) {
         
         try {
@@ -625,8 +641,12 @@ public class TFServer extends Thread{
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-    }
-    //TODO: documentar lsitAdsByType
+    }    
+    /**
+     * Llista tots els anuncis del mateix tipus
+     * @param dis DataInputStream del client
+     * @param dos DataOutputStream del client
+     */
     private void _listAdsByType(DataInputStream dis, DataOutputStream dos) {
         
         try {
@@ -657,8 +677,12 @@ public class TFServer extends Thread{
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-    }
-    //TODO: documentar editAd
+    }    
+    /**
+     * Modifica les dades s'un anunci
+     * @param dis DataInputStream del client
+     * @param dos DataOutputStream del client
+     */
     private void _editAd(DataInputStream dis, DataOutputStream dos) {
         try {
             
@@ -682,8 +706,12 @@ public class TFServer extends Thread{
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-    }
-    //TODO: documentar delAd
+    }    
+    /**
+     * Esborra un anunci
+     * @param dis DataInputStream del client
+     * @param dos DataOutputStream del client
+     */
     private void _delAd(DataInputStream dis, DataOutputStream dos) {
         try {
             AdDAO dao = (AdDAO) TFFactory.getInstance("AD");
@@ -703,8 +731,12 @@ public class TFServer extends Thread{
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-    }
-    //TODO: documentar _getAdTypes
+    }    
+    /**
+     * Llista tots el tipus d'anunci 
+     * @param dis DataInputStream del client
+     * @param dos DataOutputStream del client
+     */
     private void _getAdTypes(DataInputStream dis, DataOutputStream dos) {
         try{
             int nTypes;
@@ -734,8 +766,12 @@ public class TFServer extends Thread{
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-    }
-    //TODO: documentar _getAdTypeById 
+    }    
+    /**
+     * Retorna el nom del tipus d'anunci demanat pel seu id
+     * @param dis DataInputStream del client
+     * @param dos DataOutputStream del client
+     */
     private void _getAdTypeById(DataInputStream dis, DataOutputStream dos) {
         
         try {
@@ -755,7 +791,12 @@ public class TFServer extends Thread{
         }
 
     }
-    //TODO: documentar _getAdTypeByNAme
+    
+    /**
+     * Retorna l'id del tipus d'anunci demanat pel seu nom
+     * @param dis DataInputStream del client
+     * @param dos DataOutputStream del client
+     */
     private void _getAdTypeByName(DataInputStream dis, DataOutputStream dos) {
         try {
             

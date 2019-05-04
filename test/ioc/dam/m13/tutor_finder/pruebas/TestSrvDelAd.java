@@ -5,7 +5,7 @@ import ioc.dam.m13.tutor_finder.client.TFClientImple;
 import java.util.Scanner;
 
 /**
- *
+ * Prova d'esborra un anunci
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
 public class TestSrvDelAd {

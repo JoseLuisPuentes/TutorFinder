@@ -6,7 +6,7 @@ import ioc.dam.m13.tutor_finder.dtos.UserDTO;
 import java.util.ArrayList;
 
 /**
- *
+ * Prova de llistar tots els ususaris
  * @author José Luis Puentes Jiménez <jlpuentes74@gmail.com>
  */
 public class TestSrvListUsers {
